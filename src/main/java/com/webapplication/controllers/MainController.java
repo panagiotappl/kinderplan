@@ -1,4 +1,4 @@
-package com.kinderplan.technologiaLogismikou.controllers;
+package com.webapplication.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
