@@ -1,20 +1,19 @@
-package com.kinderplan.technologiaLogismikou.dbEntities;
+package com.webapplication.entities;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by dimitris on 5/16/2017.
  */
 @Entity
-@Table(name = "Comments_Provider", schema = "public", catalog = "kinderplan_db")
-public class entityCommentsProvider {
+@Table(name = "Comments_Events", schema = "public", catalog = "kinderplan_db")
+public class entityCommentsEvents {
     private Integer id;
     private String comment;
-    private Integer provider;
+    private Integer event;
     private Timestamp date;
     private Integer userId;
-    private entityProviders providersByProvider;
+    private entityEvents eventsByEvent;
     private entityParents parentsByUserId;
 
     @Id
@@ -38,13 +37,13 @@ public class entityCommentsProvider {
     }
 
     @Basic
-    @Column(name = "provider", nullable = false)
-    public Integer getProvider() {
-        return provider;
+    @Column(name = "event", nullable = false)
+    public Integer getEvent() {
+        return event;
     }
 
-    public void setProvider(Integer provider) {
-        this.provider = provider;
+    public void setEvent(Integer event) {
+        this.event = event;
     }
 
     @Basic
@@ -72,11 +71,11 @@ public class entityCommentsProvider {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityCommentsProvider that = (entityCommentsProvider) o;
+        entityCommentsEvents that = (entityCommentsEvents) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
-        if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
+        if (event != null ? !event.equals(that.event) : that.event != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
 
@@ -87,20 +86,20 @@ public class entityCommentsProvider {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (provider != null ? provider.hashCode() : 0);
+        result = 31 * result + (event != null ? event.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "provider", referencedColumnName = "id", nullable = false)
-    public entityProviders getProvidersByProvider() {
-        return providersByProvider;
+    @JoinColumn(name = "event", referencedColumnName = "id", nullable = false)
+    public entityEvents getEventsByEvent() {
+        return eventsByEvent;
     }
 
-    public void setProvidersByProvider(entityProviders providersByProvider) {
-        this.providersByProvider = providersByProvider;
+    public void setEventsByEvent(entityEvents eventsByEvent) {
+        this.eventsByEvent = eventsByEvent;
     }
 
     @ManyToOne

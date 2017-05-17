@@ -1,6 +1,5 @@
-package com.kinderplan.technologiaLogismikou.dbEntities;
+package com.webapplication.entities;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
