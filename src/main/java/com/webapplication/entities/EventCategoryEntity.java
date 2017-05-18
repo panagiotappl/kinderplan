@@ -1,16 +1,17 @@
 package com.webapplication.entities;
 
+import javax.persistence.*;
+
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "event_category", schema = "public", catalog = "kinderplan_db")
-@IdClass(entityEventCategoryPK.class)
-public class entityEventCategory {
+@IdClass(EventCategoryEntityPK.class)
+public class EventCategoryEntity {
     private Integer eventId;
     private Integer categoryId;
-    private entityEvents eventsByEventId;
-    private entityCategories categoriesByCategoryId;
+    private CategoriesEntity categoriesByCategoryId;
 
     @Id
     @Column(name = "event_id", nullable = false)
@@ -37,7 +38,7 @@ public class entityEventCategory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityEventCategory that = (entityEventCategory) o;
+        EventCategoryEntity that = (EventCategoryEntity) o;
 
         if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
         if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null) return false;
@@ -53,22 +54,12 @@ public class entityEventCategory {
     }
 
     @ManyToOne
-    @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
-    public entityEvents getEventsByEventId() {
-        return eventsByEventId;
-    }
-
-    public void setEventsByEventId(entityEvents eventsByEventId) {
-        this.eventsByEventId = eventsByEventId;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    public entityCategories getCategoriesByCategoryId() {
+    public CategoriesEntity getCategoriesByCategoryId() {
         return categoriesByCategoryId;
     }
 
-    public void setCategoriesByCategoryId(entityCategories categoriesByCategoryId) {
+    public void setCategoriesByCategoryId(CategoriesEntity categoriesByCategoryId) {
         this.categoriesByCategoryId = categoriesByCategoryId;
     }
 }

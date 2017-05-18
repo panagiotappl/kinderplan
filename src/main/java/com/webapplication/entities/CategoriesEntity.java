@@ -1,16 +1,15 @@
 package com.webapplication.entities;
 
-import java.util.Collection;
+import javax.persistence.*;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Categories", schema = "public", catalog = "kinderplan_db")
-public class entityCategories {
+public class CategoriesEntity {
     private Integer id;
     private String category;
-    private Collection<entityEventCategory> eventCategoriesById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -37,7 +36,7 @@ public class entityCategories {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityCategories that = (entityCategories) o;
+        CategoriesEntity that = (CategoriesEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
@@ -50,14 +49,5 @@ public class entityCategories {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (category != null ? category.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "categoriesByCategoryId")
-    public Collection<entityEventCategory> getEventCategoriesById() {
-        return eventCategoriesById;
-    }
-
-    public void setEventCategoriesById(Collection<entityEventCategory> eventCategoriesById) {
-        this.eventCategoriesById = eventCategoriesById;
     }
 }

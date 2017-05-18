@@ -1,20 +1,19 @@
 package com.webapplication.entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Transactions", schema = "public", catalog = "kinderplan_db")
-public class entityTransactions {
+public class TransactionsEntity {
     private Integer id;
-    private Integer user;
     private Integer ammount;
     private Timestamp date;
-    private Integer event;
-    private entityParents parentsByUser;
-    private entityEventDates eventDatesByEvent;
+    private ParentsEntity parentsByUser;
+    private EventDatesEntity eventDatesByEvent;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -24,16 +23,6 @@ public class entityTransactions {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "user", nullable = false)
-    public Integer getUser() {
-        return user;
-    }
-
-    public void setUser(Integer user) {
-        this.user = user;
     }
 
     @Basic
@@ -56,28 +45,16 @@ public class entityTransactions {
         this.date = date;
     }
 
-    @Basic
-    @Column(name = "event", nullable = true)
-    public Integer getEvent() {
-        return event;
-    }
-
-    public void setEvent(Integer event) {
-        this.event = event;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityTransactions that = (entityTransactions) o;
+        TransactionsEntity that = (TransactionsEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
         if (ammount != null ? !ammount.equals(that.ammount) : that.ammount != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (event != null ? !event.equals(that.event) : that.event != null) return false;
 
         return true;
     }
@@ -85,30 +62,28 @@ public class entityTransactions {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (ammount != null ? ammount.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (event != null ? event.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
-    public entityParents getParentsByUser() {
+    public ParentsEntity getParentsByUser() {
         return parentsByUser;
     }
 
-    public void setParentsByUser(entityParents parentsByUser) {
+    public void setParentsByUser(ParentsEntity parentsByUser) {
         this.parentsByUser = parentsByUser;
     }
 
     @ManyToOne
     @JoinColumn(name = "event", referencedColumnName = "id")
-    public entityEventDates getEventDatesByEvent() {
+    public EventDatesEntity getEventDatesByEvent() {
         return eventDatesByEvent;
     }
 
-    public void setEventDatesByEvent(entityEventDates eventDatesByEvent) {
+    public void setEventDatesByEvent(EventDatesEntity eventDatesByEvent) {
         this.eventDatesByEvent = eventDatesByEvent;
     }
 }

@@ -1,25 +1,20 @@
 package com.webapplication.entities;
 
-import java.util.Collection;
+import javax.persistence.*;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Parents", schema = "public", catalog = "kinderplan_db")
-public class entityParents {
+public class ParentsEntity {
     private Integer id;
     private String name;
     private String surname;
     private Double longitude;
     private Double latitude;
     private String phone;
-    private Integer userId;
     private Integer points;
-    private Collection<entityCommentsEvents> commentsEventssById;
-    private Collection<entityCommentsProvider> commentsProvidersById;
-    private entityUsers usersByUserId;
-    private Collection<entityTransactions> transactionssById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -82,16 +77,6 @@ public class entityParents {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false)
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    @Basic
     @Column(name = "points", nullable = false)
     public Integer getPoints() {
         return points;
@@ -106,7 +91,7 @@ public class entityParents {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityParents that = (entityParents) o;
+        ParentsEntity that = (ParentsEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -114,7 +99,6 @@ public class entityParents {
         if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
         if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (points != null ? !points.equals(that.points) : that.points != null) return false;
 
         return true;
@@ -128,45 +112,7 @@ public class entityParents {
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (points != null ? points.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "parentsByUserId")
-    public Collection<entityCommentsEvents> getCommentsEventssById() {
-        return commentsEventssById;
-    }
-
-    public void setCommentsEventssById(Collection<entityCommentsEvents> commentsEventssById) {
-        this.commentsEventssById = commentsEventssById;
-    }
-
-    @OneToMany(mappedBy = "parentsByUserId")
-    public Collection<entityCommentsProvider> getCommentsProvidersById() {
-        return commentsProvidersById;
-    }
-
-    public void setCommentsProvidersById(Collection<entityCommentsProvider> commentsProvidersById) {
-        this.commentsProvidersById = commentsProvidersById;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public entityUsers getUsersByUserId() {
-        return usersByUserId;
-    }
-
-    public void setUsersByUserId(entityUsers usersByUserId) {
-        this.usersByUserId = usersByUserId;
-    }
-
-    @OneToMany(mappedBy = "parentsByUser")
-    public Collection<entityTransactions> getTransactionssById() {
-        return transactionssById;
-    }
-
-    public void setTransactionssById(Collection<entityTransactions> transactionssById) {
-        this.transactionssById = transactionssById;
     }
 }

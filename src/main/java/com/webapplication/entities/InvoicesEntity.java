@@ -1,13 +1,14 @@
 package com.webapplication.entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Invoices", schema = "public", catalog = "kinderplan_db")
-public class entityInvoices {
+public class InvoicesEntity {
     private Integer id;
     private Float ammount;
     private Integer provider;
@@ -69,7 +70,7 @@ public class entityInvoices {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityInvoices that = (entityInvoices) o;
+        InvoicesEntity that = (InvoicesEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (ammount != null ? !ammount.equals(that.ammount) : that.ammount != null) return false;

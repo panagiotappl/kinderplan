@@ -5,9 +5,9 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
-public class entityEventCategoryPK implements Serializable {
+public class EventCategoryEntityPK implements Serializable {
     private Integer eventId;
     private Integer categoryId;
 
@@ -36,7 +36,7 @@ public class entityEventCategoryPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityEventCategoryPK that = (entityEventCategoryPK) o;
+        EventCategoryEntityPK that = (EventCategoryEntityPK) o;
 
         if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
         if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null) return false;

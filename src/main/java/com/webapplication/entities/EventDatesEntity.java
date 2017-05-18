@@ -1,23 +1,20 @@
 package com.webapplication.entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Event_Dates", schema = "public", catalog = "kinderplan_db")
-public class entityEventDates {
+public class EventDatesEntity {
     private Integer id;
-    private Integer event;
     private Timestamp startDate;
     private Timestamp endDate;
     private Integer availableTickets;
     private Integer ticketsSold;
     private String note;
-    private entityEvents eventsByEvent;
-    private Collection<entityTransactions> transactionssById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -27,16 +24,6 @@ public class entityEventDates {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "event", nullable = false)
-    public Integer getEvent() {
-        return event;
-    }
-
-    public void setEvent(Integer event) {
-        this.event = event;
     }
 
     @Basic
@@ -94,10 +81,9 @@ public class entityEventDates {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityEventDates that = (entityEventDates) o;
+        EventDatesEntity that = (EventDatesEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (event != null ? !event.equals(that.event) : that.event != null) return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
         if (availableTickets != null ? !availableTickets.equals(that.availableTickets) : that.availableTickets != null)
@@ -111,31 +97,11 @@ public class entityEventDates {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (event != null ? event.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (availableTickets != null ? availableTickets.hashCode() : 0);
         result = 31 * result + (ticketsSold != null ? ticketsSold.hashCode() : 0);
         result = 31 * result + (note != null ? note.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "event", referencedColumnName = "id", nullable = false)
-    public entityEvents getEventsByEvent() {
-        return eventsByEvent;
-    }
-
-    public void setEventsByEvent(entityEvents eventsByEvent) {
-        this.eventsByEvent = eventsByEvent;
-    }
-
-    @OneToMany(mappedBy = "eventDatesByEvent")
-    public Collection<entityTransactions> getTransactionssById() {
-        return transactionssById;
-    }
-
-    public void setTransactionssById(Collection<entityTransactions> transactionssById) {
-        this.transactionssById = transactionssById;
     }
 }

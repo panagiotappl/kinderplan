@@ -1,13 +1,13 @@
 package com.webapplication.entities;
 
-import java.util.Collection;
+import javax.persistence.*;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Providers", schema = "public", catalog = "kinderplan_db")
-public class entityProviders {
+public class ProvidersEntity {
     private Integer id;
     private String name;
     private String surname;
@@ -17,10 +17,6 @@ public class entityProviders {
     private String address;
     private Double longitude;
     private Double latitude;
-    private Integer userId;
-    private Collection<entityCommentsProvider> commentsProvidersById;
-    private Collection<entityEvents> eventssById;
-    private entityUsers usersByUserId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -112,22 +108,12 @@ public class entityProviders {
         this.latitude = latitude;
     }
 
-    @Basic
-    @Column(name = "user_id", nullable = false)
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityProviders that = (entityProviders) o;
+        ProvidersEntity that = (ProvidersEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -138,7 +124,6 @@ public class entityProviders {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
         if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
 
         return true;
     }
@@ -154,35 +139,6 @@ public class entityProviders {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "providersByProvider")
-    public Collection<entityCommentsProvider> getCommentsProvidersById() {
-        return commentsProvidersById;
-    }
-
-    public void setCommentsProvidersById(Collection<entityCommentsProvider> commentsProvidersById) {
-        this.commentsProvidersById = commentsProvidersById;
-    }
-
-    @OneToMany(mappedBy = "providersByProvider")
-    public Collection<entityEvents> getEventssById() {
-        return eventssById;
-    }
-
-    public void setEventssById(Collection<entityEvents> eventssById) {
-        this.eventssById = eventssById;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public entityUsers getUsersByUserId() {
-        return usersByUserId;
-    }
-
-    public void setUsersByUserId(entityUsers usersByUserId) {
-        this.usersByUserId = usersByUserId;
     }
 }

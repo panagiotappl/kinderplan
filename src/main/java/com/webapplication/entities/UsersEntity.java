@@ -1,14 +1,14 @@
 package com.webapplication.entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Users", schema = "public", catalog = "kinderplan_db")
-public class entityUsers {
+public class UsersEntity {
     private Integer id;
     private String email;
     private String password;
@@ -17,8 +17,6 @@ public class entityUsers {
     private Boolean validated;
     private Timestamp dateCreated;
     private Timestamp lastLogin;
-    private Collection<entityParents> parentssById;
-    private Collection<entityProviders> providerssById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -105,7 +103,7 @@ public class entityUsers {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityUsers that = (entityUsers) o;
+        UsersEntity that = (UsersEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
@@ -130,23 +128,5 @@ public class entityUsers {
         result = 31 * result + (dateCreated != null ? dateCreated.hashCode() : 0);
         result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "usersByUserId")
-    public Collection<entityParents> getParentssById() {
-        return parentssById;
-    }
-
-    public void setParentssById(Collection<entityParents> parentssById) {
-        this.parentssById = parentssById;
-    }
-
-    @OneToMany(mappedBy = "usersByUserId")
-    public Collection<entityProviders> getProviderssById() {
-        return providerssById;
-    }
-
-    public void setProviderssById(Collection<entityProviders> providerssById) {
-        this.providerssById = providerssById;
     }
 }

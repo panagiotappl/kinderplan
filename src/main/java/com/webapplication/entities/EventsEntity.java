@@ -1,17 +1,16 @@
 package com.webapplication.entities;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 /**
- * Created by dimitris on 5/16/2017.
+ * Created by dimitris on 5/18/2017.
  */
 @Entity
 @Table(name = "Events", schema = "public", catalog = "kinderplan_db")
-public class entityEvents {
+public class EventsEntity {
     private Integer id;
     private String name;
-    private Integer provider;
     private String address;
     private Double longitude;
     private Double latitude;
@@ -22,10 +21,6 @@ public class entityEvents {
     private Timestamp dateCreated;
     private Timestamp dateEnding;
     private Timestamp dateStarting;
-    private Collection<entityCommentsEvents> commentsEventssById;
-    private Collection<entityEventDates> eventDatesById;
-    private entityProviders providersByProvider;
-    private Collection<entityEventCategory> eventCategoriesById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -45,16 +40,6 @@ public class entityEvents {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Basic
-    @Column(name = "provider", nullable = false)
-    public Integer getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Integer provider) {
-        this.provider = provider;
     }
 
     @Basic
@@ -162,11 +147,10 @@ public class entityEvents {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        entityEvents that = (entityEvents) o;
+        EventsEntity that = (EventsEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
         if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
@@ -185,7 +169,6 @@ public class entityEvents {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (provider != null ? provider.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
@@ -197,42 +180,5 @@ public class entityEvents {
         result = 31 * result + (dateEnding != null ? dateEnding.hashCode() : 0);
         result = 31 * result + (dateStarting != null ? dateStarting.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "eventsByEvent")
-    public Collection<entityCommentsEvents> getCommentsEventssById() {
-        return commentsEventssById;
-    }
-
-    public void setCommentsEventssById(Collection<entityCommentsEvents> commentsEventssById) {
-        this.commentsEventssById = commentsEventssById;
-    }
-
-    @OneToMany(mappedBy = "eventsByEvent")
-    public Collection<entityEventDates> getEventDatesById() {
-        return eventDatesById;
-    }
-
-    public void setEventDatesById(Collection<entityEventDates> eventDatesById) {
-        this.eventDatesById = eventDatesById;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "provider", referencedColumnName = "id", nullable = false)
-    public entityProviders getProvidersByProvider() {
-        return providersByProvider;
-    }
-
-    public void setProvidersByProvider(entityProviders providersByProvider) {
-        this.providersByProvider = providersByProvider;
-    }
-
-    @OneToMany(mappedBy = "eventsByEventId")
-    public Collection<entityEventCategory> getEventCategoriesById() {
-        return eventCategoriesById;
-    }
-
-    public void setEventCategoriesById(Collection<entityEventCategory> eventCategoriesById) {
-        this.eventCategoriesById = eventCategoriesById;
     }
 }
