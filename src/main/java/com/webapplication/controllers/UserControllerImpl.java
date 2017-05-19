@@ -39,7 +39,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(path = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto signup(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
         //todo check user's data
 
