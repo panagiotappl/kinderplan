@@ -1,14 +1,12 @@
 package com.webapplication.controllers;
 
 import com.webapplication.dao.UserRepository;
-import com.webapplication.dto.UserLogInResponseDto;
-import com.webapplication.dto.UserLoginRequestDto;
-import com.webapplication.dto.UserSignUpRequestDto;
-import com.webapplication.dto.UserSignUpResponseDto;
+import com.webapplication.dto.*;
 import com.webapplication.entities.UsersEntity;
 import com.webapplication.exceptions.BadRequestException;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +43,20 @@ public class UserControllerImpl implements UserController {
 
 
         return null;
+    }
+
+    @Override
+    @RequestMapping(path = "/getuser/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public UserResponseDto getuser(@PathVariable int userId) throws BadRequestException {
+        UsersEntity user= new UsersEntity();
+        user = userRepository.findUserById(userId);
+        if (user == null)
+            throw new BadRequestException("User not found");
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setUserId(user.getId());
+
+        return userResponseDto;
     }
 
 }

@@ -3,10 +3,18 @@
 
         <a  href="#">KinderPlan</a>
 
-        <ul id="menu" >
+        <ul id="menu" ng-if="!signedIn">
             <li><a href="#" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
             <li id="or">or</li>
             <li><a id="signup" href="#">Sign Up</a></li>
+        </ul>
+        <ul id="menu" ng-if="signedIn">
+
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Welcome,  {{user.email}}  <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="signout()">Sign Out</a></li>
+                </ul>
+            </li>
         </ul>
     </header>
 </nav>
@@ -28,9 +36,20 @@
         <div class="loginmodal-container">
             <h1>Sign in to Your Account</h1><br>
             <form role="form" name="signinform" ng-submit="signin(user)" novalidate>
-                <input type="text" name="user" placeholder="E-mail" ng-model="user.email">
-                <input type="password" name="pass" placeholder="Password" ng-model="user.Password">
-                <input type="submit" name="login" class="login loginmodal-submit" value="Sign In">
+                <div ng-show="donotmatch">
+                    <font color=#FF0000 size="2">
+                        E-mail and password do not match.
+                    </font>
+                </div>
+                <div ng-messages="signinform.user.$error" role="alert" ng-if="signinform.$submitted">
+                    <span ng-message="required"><font size="2" color="red">Required field is missing.</font></span>
+                </div>
+                <input type="text" name="user" placeholder="E-mail" ng-model="user.email" required>
+                <div ng-messages="signinform.pass.$error" role="alert" ng-if="signinform.$submitted">
+                    <span ng-message="required"><font size="2" color="red">Required field is missing.</font></span>
+                </div>
+                <input type="password" name="pass" placeholder="Password" ng-model="user.password" required>
+                <input type="submit" name="signin" class="login loginmodal-submit" value="Sign In">
             </form>
 
             <div class="login-help">

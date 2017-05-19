@@ -1,8 +1,6 @@
 package com.webapplication.dto;
 
-/**
- * Created by dimitris on 5/19/2017.
- */
+
 import java.util.UUID;
 
 
