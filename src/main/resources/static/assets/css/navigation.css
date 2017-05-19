@@ -34,8 +34,12 @@ ul#menu li {
     color: #FC4A1A;
 }
 
+#navigation a:focus{
+    outline: none;
+}
 
 #navigation a{
     text-decoration: none;
     color: #4ABDAC;
 }
+
