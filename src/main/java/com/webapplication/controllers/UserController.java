@@ -1,6 +1,10 @@
 package com.webapplication.controllers;
 
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.webapplication.dto.UserLogInResponseDto;
+import com.webapplication.dto.UserLoginRequestDto;
+import com.webapplication.dto.UserSignUpRequestDto;
+import com.webapplication.dto.UserSignUpResponseDto;
+import com.webapplication.exceptions.BadRequestException;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/api")
 public interface UserController {
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    String login();
+    @RequestMapping(path= "/login")
+    UserLogInResponseDto login(UserLoginRequestDto userLogInRequestDto) throws BadRequestException;
 
+
+    @RequestMapping(path= "/signup")
+    UserSignUpResponseDto signup(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
 }
