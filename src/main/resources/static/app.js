@@ -13,11 +13,11 @@ router.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
             controller: 'homepageController',
             data: {pageTitle : ""}
         })
-        .state('profile', {
-            url: '/profile',
-            templateUrl: 'app/components/profile/profile.html',
-            controller: 'profileController',
-            data: {pageTitle : "Profile"}
+        .state('signup', {
+            url: '/signup',
+            templateUrl: 'app/components/signup/signup.html',
+            controller: 'signupController',
+            data: {pageTitle : "Sign Up"}
         });
 });
 
@@ -26,10 +26,10 @@ router.run([
     function($log, $rootScope, $window, $state, $location) {
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             if (toState.data.pageTitle ) {
-                document.title = toState.data.pageTitle + ' | Kinderplan';
+                document.title = toState.data.pageTitle + ' | KinderPlan';
 
             }else
-                document.title = 'Kinderplan';
+                document.title = 'KinderPlan';
         });
     }
 ]);

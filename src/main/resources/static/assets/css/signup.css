@@ -1,0 +1,26 @@
+#signup-content{
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-top: 100px;
+    padding-bottom: 300px;
+
+}
+
+#sign-buttons{
+    padding-top: 100px;
+}
+
+.signup-btn{
+    padding: 40px 40px;
+    font-size: 26px;
+    background-color: #4ABDAC;
+    border-color: #38b3a6;
+    color: white;
+}
+
+.signup-btn:hover{
+
+    background-color: #fcd5ad;
+    border-color: #e7bc9f;
+    color: #FC4A1A;
+}

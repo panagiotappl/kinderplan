@@ -1,4 +1,4 @@
-**LOGIN**
+**GETUSER**
 ----
 
 * **URL**
