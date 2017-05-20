@@ -40,6 +40,26 @@
         <label for="endDate">End Date:</label>
         <md-datepicker ng-model="credentials.endDate" md-placeholder="End Date:"></md-datepicker>
     </div>
+
+    <label for="eventDates">Event Dates:</label>
+    <fieldset  data-ng-repeat="date in credentials.dates">
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <md-datepicker ng-model="date.startDate" md-placeholder="Start Date:"></md-datepicker>
+        </div>
+        <div class="form-group">
+            <label for="endDate">End Date:</label>
+            <md-datepicker ng-model="date.endDate" md-placeholder="End Date:"></md-datepicker>
+        </div>
+        <div class="form-group">
+            <label for="availableTickets">Tickets Available:</label>
+            <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control number" name="availableTickets" ng-model="date.availableTickets"/>
+        </div>
+            <button class="remove" ng-show="$last" ng-click="removeDate()">-</button>
+    </fieldset>
+    <button class="addfields" ng-click="addNewDate()">Add date</button>
+
+
     <button type="submit" class="btn btn-primary">Add Event</button>
 </form>
 

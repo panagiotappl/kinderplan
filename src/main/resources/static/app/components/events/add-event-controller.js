@@ -16,9 +16,25 @@ router.controller('addEventController', function($scope, $cookies, UserService){
         address: '',
         startDate: null,
         endDate: null,
-        dates: []
+        dates: [{startDate: null,
+                 endDate: null,
+                 availableTickets: 0
+                }]
 
     };
+
+    $scope.addNewDate = function() {
+        $scope.credentials.dates.push({startDate: null,
+            endDate: null,
+            availableTickets: 0
+        });
+    };
+
+    $scope.removeDate = function() {
+        var lastItem = $scope.credentials.dates.length-1;
+        $scope.credentials.dates.splice(lastItem);
+    };
+
 
     $scope.add = function(){
         var error = false;
