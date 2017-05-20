@@ -6,10 +6,10 @@ router.controller('addEventController', function($scope, $cookies, UserService){
 
     $scope.credentials = {
         provider: '',
-        event_name: '',
-        age_from: '',
-        age_to: '',
-        ticket_price: '',
+        eventName: '',
+        ageFrom: '',
+        ageTo: '',
+        ticketPrice: '',
         description: '',
         latitude: '',
         longitude: '',
@@ -24,6 +24,11 @@ router.controller('addEventController', function($scope, $cookies, UserService){
         var error = false;
         var miss_error = false;
 
+        var request = $scope.credentials;
+
+        request.createdDate = new Date();
+        request.address = $scope.geoloc;
+
         $scope.options = {
             types: 'geocode',
             watchEnter: true,
@@ -31,21 +36,6 @@ router.controller('addEventController', function($scope, $cookies, UserService){
         };
 
         if (error ||  miss_error) return;
-
-        var request = {
-            provider: '', //TODO: get this from the cookie!
-            event_name: $scope.credentials.event_name,
-            age_from: $scope.credentials.age_from,
-            age_to: $scope.credentials.age_to,
-            ticket_price: $scope.credentials.ticket_price,
-            description: $scope.credentials.description,
-            latitude: $scope.credentials.latitude,
-            longitude: $scope.credentials.longitude,
-            address: $scope.geoloc,
-            dates : $scope.credentials.dates,
-            startDate: null,
-            endDate: null
-        };
 
         var address = $scope.details.geometry.location;
 
