@@ -33,5 +33,11 @@ router.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
             templateUrl: 'app/components/signup/signup.html',
             controller: 'signupController',
             data: {pageTitle : "Sign Up"}
+        })
+        .state('addEvent', {
+            url: '/events/add',
+            templateUrl: 'app/components/events/add_event.html',
+            controller: 'addEventController',
+            data: {pageTitle : "Add event"}
         });
 });

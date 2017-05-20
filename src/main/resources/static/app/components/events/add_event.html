@@ -1,0 +1,22 @@
+<navigation></navigation>
+
+<form role="form" ng-submit="add()">
+
+    <div class="form-group">
+        <label for="address">Address:  </label>
+        <input type="text" style="width: 290%;" class="form-control" id="address" name="address" ng-autocomplete ng-model="geoloc" options="options" details="details"/><br>
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <md-datepicker ng-model="credentials.startDate" md-placeholder="Start Date:"></md-datepicker>
+    </div>
+
+    <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <md-datepicker ng-model="credentials.endDate" md-placeholder="End Date:"></md-datepicker>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Event</button>
+</form>
+
+<footer></footer>
