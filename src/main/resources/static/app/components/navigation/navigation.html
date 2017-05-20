@@ -23,7 +23,10 @@
     <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="loginmodal-container">
-                <h1>Sign in to Your Account</h1><br>
+                <div class="logo-small" align="middle">
+                    <img  src="assets/images/logo-small.png">
+
+                </div>
                 <form role="form" name="signinform" ng-submit="signin(user)" novalidate>
                     <div ng-show="donotmatch">
                         <font color=#FF0000 size="2">
@@ -42,7 +45,7 @@
                 </form>
 
                 <div class="login-help">
-                    <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                    <a href="/#/signup">Register</a> - <a href="#">Forgot Password</a>
                 </div>
             </div>
         </div>
