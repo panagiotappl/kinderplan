@@ -2,7 +2,6 @@ router.controller('navigationController', function($scope, $cookies, UserService
     $scope.user = {}
     $scope.signedIn = {};
     $scope.donotmatch = false;
-console.log("naiv");
 
     if($cookies.get('signedIn') == 'yes'){
         $scope.signedIn = true;
