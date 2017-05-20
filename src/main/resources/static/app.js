@@ -1,25 +1,5 @@
-var router = angular.module('router', [ 'ui.router', 'ngCookies', 'ngMessages']);
+var router = angular.module('router', [ 'ui.router', 'ngCookies', 'ngMessages', 'ngAutocomplete']);
 
-
-router.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
-
-    $urlRouterProvider.otherwise('/');
-
-    $stateProvider
-
-        .state('home', {
-            url: '/',
-            templateUrl: 'app/components/homepage/homepage.html',
-            controller: 'homepageController',
-            data: {pageTitle : ""}
-        })
-        .state('signup', {
-            url: '/signup',
-            templateUrl: 'app/components/signup/signup.html',
-            controller: 'signupController',
-            data: {pageTitle : "Sign Up"}
-        });
-});
 
 router.run([
     '$log', '$rootScope', '$window', '$state', '$location',
