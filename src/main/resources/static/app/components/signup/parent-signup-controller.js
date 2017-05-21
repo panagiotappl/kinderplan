@@ -2,7 +2,7 @@
 router.controller('parentSignupController', function($scope, $cookies, UserService){
 
     $scope.credentials = {
-        mail: '',
+        email: '',
         password: '',
         rep_password: '',
         first_name: '',

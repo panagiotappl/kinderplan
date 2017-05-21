@@ -1,11 +1,44 @@
-#navigation{
-    padding-left: 350px;
-    padding-right: 350px;
+.navbar{
     background-color: #fcd5ad;
-    border: none;
+    border-bottom: 1px solid #d7b291;
+    margin-bottom: 0;
+
+
 }
 
+.navbar-cont{
+    max-width: 1220px;
 
+}
+
+/*@media screen and (max-width: 768px) {*/
+    /*.navbar{*/
+        /*padding-left: 0;*/
+        /*padding-right: 0;*/
+    /*}*/
+/*}*/
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 60px;
+    height: 60px;
+    padding-top: 0;
+
+}
+
+.navbar-brand,
+.navbar-nav li a:hover {
+    color: #FC4A1A;
+    background-color: transparent;
+
+}
+
+.navbar-brand,
+.navbar-nav li a:focus {
+    color: #FC4A1A;
+    background-color: transparent;
+
+}
 
 #or{
     padding: 15px;
@@ -14,8 +47,8 @@
 
 #menu{
     float: right;
-    height: 45px;
-    line-height: 45px;
+    height: 60px;
+    line-height: 60px;
 }
 
 

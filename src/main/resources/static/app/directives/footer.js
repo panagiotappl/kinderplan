@@ -2,6 +2,6 @@
 
 router.directive('footer', function () {
     return {
-        templateUrl: '/app/components/misc/footer.html'
+        templateUrl: '/app/components/misc/footer2.html'
     };
 });
