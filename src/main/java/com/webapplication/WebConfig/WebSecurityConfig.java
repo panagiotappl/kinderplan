@@ -17,9 +17,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable();
+        /*http
                 .authorizeRequests()
-                    .antMatchers("/api/*").authenticated()
+                    .antMatchers("/apifgfg/*").authenticated()
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()
@@ -27,13 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .logout()
-                    .permitAll();
+                    .permitAll();*/
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+
     }
 }
