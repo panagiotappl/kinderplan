@@ -23,6 +23,7 @@ router.controller('navigationController', function($scope, $cookies, UserService
                 $('#signin-modal').modal('hide');
 
             }, function(error){
+                console.log(error);
                 $scope.donotmatch = true;
             });
     }

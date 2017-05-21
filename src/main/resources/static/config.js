@@ -14,17 +14,17 @@ router.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
             url: '/',
             templateUrl: 'app/components/homepage/homepage.html',
             controller: 'homepageController',
-            data: {pageTitle : "Kinderplan"}
+            data: {pageTitle : ""}
         })
         .state('providerSignup', {
             url: '/signup/provider',
-            templateUrl: 'app/components/signup/provider_signup.html',
+            templateUrl: 'app/components/signup/provider_signup2.html',
             controller: 'providerSignupController',
             data: {pageTitle : "Signup - Provider"}
         })
         .state('parentSignup', {
             url: '/signup/parent',
-            templateUrl: 'app/components/signup/parent_signup.html',
+            templateUrl: 'app/components/signup/parent_signup2.html',
             controller: 'parentSignupController',
             data: {pageTitle : "Signup - Parent"}
         })

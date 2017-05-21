@@ -1,23 +1,20 @@
 <div ng-controller="navigationController">
-    <nav id="navigation">
-        <header class="buttons">
+    <nav id="navigation" class="navbar">
+        <div class="container-fluid navbar-cont">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>
+                <a class="navbar-brand" href="#"><img src="assets/images/logo2.png" height="60px"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
 
-            <a  href="#"><img src="assets/images/logo.png" height="45px"></a>
-
-            <ul id="menu" ng-if="!signedIn">
-                <li><a id="signin" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
-                <li id="or">or</li>
-                <li><a id="signup" ui-sref="signup">Sign Up</a></li>
-            </ul>
-            <ul id="menu" ng-if="signedIn">
-
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Welcome,  {{user.email}}  <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="" ng-click="signout()">Sign Out</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </header>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li><a href="#" ui-sref="signup"> Sign Up</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#signin-modal"> Sign In</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
     <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
