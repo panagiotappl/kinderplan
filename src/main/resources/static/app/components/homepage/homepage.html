@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" id="provider" placeholder="Activities">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="region" placeholder="Location">
+                <input type="text" class="form-control" id="region" placeholder="Location" ng-autocomplete ng-model="geoloc" options="options" details="details">
             </div>
             <button id="search-btn" type="submit" class="btn search-btn"><span class="glyphicon glyphicon-search"></span></button>
         </form>

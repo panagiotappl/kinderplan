@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,6 +58,11 @@ public class UserControllerImpl implements UserController {
         userResponseDto.setUserId(user.getId());
 
         return userResponseDto;
+    }
+
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
     }
 
 }
