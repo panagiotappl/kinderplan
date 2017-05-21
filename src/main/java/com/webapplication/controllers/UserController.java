@@ -15,13 +15,14 @@ public interface UserController {
     @RequestMapping(path= "/login")
     UserLogInResponseDto login(UserLoginRequestDto userLogInRequestDto) throws BadRequestException;
 
-    @RequestMapping(path= "/signup")
-    UserSignUpResponseDto signup(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
+    @RequestMapping(path= "/providersignup")
+    UserSignUpResponseDto providerSignUp(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
+
+    @RequestMapping(path= "/parentsignup")
+    UserSignUpResponseDto parentSignUp(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
 
     @RequestMapping(path= "/getuser/{userId}")
     UserResponseDto getuser(@PathVariable int userId) throws BadRequestException;
 
-    @RequestMapping("/user")
-    Principal user(Principal user);
 
 }
