@@ -1,9 +1,14 @@
 package com.webapplication.controllers;
 
+import com.webapplication.dao.ParentRepository;
+import com.webapplication.dao.ProviderRepository;
 import com.webapplication.dao.UserRepository;
 import com.webapplication.dto.*;
+import com.webapplication.entities.Parents;
+import com.webapplication.entities.Providers;
 import com.webapplication.entities.UsersEntity;
 import com.webapplication.exceptions.BadRequestException;
+import com.webapplication.mappers.UserMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +25,10 @@ import java.util.UUID;
 public class UserControllerImpl implements UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ProviderRepository providerRepository;
+    @Autowired
+    private ParentRepository parentRepository;
 
     @Override
     @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
@@ -32,17 +41,37 @@ public class UserControllerImpl implements UserController {
         UUID generatedToken = UUID.randomUUID();
         UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
         userLogInResponseDto.setUserId((long) user.getId());
-        userLogInResponseDto.setRole((String) user.getCategory().toString());
+        userLogInResponseDto.setRole(user.getRole());
         userLogInResponseDto.setGeneratedToken(generatedToken);
         return userLogInResponseDto;
     }
 
     @Override
-    @RequestMapping(path = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public UserSignUpResponseDto signup(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
+    @RequestMapping(path = "/providersignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public UserSignUpResponseDto providerSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
         //todo check user's data
+        UsersEntity user =UserMapper.registerRequestToUser(userSignUpRequestDto);
+        user.setRole("Provider");
+        Providers provider = new Providers();
+        provider.setVatNumber(0);
+        provider.setCompanyName(userSignUpRequestDto.getCompanyName());
+        provider.setUsersEntityByUserId(user);
+        providerRepository.saveAndFlush(provider);
+        System.out.println("hello");
+        return null;
+    }
 
-
+    @Override
+    @RequestMapping(path = "/parentsignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public UserSignUpResponseDto parentSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
+        //todo check user's data
+        UsersEntity user =UserMapper.registerRequestToUser(userSignUpRequestDto);
+        user.setRole("Parent");//todo create enum for roles
+        Parents parent = new Parents();
+        parent.setPoints(0);
+        parent.setUsersEntityByUserId(user);
+        parentRepository.saveAndFlush(parent);
+        System.out.println("hello");
         return null;
     }
 
@@ -57,12 +86,10 @@ public class UserControllerImpl implements UserController {
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setUserId(user.getId());
 
+
         return userResponseDto;
     }
 
-    @RequestMapping("/user")
-    public Principal user(Principal user) {
-        return user;
-    }
+
 
 }
