@@ -90,6 +90,11 @@ public class UserControllerImpl implements UserController {
         return userResponseDto;
     }
 
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
+    }
+
 
 
 }

@@ -24,5 +24,7 @@ public interface UserController {
     @RequestMapping(path= "/getuser/{userId}")
     UserResponseDto getuser(@PathVariable int userId) throws BadRequestException;
 
+    @RequestMapping("/user")
+     Principal user(Principal user);
 
 }
