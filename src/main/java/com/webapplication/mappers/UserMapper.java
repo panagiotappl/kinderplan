@@ -1,14 +1,13 @@
 package com.webapplication.mappers;
 
 import com.webapplication.dto.UserSignUpRequestDto;
-import com.webapplication.entities.Providers;
-import com.webapplication.entities.UsersEntity;
+import com.webapplication.entities.Users;
 
 import java.sql.Timestamp;
 
 public class UserMapper {
-    public  static UsersEntity registerRequestToUser(UserSignUpRequestDto userDto) {
-        UsersEntity user = new UsersEntity();
+    public  static Users registerRequestToUser(UserSignUpRequestDto userDto) {
+        Users user = new Users();
         user.setEmail(userDto.getEmail());
         user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         user.setUpdatedDate(new Timestamp(System.currentTimeMillis()));
