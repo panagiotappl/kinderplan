@@ -82,20 +82,20 @@ public class UserControllerImpl implements UserController {
 //        return userResponseDto;
 //    }
 
-    @RequestMapping(path="/user", method = RequestMethod.GET)
+    @RequestMapping(path="/user", method = RequestMethod.GET,consumes = "application/json",produces = "application/json")
     public ResponseEntity  listUser(){
         return new ResponseEntity(usersRepository.findAll().toArray(), HttpStatus.OK);
     }
 
-    @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
-    public ResponseEntity  listUser(@PathVariable(value = "id") String id){
-        return new ResponseEntity(usersRepository.findUserById(Integer.parseInt(id)), HttpStatus.OK);
+    @RequestMapping(path="/userById", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    public ResponseEntity  listUser(@RequestBody String userId){
+        return new ResponseEntity(usersRepository.findUserById(1), HttpStatus.OK);
 
     }
 
-    @RequestMapping(path="/user", method = RequestMethod.POST)
+    @RequestMapping(path="/user", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
     public ResponseEntity  listUser(@RequestBody Users user){
-        return new ResponseEntity("18", HttpStatus.OK);
+        return new ResponseEntity(user.getId(), HttpStatus.OK);
     }
 
 
