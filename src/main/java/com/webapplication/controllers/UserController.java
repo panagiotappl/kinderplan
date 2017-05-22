@@ -1,13 +1,8 @@
 package com.webapplication.controllers;
 
-import com.webapplication.dto.*;
 import com.webapplication.entities.Users;
-import com.webapplication.exceptions.BadRequestException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping(path = "/api")

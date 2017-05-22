@@ -1,7 +1,6 @@
 package com.webapplication.mappers;
 
 import com.webapplication.dto.UserSignUpRequestDto;
-import com.webapplication.entities.Providers;
 import com.webapplication.entities.Users;
 
 import java.sql.Timestamp;
