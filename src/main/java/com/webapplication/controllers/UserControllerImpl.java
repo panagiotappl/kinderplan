@@ -9,6 +9,8 @@ import com.webapplication.entities.Providers;
 import com.webapplication.entities.UsersEntity;
 import com.webapplication.exceptions.BadRequestException;
 import com.webapplication.mappers.UserMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -90,9 +92,20 @@ public class UserControllerImpl implements UserController {
         return userResponseDto;
     }
 
-    @RequestMapping("/user")
-    public Principal user(Principal user) {
-        return user;
+    @RequestMapping(path="/user", method = RequestMethod.GET)
+    public ResponseEntity  listUser(){
+        return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
+    }
+
+    @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity  listUser(@PathVariable(value = "id") String id){
+        return new ResponseEntity(userRepository.findUserById(Integer.parseInt(id)), HttpStatus.OK);
+
+    }
+
+    @RequestMapping(path="/user", method = RequestMethod.POST)
+    public ResponseEntity  listUser(@RequestBody UsersEntity user){
+        return new ResponseEntity("18", HttpStatus.OK);
     }
 
 
