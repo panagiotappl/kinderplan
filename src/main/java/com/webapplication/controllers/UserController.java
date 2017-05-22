@@ -1,7 +1,7 @@
 package com.webapplication.controllers;
 
 import com.webapplication.dto.*;
-import com.webapplication.entities.UsersEntity;
+import com.webapplication.entities.User;
 import com.webapplication.exceptions.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +32,5 @@ public interface UserController {
     ResponseEntity  listUser(@PathVariable(value = "id") String id);
 
     @RequestMapping(path="/user", method = RequestMethod.POST)
-    ResponseEntity  listUser(@RequestBody UsersEntity user);
+    ResponseEntity  listUser(@RequestBody User user);
 }

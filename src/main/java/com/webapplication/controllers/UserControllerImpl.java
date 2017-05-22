@@ -6,9 +6,10 @@ import com.webapplication.dao.UserRepository;
 import com.webapplication.dto.*;
 import com.webapplication.entities.Parents;
 import com.webapplication.entities.Providers;
-import com.webapplication.entities.UsersEntity;
+import com.webapplication.entities.User;
 import com.webapplication.exceptions.BadRequestException;
 import com.webapplication.mappers.UserMapper;
+import javafx.geometry.Orientation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserLogInResponseDto login(@RequestBody UserLoginRequestDto userLogInRequestDto) throws BadRequestException {
-        UsersEntity user= new UsersEntity();
+        User user= new User();
         user=userRepository.findUserByEmailAndPassword(userLogInRequestDto.getEmail(),userLogInRequestDto.getPassword());
         if (user == null)
             throw new BadRequestException("User not found");
@@ -52,7 +53,7 @@ public class UserControllerImpl implements UserController {
     @RequestMapping(path = "/providersignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto providerSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
         //todo check user's data
-        UsersEntity user =UserMapper.registerRequestToUser(userSignUpRequestDto);
+        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
         user.setRole("Provider");
         Providers provider = new Providers();
         provider.setVatNumber(0);
@@ -67,7 +68,7 @@ public class UserControllerImpl implements UserController {
     @RequestMapping(path = "/parentsignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public UserSignUpResponseDto parentSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
         //todo check user's data
-        UsersEntity user =UserMapper.registerRequestToUser(userSignUpRequestDto);
+        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
         user.setRole("Parent");//todo create enum for roles
         Parents parent = new Parents();
         parent.setPoints(0);
@@ -80,7 +81,7 @@ public class UserControllerImpl implements UserController {
     @Override
     @RequestMapping(path = "/getuser/{userId}", method = RequestMethod.GET, produces = "application/json")
     public UserResponseDto getuser(@PathVariable int userId) throws BadRequestException {
-        UsersEntity user= new UsersEntity();
+        User user= new User();
         user = userRepository.findUserById(userId);
         if (user == null)
             throw new BadRequestException("User not found");
@@ -94,7 +95,7 @@ public class UserControllerImpl implements UserController {
 
     @RequestMapping(path="/user", method = RequestMethod.GET)
     public ResponseEntity  listUser(){
-        return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity(parentRepository.findAll().toArray(), HttpStatus.OK);
     }
 
     @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
@@ -104,7 +105,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @RequestMapping(path="/user", method = RequestMethod.POST)
-    public ResponseEntity  listUser(@RequestBody UsersEntity user){
+    public ResponseEntity  listUser(@RequestBody User user){
         return new ResponseEntity("18", HttpStatus.OK);
     }
 

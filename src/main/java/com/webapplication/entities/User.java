@@ -7,8 +7,7 @@ import java.sql.Timestamp;
  * Created by dimitris on 5/21/2017.
  */
 @Entity
-@Table(name = "users_entity", schema = "public", catalog = "kinderplan_db")
-public class UsersEntity {
+public class User{
     private Integer id;
     private String name;
     private String surname;
@@ -130,7 +129,7 @@ public class UsersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UsersEntity that = (UsersEntity) o;
+        User that = (User) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

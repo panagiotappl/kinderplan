@@ -10,7 +10,7 @@ public class Providers {
     private Integer id;
     private Integer vatNumber;
     private String companyName;
-    private UsersEntity usersEntityByUserId;
+    private User usersEntityByUserId;
 
     @Id
     @SequenceGenerator(name="providers_id_seq",
@@ -72,11 +72,11 @@ public class Providers {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public UsersEntity getUsersEntityByUserId() {
+    public User getUsersEntityByUserId() {
         return usersEntityByUserId;
     }
 
-    public void setUsersEntityByUserId(UsersEntity usersEntityByUserId) {
+    public void setUsersEntityByUserId(User usersEntityByUserId) {
         this.usersEntityByUserId = usersEntityByUserId;
     }
 }

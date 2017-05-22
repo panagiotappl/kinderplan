@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Parents {
     private Integer id;
     private Integer points;
-    private UsersEntity usersEntityByUserId;
+    private User usersEntityByUserId;
 
     @Id
     @SequenceGenerator(name="parents_id_seq",
@@ -58,11 +58,11 @@ public class Parents {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public UsersEntity getUsersEntityByUserId() {
+    public User getUsersEntityByUserId() {
         return usersEntityByUserId;
     }
 
-    public void setUsersEntityByUserId(UsersEntity usersEntityByUserId) {
+    public void setUsersEntityByUserId(User usersEntityByUserId) {
         this.usersEntityByUserId = usersEntityByUserId;
     }
 }

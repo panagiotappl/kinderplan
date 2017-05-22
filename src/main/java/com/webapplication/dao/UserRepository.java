@@ -1,13 +1,13 @@
 package com.webapplication.dao;
-import com.webapplication.entities.UsersEntity;
+import com.webapplication.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<UsersEntity, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    UsersEntity findUserById(int id);
-    UsersEntity findUserByEmailAndPassword(String email, String password);
+    User findUserById(int id);
+    User findUserByEmailAndPassword(String email, String password);
 
 }
