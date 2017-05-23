@@ -1,66 +1,116 @@
 <navigation></navigation>
+<div  class="container-fluid signup-container">
+    <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 
-<form role="form" ng-submit="add()">
+            <form role="form" name="eventsAddForm" ng-submit="add()">
+                <div class="form-group">
+                    <div class="row" align="middle">
+                        Add an event
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label for="eventName">Event Name:</label> <input type="text" class="form-control" id="eventName" name="eventName" ng-model="credentials.eventName"/>
-    </div>
+                <div class="form-group">
+                    <div class="labels"><div class="required-field">*</div>Event Name <div class="missing-alert" ng-messages="eventsAddForm.name.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                        <span ng-message="required"> (Required field is missing)</span>
+                    </div> </div>
+                    <input type="text" name="eventName"  class="form-control input-sm"  ng-model="credentials.eventName" required>
+                </div>
 
-    <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea class="form-control" rows="5" ig="description" name="description" ng-model="credentials.description"></textarea>
-    </div>
+                <div class="form-group">
+                    <div class="labels"><div class="required-field">*</div>Description <div class="missing-alert" ng-messages="eventsAddForm.description.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                        <span ng-message="required"> (Required field is missing)</span>
+                    </div> </div>
+                    <textarea rows="4" cols="50"  name="description"  class="form-control input-sm"  ng-model="credentials.description" required>
+                </textarea>
+                </div>
 
-    <div class="form-group">
-        <label for="ageFrom">Age From:</label>
-        <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control number" name="ageFrom" ng-model="credentials.ageFrom"/>
-    </div>
 
-    <div class="form-group">
-        <label for="ageTo">Age To:</label>
-        <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control number" name="ageTo" ng-model="credentials.ageTo"/>
-    </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <div class="labels"><div class="required-field">*</div>Age From<div class="missing-alert" ng-messages="eventsAddForm.ageFrom.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                                <span ng-message="required"> (Required field is missing)</span>
+                            </div></div>
+                            <input type="number" name="ageFrom" id="ageFrom" class="form-control input-sm"  ng-model="credentials.ageFrom" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <div class="labels"><div class="required-field">*</div>Age To <div class="missing-alert" ng-messages="eventsAddForm.ageTo.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                                <span ng-message="required"> (Required field is missing)</span>
+                            </div></div>
+                            <input type="number" name="ageTo" id="ageTo" class="form-control input-sm"  ng-model="credentials.ageTo" required>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label for="ticketPrice">Ticket Price:</label>
-        <input type="number" min="0" step="0.01" value="0" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" name="ticketPrice" ng-model="credentials.ticketPrice"/>
-    </div>
+                <div class="form-group">
+                    <div class="labels"><div class="required-field">*</div>Ticket Price <div class="missing-alert" ng-messages="eventsAddForm.ticketPrice.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                        <span ng-message="required"> (Required field is missing)</span>
+                    </div> </div>
+                    <input type="number" name="ticketPrice" id="ticketPrice" class="form-control input-sm"  ng-model="credentials.ticketPrice" required>
+                </div>
 
-    <div class="form-group">
-        <label for="address">Address:  </label>
-        <input type="text" style="width: 290%;" class="form-control" id="address" name="address" ng-autocomplete ng-model="geoloc" options="options" details="details"/><br>
-    </div>
+                <div class="form-group">
+                    <div class="labels"><div class="required-field">*</div>Address <div class="missing-alert" ng-messages="eventsAddForm.address.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                        <span ng-message="required"> (Required field is missing)</span>
+                    </div></div>
+                    <input type="text"  class="form-control" id="address" name="address" ng-autocomplete ng-model="geoloc" options="options" details="details" required>
+                </div>
 
-    <div class="form-group">
-        <label for="startDate">Start Date:</label>
-        <md-datepicker ng-model="credentials.startDate" md-placeholder="Start Date:"></md-datepicker>
-    </div>
 
-    <div class="form-group">
-        <label for="endDate">End Date:</label>
-        <md-datepicker ng-model="credentials.endDate" md-placeholder="End Date:"></md-datepicker>
-    </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <div class="labels"><div class="required-field">*</div>Start Date<div class="missing-alert" ng-messages="eventsAddForm.startDate.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                                <span ng-message="required"> (Required field is missing)</span>
+                            </div></div>
+                            <md-datepicker ng-model="credentials.startDate" md-placeholder="Start Date:"></md-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <div class="labels"><div class="required-field">*</div>End Date<div class="missing-alert" ng-messages="eventsAddForm.endDate.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                                <span ng-message="required"> (Required field is missing)</span>
+                            </div></div>
+                            <md-datepicker ng-model="credentials.endDate" md-placeholder="End Date:"></md-datepicker>
+                        </div>
+                    </div>
+                </div>
 
-    <label for="eventDates">Event Dates:</label>
-    <fieldset  data-ng-repeat="date in credentials.dates">
-        <div class="form-group">
-            <label for="startDate">Start Date:</label>
-            <md-datepicker ng-model="date.startDate" md-placeholder="Start Date:"></md-datepicker>
+
+                <fieldset  data-ng-repeat="date in credentials.dates">
+                    <div class="form-group">
+                        <div class="labels"><div class="required-field">*</div>Start Date<div class="missing-alert" ng-messages="eventsAddForm.dateStartDate.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                            <span ng-message="required"> (Required field is missing)</span>
+                        </div></div>
+                        <md-datepicker ng-model="date.startDate" md-placeholder="Start Date:"></md-datepicker>
+                    </div>
+                    <div class="form-group">
+                        <div class="labels"><div class="required-field">*</div>End Date<div class="missing-alert" ng-messages="eventsEndForm.dateStartDate.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                            <span ng-message="required"> (Required field is missing)</span>
+                        </div></div>
+                        <md-datepicker ng-model="date.endDate" md-placeholder="End Date:"></md-datepicker>
+                    </div>
+                    <div class="form-group">
+                        <div class="labels"><div class="required-field">*</div>Ticket Price <div class="missing-alert" ng-messages="eventsAddForm.eventTicketPrice.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                            <span ng-message="required"> (Required field is missing)</span>
+                        </div> </div>
+                        <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control input-sm" name="eventAvailableTickets" ng-model="date.availableTickets"/>
+                    </div>
+
+                    <button class="remove" ng-show="$last" ng-click="removeDate()">-</button>
+                </fieldset>
+
+
+                <button class="addfields" ng-click="addNewDate()">Add date</button>
+
+                <input type="submit" value="Create Event" class="form-complete-btn">
+
+            </form>
         </div>
-        <div class="form-group">
-            <label for="endDate">End Date:</label>
-            <md-datepicker ng-model="date.endDate" md-placeholder="End Date:"></md-datepicker>
-        </div>
-        <div class="form-group">
-            <label for="availableTickets">Tickets Available:</label>
-            <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control number" name="availableTickets" ng-model="date.availableTickets"/>
-        </div>
-            <button class="remove" ng-show="$last" ng-click="removeDate()">-</button>
-    </fieldset>
-    <button class="addfields" ng-click="addNewDate()">Add date</button>
-
-
-    <button type="submit" class="btn btn-primary">Add Event</button>
-</form>
+    </div>
+</div>
 
 <footer></footer>
