@@ -1,8 +1,17 @@
-#signup-btns.container-fluid{
-    padding-top: 300px;
+
+#form-content{
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-top: 100px;
     padding-bottom: 300px;
+
 }
-.signup-btn{
+
+#form-buttons{
+    padding-top: 100px;
+}
+
+.form-btn{
     padding: 40px 40px;
     font-size: 26px;
     background-color: #4ABDAC;
@@ -18,16 +27,15 @@
         border-color: #38b3a6;
         color: white;
     }
-
 }
-.signup-btn:hover{
 
+.form-btn:hover{
     background-color: #fcd5ad;
     border-color: #e7bc9f;
     color: #FC4A1A;
 }
 
-.signup-container {
+.form-container {
     padding-top: 50px;
     padding-bottom: 50px;
     width: 100% !important;
@@ -36,19 +44,19 @@
     overflow: hidden;
 }
 
-.signup-container h1 {
+.form-container h1 {
     text-align: center;
     font-size: 1.8em;
 }
 
-.signup-container input[type=submit] {
+.form-container input[type=submit] {
     width: 100%;
     display: block;
     margin-bottom: 10px;
     position: relative;
 }
 
-.signup-container input[type=text], input[type=email], input[type=password] {
+.form-container input[type=text], input[type=email], input[type=password] {
     height: 44px;
     font-size: 16px;
     width: 100%;
@@ -63,14 +71,14 @@
     -moz-box-sizing: border-box;
 }
 
-.signup-container input[type=text]:hover, input[type=email], input[type=password]:hover {
+.form-container input[type=text]:hover, input[type=email], input[type=password]:hover {
     border: 1px solid #b9b9b9;
     border-top: 1px solid #a0a0a0;
     -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
-.signup-complete-btn {
+.form-complete-btn {
     /* border: 1px solid #3079ed; */
     width: 100%;
     display: block;
@@ -84,7 +92,7 @@
     /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
-.signup-complete-btn:hover {
+.form-complete-btn:hover {
     /* border: 1px solid #2f5bb7; */
     border: 0px;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -97,7 +105,7 @@
     color: #6d6d6d;
 }
 
-.signup-title{
+.form-title{
     font-size: 22px;
     color: #6d6d6d;
     padding-bottom: 10px;
