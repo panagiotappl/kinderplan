@@ -21,13 +21,6 @@ router.controller('parentSignupController', function($scope, $cookies, UserServi
 
 
     $scope.signup = function() {
-        var error = false;
-        var miss_error = false;
-
-        $scope.phone_number_error = false;
-        $scope.pass_error = false;
-        $scope.pass_len_error = false;
-        $scope.mail_error= false;
 
         $scope.options = {
             types: 'geocode',
@@ -35,58 +28,6 @@ router.controller('parentSignupController', function($scope, $cookies, UserServi
             country: 'gr'
         };
 
-        //UNCOMMENT FOLLOWING LINES TO ENABLE VALIDATIONS
-        if ($scope.credentials.first_name === '') {
-            $scope.first_name_missing_error = 'set';
-            miss_error = true;
-        }
-        if ($scope.credentials.last_name === '') {
-            $scope.last_name_missing_error = 'set';
-            miss_error = true;
-        }
-        if ($scope.credentials.password === '') {
-            $scope.password_missing_error = 'set';
-            miss_error = true;
-        }
-        if ($scope.credentials.rep_password === '') {
-            $scope.rep_password_missing_error = 'set';
-            miss_error = true;
-        }
-        if ($scope.credentials.mail === '') {
-            $scope.mail_missing_error = 'set';
-            miss_error = true;
-        }
-        if ($scope.credentials.phone_number === '') {
-            $scope.phone_number_missing_error = 'set';
-            miss_error = true;
-        }
-        if ($scope.geoloc === '') {
-            $scope.address_missing_error = 'set';
-            miss_error = true;
-        }
-
-        if ($scope.credentials.phone_number.length < 10 && miss_error == false) {
-            $scope.phone_number_error = 'set';
-            error = true;
-        }
-
-        if ($scope.credentials.password.length < 5 && miss_error == false) { // TODO: Should prevent pass_error to be sent.p
-            $scope.pass_len_error = 'set';
-            error = true;
-        }
-
-        if ($scope.credentials.password !== $scope.credentials.rep_password && miss_error == false) {
-            $scope.pass_error = 'set';
-            error = true;
-        }
-
-        if ($scope.vaildateEmail($scope.credentials.mail) != true && miss_error == false) {
-            $scope.mail_error = 'set';
-            error=true;
-        }
-
-
-        if (error ||  miss_error) return;
 
         var request = {
             mail: $scope.credentials.mail,
