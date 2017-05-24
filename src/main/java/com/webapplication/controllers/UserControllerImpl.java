@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Component
 public class UserControllerImpl implements UserController {
     @Autowired
@@ -83,8 +85,8 @@ public class UserControllerImpl implements UserController {
 //    }
 
     @RequestMapping(path="/user", method = RequestMethod.GET,consumes = "application/json",produces = "application/json")
-    public ResponseEntity  listUser(){
-        return new ResponseEntity(usersRepository.findAll().toArray(), HttpStatus.OK);
+    public List<Users> listUser(){
+        return usersRepository.findAll();
     }
 
     @RequestMapping(path="/userById", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
