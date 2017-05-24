@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+import java.util.List;
+
 @Component
 public class UserControllerImpl implements UserController {
     @Autowired
@@ -92,11 +94,11 @@ public class UserControllerImpl implements UserController {
 
     }
 
-    @RequestMapping(path="/user", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    @RequestMapping(path="/user", method = RequestMethod.POST)
     public ResponseEntity  listUser(@RequestBody Users user){
-        return new ResponseEntity(user.getId(), HttpStatus.OK);
-    }
+        return new ResponseEntity(usersRepository.findAll().toArray(), HttpStatus.OK);
 
+    }
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
