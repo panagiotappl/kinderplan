@@ -4,6 +4,8 @@ import com.webapplication.entities.Users;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping(path = "/api")
 public interface UserController {
@@ -28,4 +30,8 @@ public interface UserController {
 
     @RequestMapping(path="/user", method = RequestMethod.POST)
     ResponseEntity  listUser(@RequestBody Users user);
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Principal principal);
 }

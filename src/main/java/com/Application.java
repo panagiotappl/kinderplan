@@ -18,8 +18,8 @@ public class Application {
     public CommandLineRunner loadData(UsersRepository repository) {
 		return (args) -> {
 			// save a couple of customers
-			repository.save(new Users(1,"Jack","Jack", "Bauer","123"));
-			repository.save(new Users(2,"Chloe","Chloe", "O'Brian","123"));
+			repository.save(new Users(1,"a@a.com","Jack", "Bauer","123"));
+			repository.save(new Users(2,"a@a.gr","Chloe", "O'Brian","123"));
 		};
 	}
 
