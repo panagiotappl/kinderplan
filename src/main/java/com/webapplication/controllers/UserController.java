@@ -4,8 +4,6 @@ import com.webapplication.entities.Users;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/api")
 public interface UserController {
@@ -23,7 +21,7 @@ public interface UserController {
 //    UserResponseDto getuser(@PathVariable int userId) throws BadRequestException;
 
     @RequestMapping(path="/user", method = RequestMethod.GET)
-    List<Users> listUser();
+    ResponseEntity listUser();
 
     @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
     ResponseEntity  listUser(@PathVariable(value = "id") String id);

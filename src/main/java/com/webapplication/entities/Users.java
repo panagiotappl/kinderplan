@@ -24,10 +24,12 @@ public class Users{
     public Users(){
     }
 
-    public Users(Integer id,String name,String surname){
+    public Users(Integer id,String email,String name,String surname,String password){
         this.id = id;
+        this.email = email;
         this.name = name;
         this.surname = surname;
+        this.password = password;
     }
 
     public Integer getId() {
