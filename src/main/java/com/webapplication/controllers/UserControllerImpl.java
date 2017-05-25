@@ -3,6 +3,7 @@ package com.webapplication.controllers;
 import com.webapplication.dao.ParentRepository;
 import com.webapplication.dao.ProviderRepository;
 import com.webapplication.dao.UsersRepository;
+import com.webapplication.dto.UserLogInResponseDto;
 import com.webapplication.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -98,10 +99,18 @@ public class UserControllerImpl implements UserController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity currentUserName(Principal principal) {
-        return new ResponseEntity(usersRepository.findUsersByEmail(principal.getName()),HttpStatus.OK);
+    public UserLogInResponseDto currentUserName(Principal principal) {
+        Users user = new Users();
+        user = usersRepository.findUsersByEmail(principal.getName());
+        UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
+        userLogInResponseDto.setEmail(user.getEmail());
+        userLogInResponseDto.setId(user.getId());
+        userLogInResponseDto.setName(user.getName());
+        userLogInResponseDto.setSurname(user.getSurname());
+
+        return userLogInResponseDto;
     }
 
 

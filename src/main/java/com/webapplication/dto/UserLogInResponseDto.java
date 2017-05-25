@@ -6,42 +6,40 @@ import java.util.UUID;
 
 public class UserLogInResponseDto {
 
-    public Long userId;
+    public Integer id;
+    public String name;
+    public String surname;
+    public String email;
 
-    public String role;
-
-    public UUID generatedToken;
-
-    public UUID getGeneratedToken() {
-        return generatedToken;
+    public Integer getId() {
+        return id;
     }
 
-    public void setGeneratedToken(UUID generatedToken) {
-        this.generatedToken = generatedToken;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    @Override
-    public String toString() {
-        return "UserLogInResponseDto{" +
-                "userId=" + userId +
-                ", role='" + role + '\'' +
-                ", generatedToken=" + generatedToken +
-                '}';
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
