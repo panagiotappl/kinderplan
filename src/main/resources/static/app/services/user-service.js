@@ -2,12 +2,15 @@ router.factory('UserService', function($http, $cookies) {
     var userService = {};
 
     userService.singin = function (user) {
-        return $http.post('/api/login', user)
+        var _authdata = btoa(user.email + ':' + user.password);
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + _authdata;
+        return $http.post('/api/login')
             .then(function (response) {
-                $cookies.put('userId', response.data.userId);
-                $cookies.put('generatedToken', response.data.generatedToken);
-                $cookies.put('role', response.data.role);
-                $cookies.put('signedIn', 'yes');
+                console.log(response);
+                // $cookies.put('userId', response.data.userId);
+                // $cookies.put('generatedToken', response.data.generatedToken);
+                // $cookies.put('role', response.data.role);
+                // $cookies.put('signedIn', 'yes');
 
                 return response;
             });

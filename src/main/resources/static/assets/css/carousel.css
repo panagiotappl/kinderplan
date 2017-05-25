@@ -1,6 +1,9 @@
 #myCarousel {
-    position:relative;
+    position:absolute;
+    top: 0;
+    left: 0;
     height: 700px;
+    z-index: 0;
 }
 
 .item{

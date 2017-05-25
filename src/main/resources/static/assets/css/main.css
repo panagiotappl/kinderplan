@@ -2,3 +2,12 @@ body{
     font: 400 20px/1.8 Lato, sans-serif;
 }
 
+.ontop{
+    z-index: 20;
+    position: relative;
+}
+
+
+a.md-default-theme:not(.md-button), a:not(.md-button) {
+    color: rgb(56, 134, 117);
+}
