@@ -1,5 +1,6 @@
 package com.webapplication.controllers;
 
+import com.webapplication.dto.UserLogInResponseDto;
 import com.webapplication.entities.Users;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,5 @@ public interface UserController {
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity currentUserName(Principal principal);
+    public UserLogInResponseDto currentUserName(Principal principal);
 }
