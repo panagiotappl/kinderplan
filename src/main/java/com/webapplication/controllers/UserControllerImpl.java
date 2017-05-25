@@ -100,10 +100,10 @@ public class UserControllerImpl implements UserController {
 
     }
 
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String currentUserName(Principal principal) {
-        return principal.getName();
+    public ResponseEntity currentUserName(Principal principal) {
+        return new ResponseEntity(usersRepository.findUsersByEmail(principal.getName()),HttpStatus.OK);
     }
 
 
