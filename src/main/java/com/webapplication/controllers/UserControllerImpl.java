@@ -3,8 +3,10 @@ package com.webapplication.controllers;
 import com.webapplication.dao.ParentRepository;
 import com.webapplication.dao.ProviderRepository;
 import com.webapplication.dao.UsersRepository;
+import com.webapplication.dto.UserDto;
 import com.webapplication.dto.UserLogInResponseDto;
 import com.webapplication.entities.Users;
+import com.webapplication.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,19 +84,19 @@ public class UserControllerImpl implements UserController {
 //        return userResponseDto;
 //    }
 
-    @RequestMapping(path="/user", method = RequestMethod.GET,consumes = "application/json",produces = "application/json")
-    public ResponseEntity  listUser(){
+    @RequestMapping(path = "/user", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    public ResponseEntity listUser() {
         return new ResponseEntity(usersRepository.findAll().toArray(), HttpStatus.OK);
     }
 
-    @RequestMapping(path="/userById", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    public ResponseEntity  listUser(@RequestBody String userId){
+    @RequestMapping(path = "/userById", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public ResponseEntity listUser(@RequestBody String userId) {
         return new ResponseEntity(usersRepository.findUserById(1), HttpStatus.OK);
 
     }
 
-    @RequestMapping(path="/user", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    public ResponseEntity  listUser(@RequestBody Users user){
+    @RequestMapping(path = "/user", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public ResponseEntity listUser(@RequestBody Users user) {
         return new ResponseEntity(user.getId(), HttpStatus.OK);
     }
 
@@ -109,10 +111,14 @@ public class UserControllerImpl implements UserController {
         userLogInResponseDto.setId(user.getId());
         userLogInResponseDto.setName(user.getName());
         userLogInResponseDto.setSurname(user.getSurname());
-
         return userLogInResponseDto;
     }
 
-
+    @RequestMapping(value = "/getuser", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity getUser(Principal principal) {
+        Users user = usersRepository.findUsersByEmail(principal.getName());
+        return new ResponseEntity(UserMapper.fromUserToResponseDto(user), HttpStatus.OK);
+    }
 
 }
