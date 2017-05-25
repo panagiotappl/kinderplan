@@ -33,5 +33,5 @@ public interface UserController {
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
-    public String currentUserName(Principal principal);
+    public ResponseEntity currentUserName(Principal principal);
 }
