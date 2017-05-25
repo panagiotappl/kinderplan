@@ -1,20 +1,115 @@
 <navigation></navigation>
+<div class="row">
+    <div class="col-md-3">
 
-
-
-
-<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-    <div id="search" class="container-fluid" align="middle">
-        <form class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" id="provider" placeholder="Activities">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="region" placeholder="Location" ng-autocomplete ng-model="geoloc" options="options" details="details">
-            </div>
-            <button id="search-btn" type="submit" class="btn search-btn"><span class="glyphicon glyphicon-search"></span></button>
-        </form>
     </div>
+    <div class="col-md-6">
+        <div class="ontop panel panel-default">
+            <div class="panel-body">
+                <div class="container-fluid">
+
+                    <div class="container-fluid">
+
+                        <form>
+                            <div  class="row" align="middle">
+
+                                <div class="form-group">
+                                    <h3> Activities near <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></h3>
+                                </div>
+                            </div>
+                            <div  class="row " align="middle">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="region" placeholder="Enter a Location" ng-autocomplete ng-model="geoloc" options="options" details="details">
+                                    <div class="input-group-btn">
+                                        <button class="btn search-btn" type="submit">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <!--<div class="tabs container-fluid">-->
+                        <!--<div class="row">-->
+                            <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--<div class="col-md-12">-->
+
+                                <!--<ul class="nav nav-tabs">-->
+                                    <!--<li class="active"><a data-toggle="tab" href="#home">Date</a></li>-->
+                                    <!--<li><a data-toggle="tab" href="#menu1">Distance</a></li>-->
+                                    <!--<li><a data-toggle="tab" href="#menu2">Age & Gender</a></li>-->
+                                    <!--<li><a data-toggle="tab" href="#menu3">Activity</a></li>-->
+                                <!--</ul>-->
+
+                                <!--<div class="tab-content">-->
+                                    <!--<div id="home" class="tab-pane fade in active">-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="row">-->
+                                                    <!--From-->
+                                                <!--</div>-->
+                                                <!--<div class="row">-->
+                                                    <!--<md-datepicker ng-model="date.startDate" md-placeholder="Start Date:"></md-datepicker>-->
+                                                <!--</div>-->
+                                                <!--<div class="row">-->
+                                                    <!--To-->
+                                                <!--</div>-->
+                                                <!--<div class="row">-->
+                                                    <!--<md-datepicker ng-model="date.endDate" md-placeholder="End Date:"></md-datepicker>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-6 class checkbox">-->
+                                                <!--<div flex="50" ng-repeat="item in items">-->
+                                                    <!--<md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">-->
+                                                        <!--{{ item }}-->
+                                                    <!--</md-checkbox>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+                                        <!--</div>-->
+                                        <!--<div class="row" align="right">-->
+                                            <!--<md-button class="md-accent search-btn2" >Search</md-button>-->
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+                                    <!--<div id="menu1" class="tab-pane fade">-->
+                                        <!--<h3>Menu 1</h3>-->
+                                        <!--<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+                                    <!--</div>-->
+                                    <!--<div id="menu2" class="tab-pane fade">-->
+                                        <!--<h3>Menu 2</h3>-->
+                                        <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>-->
+                                    <!--</div>-->
+                                    <!--<div id="menu3" class="tab-pane fade">-->
+                                        <!--<h3>Menu 3</h3>-->
+                                        <!--<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                </div></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+
+</div>
+
+
+<footer class="ontop"></footer>
+<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -38,4 +133,7 @@
     </div>
 
 </div>
-<footer></footer>
+
+
+
+

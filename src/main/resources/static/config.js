@@ -4,8 +4,10 @@
 
 'use strict';
 
-router.config(function($stateProvider, $urlRouterProvider, $compileProvider) {
-
+router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $compileProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('teal')
+        .accentPalette('deep-orange');
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
