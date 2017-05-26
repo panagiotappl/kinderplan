@@ -12,6 +12,9 @@
 
 }
 
+.dropdown-menu{
+    font-size:  18px;
+}
 /*@media screen and (max-width: 768px) {*/
     /*.navbar{*/
         /*padding-left: 0;*/

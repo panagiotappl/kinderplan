@@ -24,21 +24,7 @@ public class UserControllerImpl implements UserController {
     @Autowired
     private ParentRepository parentRepository;
 
-//    @Override
-//    @RequestMapping(path = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-//    public UserLogInResponseDto login(@RequestBody UserLoginRequestDto userLogInRequestDto) throws BadRequestException {
-//        User user= new User();
-//        user=userRepository.findUserByEmailAndPassword(userLogInRequestDto.getEmail(),userLogInRequestDto.getPassword());
-//        if (user == null)
-//            throw new BadRequestException("User not found");
-//        //prepare response
-//        UUID generatedToken = UUID.randomUUID();
-//        UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
-//        userLogInResponseDto.setUserId((long) user.getId());
-//        userLogInResponseDto.setRole(user.getRole());
-//        userLogInResponseDto.setGeneratedToken(generatedToken);
-//        return userLogInResponseDto;
-//    }
+
 //
 //    @Override
 //    @RequestMapping(path = "/providersignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
@@ -83,42 +69,38 @@ public class UserControllerImpl implements UserController {
 //
 //        return userResponseDto;
 //    }
-
-    @RequestMapping(path = "/user", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-    public ResponseEntity listUser() {
-        return new ResponseEntity(usersRepository.findAll().toArray(), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/userById", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public ResponseEntity listUser(@RequestBody String userId) {
-        return new ResponseEntity(usersRepository.findUserById(1), HttpStatus.OK);
-
-    }
-
-    @RequestMapping(path = "/user", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public ResponseEntity listUser(@RequestBody Users user) {
-        return new ResponseEntity(user.getId(), HttpStatus.OK);
-    }
+//
+//    @RequestMapping(path = "/user", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+//    public ResponseEntity listUser() {
+//        return new ResponseEntity(usersRepository.findAll().toArray(), HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(path = "/userById", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+//    public ResponseEntity listUser(@RequestBody String userId) {
+//        return new ResponseEntity(usersRepository.findUserById(1), HttpStatus.OK);
+//
+//    }
+//
+//    @RequestMapping(path = "/user", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+//    public ResponseEntity listUser(@RequestBody Users user) {
+//        return new ResponseEntity(user.getId(), HttpStatus.OK);
+//    }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public UserLogInResponseDto currentUserName(Principal principal) {
-        Users user = new Users();
-        user = usersRepository.findUsersByEmail(principal.getName());
-        UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
-        userLogInResponseDto.setEmail(user.getEmail());
-        userLogInResponseDto.setId(user.getId());
-        userLogInResponseDto.setName(user.getName());
-        userLogInResponseDto.setSurname(user.getSurname());
-        return userLogInResponseDto;
+    public ResponseEntity login(Principal principal) {
+        Users user = usersRepository.findUsersByEmail(principal.getName());
+        ResponseEntity responseEntity = new ResponseEntity(UserMapper.fromUserToLogInResponseDto(user), HttpStatus.OK);
+        return responseEntity;
     }
 
-    @RequestMapping(value = "/getuser", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getUser(Principal principal) {
         Users user = usersRepository.findUsersByEmail(principal.getName());
-        return new ResponseEntity(UserMapper.fromUserToResponseDto(user), HttpStatus.OK);
+        ResponseEntity responseEntity = new ResponseEntity(UserMapper.fromUserToResponseDto(user), HttpStatus.OK);
+        return responseEntity;
     }
 
 }
