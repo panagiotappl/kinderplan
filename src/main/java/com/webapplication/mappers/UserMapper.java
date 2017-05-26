@@ -1,6 +1,7 @@
 package com.webapplication.mappers;
 
 import com.webapplication.dto.UserDto;
+import com.webapplication.dto.UserLogInResponseDto;
 import com.webapplication.dto.UserSignUpRequestDto;
 import com.webapplication.entities.Users;
 
@@ -33,5 +34,12 @@ public class UserMapper {
         userDto.setUpdatedDate(user.getUpdatedDate());
         userDto.setValidated(user.getValidated());
         return userDto;
+    }
+
+    public static UserLogInResponseDto fromUserToLogInResponseDto(Users user){
+        UserLogInResponseDto userLogInResponseDto = new UserLogInResponseDto();
+        userLogInResponseDto.setEmail(user.getEmail());
+        userLogInResponseDto.setId(user.getId());
+        return userLogInResponseDto;
     }
 }

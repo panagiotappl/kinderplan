@@ -1,4 +1,5 @@
 # KinderPlan
-API Dodumentation<br/>
+**API Dodumentation**
 * [login](documentation/login.md)
-* [getuser](documentation/getuser.md)
+* [user](documentation/user.md)
+

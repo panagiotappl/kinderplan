@@ -9,9 +9,20 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
 
-                <ul  class="nav navbar-nav navbar-right">
+                <ul  ng-if="!signedIn" class="nav navbar-nav navbar-right">
                     <li><a href="#" ui-sref="signup"> Sign Up</a></li>
-                    <li><a  data-toggle="modal" data-target="#signin-modal"> Sign In</a></li>
+                    <li ><a  data-toggle="modal" data-target="#signin-modal"> Sign In</a></li>
+                </ul>
+                <ul   ng-if="signedIn" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a  data-toggle="dropdown">Welcome, {{user.name}}
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ng-click="signout()" href="#">Sign Out</a></li>
+
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>

@@ -1,13 +1,13 @@
-**LOGIN**
+**GETUSER**
 ----
 
 * **URL**
 
-  /api/login
+  /api/user
 
 * **Method:**
   
-  `POST`
+  `GET`
   
 *  **URL Params**
 
@@ -22,7 +22,7 @@
 * **Data Params**
 
   `none`
-  
+
 * **Headers**
 
     `Content-Type: application/json`
@@ -33,13 +33,20 @@
 
   * **Code:** 200 <br />
     **Content:** `{
-                                      "id": 2,
-                                      "email": "a@a.gr"
-                                    }`
+                    "id": 2,
+                    "name": "Chloe",
+                    "surname": "O'Brian",
+                    "email": "a@a.gr",
+                    "validated": true,
+                    "createdDate": null,
+                    "updatedDate": null,
+                    "lastLogin": null,
+                    "role": "Provider"
+                  }`
  
 * **Error Response:**
 
   * **Code:** 500 Internal Server Error <br />
     **Content:** `HTTP Status 500 - null`
 
-
+ 

@@ -21,18 +21,22 @@ public interface UserController {
 //    UserSignUpResponseDto parentSignUp(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
 //
 //    @RequestMapping(path= "/getuser/{userId}")
-//    UserResponseDto getuser(@PathVariable int userId) throws BadRequestException;
+////    UserResponseDto getuser(@PathVariable int userId) throws BadRequestException;
+//
+//    @RequestMapping(path="/user", method = RequestMethod.GET)
+//    ResponseEntity listUser();
+//
+//    @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
+//    ResponseEntity  listUser(@PathVariable(value = "id") String id);
+//
+//    @RequestMapping(path="/user", method = RequestMethod.POST)
+//    ResponseEntity  listUser(@RequestBody Users user);
 
-    @RequestMapping(path="/user", method = RequestMethod.GET)
-    ResponseEntity listUser();
-
-    @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
-    ResponseEntity  listUser(@PathVariable(value = "id") String id);
-
-    @RequestMapping(path="/user", method = RequestMethod.POST)
-    ResponseEntity  listUser(@RequestBody Users user);
-
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     @ResponseBody
-    public UserLogInResponseDto currentUserName(Principal principal);
+    ResponseEntity login(Principal principal);
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity getUser(Principal principal);
 }
