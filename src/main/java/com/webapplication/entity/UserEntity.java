@@ -1,19 +1,35 @@
-package com.webapplication.dto.user;
+package com.webapplication.entity;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by dimitris on 5/25/2017.
- */
-public class UserDto {
-    public Integer id;
-    public String name;
-    public String surname;
-    public String email;
-    public Boolean validated;
-    public Timestamp createdDate;
-    public Timestamp updatedDate;
-    public Timestamp lastLogin;
+@Entity
+public class User {
+
+    @Id
+    private Integer id;
+    private String name;
+    private String surname;
+    private String email;
+    private String password;
+    private Boolean validated;
+    private Timestamp createdDate;
+    private Timestamp updatedDate;
+    private Timestamp lastLogin;
+    private String role;
+
+    public User(){
+    }
+
+    public User(Integer id, String email, String name, String surname, String password, String role, Boolean validated){
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.role=role;
+        this.validated=validated;
+    }
 
     public Integer getId() {
         return id;
@@ -47,6 +63,13 @@ public class UserDto {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Boolean getValidated() {
         return validated;
@@ -88,5 +111,5 @@ public class UserDto {
         this.role = role;
     }
 
-    public String role;
+
 }

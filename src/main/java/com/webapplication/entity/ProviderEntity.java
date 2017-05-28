@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by dimitris on 5/21/2017.
  */
 @Entity
-public class Providers {
+public class Provider {
     @Id
     private Integer id;
     private Integer vatNumber;
