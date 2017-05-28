@@ -9,10 +9,8 @@ public enum UserError {
     NOT_AUTHENTICATED("User is not authenticated."),
     EMAIL_ALREADY_IN_USE("Email is already in use."),
     NEW_PASSWORD_DO_NOT_DIFFER("New password must differ with the old password."),
-    PASSWORD_MISSMATCH("Password is invalid."),
-    INVALID_PAGINATION_VALUES("\"From\" value must be greater or equal to \"To\" value."),
-    MESSAGE_NOT_FOUND("Message not found."),
-    ALREADY_VOTED("You have already voted.");
+    PASSWORD_MISSMATCH("Password is invalid.");
+
 
     private final String description;
 

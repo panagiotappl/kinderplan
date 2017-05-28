@@ -47,37 +47,35 @@ public class UserControllerImpl implements UserController {
     @Autowired
     private UserMapper userMapper;
 
-//<<<<<<< HEAD
-//
-////
-////    @Override
-////    @RequestMapping(path = "/providersignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-////    public UserSignUpResponseDto providerSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
-////        //todo check user's data
-////        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
-////        user.setRole("Providers");
-////        Providers provider = new Providers();
-////        provider.setVatNumber(0);
-////        provider.setCompanyName(userSignUpRequestDto.getCompanyName());
-////        provider.setUsersEntityByUserId(user);
-////        providerRepository.saveAndFlush(provider);
-////        System.out.println("hello");
-////        return null;
-////    }
-////
-////    @Override
-////    @RequestMapping(path = "/parentsignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-////    public UserSignUpResponseDto parentSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
-////        //todo check user's data
-////        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
-////        user.setRole("Parents");//todo create enum for roles
-////        Parents parent = new Parents();
-////        parent.setPoints(0);
-////        parent.setUsersEntityByUserId(user);
-////        parentRepository.saveAndFlush(parent);
-////        System.out.println("hello");
-////        return null;
-////    }
+
+    /*@Override
+    @RequestMapping(path = "/providersignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public UserSignUpResponseDto providerSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
+        //todo check user's data
+        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
+        user.setRole("Providers");
+        Providers provider = new Providers();
+        provider.setVatNumber(0);
+        provider.setCompanyName(userSignUpRequestDto.getCompanyName());
+        provider.setUsersEntityByUserId(user);
+        providerRepository.saveAndFlush(provider);
+        System.out.println("hello");
+        return null;
+    }
+
+    @Override
+    @RequestMapping(path = "/parentsignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public UserSignUpResponseDto parentSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
+        //todo check user's data
+        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
+        user.setRole("Parents");//todo create enum for roles
+        Parents parent = new Parents();
+        parent.setPoints(0);
+        parent.setUsersEntityByUserId(user);
+        parentRepository.saveAndFlush(parent);
+        System.out.println("hello");
+        return null;
+    } */
 
 
     public UserLogInResponseDto login(@RequestBody UserLogInRequestDto userLogInRequestDto) throws Exception {
@@ -116,8 +114,6 @@ public class UserControllerImpl implements UserController {
     public UserResponseDto getUser(@RequestHeader UUID authToken, @PathVariable Integer userId) throws Exception {
         Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
         Optional.ofNullable(userId).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
-        if (userId == null)
-            throw new ValidationException(UserError.INVALID_DATA);
 
         //Get Active Session
         SessionInfo sessionInfo = authenticator.getSession(authToken);
@@ -136,17 +132,17 @@ public class UserControllerImpl implements UserController {
     }
 
     // Password validation method to be used later when there's salt and registration is done
-    // :)
-//    private Boolean validatePassword(String attemptedPassword, String password, String saltStored) throws Exception {
-//        byte[] salt = Base64.decodeBase64(saltStored.getBytes());
-//        String algorithm = "PBKDF2WithHmacSHA1";
-//        int derivedKeyLength = 160;
-//        int iterations = 20000;
-//        KeySpec spec = new PBEKeySpec(attemptedPassword.toCharArray(), salt, iterations, derivedKeyLength);
-//        SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
-//        String encodedAttemptedPassword = new String(Base64.encodeBase64(f.generateSecret(spec).getEncoded()));
-//        return password.equals(encodedAttemptedPassword);
-//    }
+
+   /* private Boolean validatePassword(String attemptedPassword, String password, String saltStored) throws Exception {
+        byte[] salt = Base64.decodeBase64(saltStored.getBytes());
+        String algorithm = "PBKDF2WithHmacSHA1";
+        int derivedKeyLength = 160;
+        int iterations = 20000;
+        KeySpec spec = new PBEKeySpec(attemptedPassword.toCharArray(), salt, iterations, derivedKeyLength);
+        SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
+        String encodedAttemptedPassword = new String(Base64.encodeBase64(f.generateSecret(spec).getEncoded()));
+        return password.equals(encodedAttemptedPassword);
+    } */
 
 
     // EXCEPTION HANDLERS!
