@@ -1,14 +1,11 @@
 package com.webapplication.dao;
 
-import com.webapplication.entities.Providers;
+import com.webapplication.entities.Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-
-@Repository
-public interface ProviderRepository extends JpaRepository<Providers, Long> {
-
-
-
-
+/**
+ * Created by KechagiasKonstantinos on 28/05/2017.
+ */
+public interface ProviderRepository extends JpaRepository<Provider,Long>{
+    Provider findByEmail(String email);
 }

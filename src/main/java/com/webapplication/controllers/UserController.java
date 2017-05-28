@@ -1,6 +1,5 @@
 package com.webapplication.controllers;
 
-import com.webapplication.entities.Users;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,29 +8,20 @@ import java.security.Principal;
 @RestController
 @RequestMapping(path = "/api")
 public interface UserController {
-//
-//    @RequestMapping(path= "/login")
-//    UserLogInResponseDto login(UserLoginRequestDto userLogInRequestDto) throws BadRequestException;
-//
-//    @RequestMapping(path= "/providersignup")
-//    UserSignUpResponseDto providerSignUp(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
-//
-//    @RequestMapping(path= "/parentsignup")
-//    UserSignUpResponseDto parentSignUp(UserSignUpRequestDto userSignUpRequestDto) throws BadRequestException;
-//
-//    @RequestMapping(path= "/getuser/{userId}")
-//    UserResponseDto getuser(@PathVariable int userId) throws BadRequestException;
 
-    @RequestMapping(path="/user", method = RequestMethod.GET)
-    ResponseEntity listUser();
-
-    @RequestMapping(path="/user/{id}", method = RequestMethod.GET)
-    ResponseEntity  listUser(@PathVariable(value = "id") String id);
-
-    @RequestMapping(path="/user", method = RequestMethod.POST)
-    ResponseEntity  listUser(@RequestBody Users user);
-
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public String currentUserName(Principal principal);
+    public String hello();
+
+    @RequestMapping(value = "/private", method = RequestMethod.POST)
+    @ResponseBody
+    public String privateArea();
+
+    @RequestMapping(value = "/logIn", method = RequestMethod.POST)
+    @ResponseBody
+    public String logIn(String email,String password);
+
+    @RequestMapping(value = "/getUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String currentUserEmail(Principal principal);
 }
