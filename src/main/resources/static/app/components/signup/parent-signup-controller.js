@@ -30,16 +30,19 @@ router.controller('parentSignupController', function($scope, $cookies, UserServi
 
 
         var request = {
-            mail: $scope.credentials.mail,
+            email: $scope.credentials.email,
             password: $scope.credentials.password,
-            rep_password: $scope.credentials.rep_password,
-            first_name: $scope.credentials.first_name,
-            last_name: $scope.credentials.last_name,
-            phone_number: $scope.credentials.phone_number,
+            repassword: $scope.credentials.rep_password,
+            role: 'parent',
+            name: $scope.credentials.first_name,
+            surname: $scope.credentials.last_name,
+            phone: $scope.credentials.phone_number,
             latitude: $scope.credentials.latitude,
             longitude: $scope.credentials.longitude,
             address: $scope.geoloc,
-            role: 'parent'
+            parent: {
+                points: 0
+            }
         };
 
         var address = $scope.details.geometry.location;
@@ -47,7 +50,16 @@ router.controller('parentSignupController', function($scope, $cookies, UserServi
         request.latitude = address.lat();
         request.longitude = address.lng();
 
-        console.log(request)
+        console.log(request);
+
+        UserService.createUser(request)
+            .then(function(response){
+                console.log(response)
+
+            }, function(error){
+                console.log(error);
+            });
+
 
     }
 });

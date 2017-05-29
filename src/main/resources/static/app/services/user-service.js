@@ -21,5 +21,12 @@ router.factory('UserService', function($http, $cookies) {
             });
     };
 
+    userService.createUser = function(request){
+        return $http.post('/api/signup/',request)
+            .then(function(response){
+                return response;
+            });
+    };
+
     return userService;
 });
