@@ -1,7 +1,9 @@
 package com;
 
+import com.webapplication.dao.ParentRepository;
 import com.webapplication.dao.UserRepository;
-import com.webapplication.entity.Users;
+import com.webapplication.entity.ParentEntity;
+import com.webapplication.entity.UserEntity;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,11 +17,16 @@ public class Application {
 	}
 
 	@Bean
-    public CommandLineRunner loadData(UserRepository repository) {
+    public CommandLineRunner loadData(UserRepository repository, ParentRepository parentRepository) {
 		return (args) -> {
 			// save a couple of customers
-			repository.save(new Users(1,"a@a.com","Jack", "Bauer","123","Parents",true));
-			repository.save(new Users(2,"a@a.gr","Chloe", "O'Brian","321","Providers",true));
+			UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","ParentEntity",true);
+			repository.save(user);
+			//repository.save(new UserEntity("a@a.gr","Chloe", "O'Brian","321","ProviderEntity",true));
+		    ParentEntity parentEntity = new ParentEntity();
+		    parentEntity.setPoints(20);
+		    parentEntity.setUser(user);
+		    parentRepository.save(parentEntity);
 		};
 	}
 

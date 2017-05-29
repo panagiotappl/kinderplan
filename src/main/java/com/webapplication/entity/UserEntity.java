@@ -4,9 +4,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class User {
+public class UserEntity {
 
     @Id
+    @SequenceGenerator(name = "users_id_seq",
+            sequenceName = "users_id_seq",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "users_id_seq")
+    @Column(name = "id", nullable = false)
     private Integer id;
     private String name;
     private String surname;
@@ -18,11 +24,10 @@ public class User {
     private Timestamp lastLogin;
     private String role;
 
-    public User(){
+    public UserEntity(){
     }
 
-    public User(Integer id, String email, String name, String surname, String password, String role, Boolean validated){
-        this.id = id;
+    public UserEntity( String email, String name, String surname, String password, String role, Boolean validated){
         this.email = email;
         this.name = name;
         this.surname = surname;

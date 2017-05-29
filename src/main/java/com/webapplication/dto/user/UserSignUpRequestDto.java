@@ -1,14 +1,49 @@
 package com.webapplication.dto.user;
 
+import java.sql.Timestamp;
+
 /**
  * Created by dimitris on 5/19/2017.
  */
 public class UserSignUpRequestDto {
     private String name;
     private String surname;
-    private String companyName;
     private String role;
     private String email;
+    private String phone;
+    private String address;
+    private Double latitude;
+    private Double longitude;
+    private String password;
+    private Timestamp createdDate;
+    private ProviderRequestDto provider;
+    private ParentRequestDto parent;
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public ParentRequestDto getParent() {
+        return parent;
+    }
+
+    public void setParent(ParentRequestDto parent) {
+        this.parent = parent;
+    }
+
+
+
+    public ProviderRequestDto getProvider() {
+        return provider;
+    }
+
+    public void setProvider(ProviderRequestDto provider) {
+        this.provider = provider;
+    }
 
     public String getPassword() {
         return password;
@@ -16,20 +51,6 @@ public class UserSignUpRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    private String phone;
-    private String Address;
-    private Double Latitude;
-    private Double Longitude;
-    private String password;
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
     }
 
     public String getRole() {
@@ -40,22 +61,20 @@ public class UserSignUpRequestDto {
         this.role = role;
     }
 
-
-
     public Double getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public void setLatitude(Double latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
     public Double getLongitude() {
-        return Longitude;
+        return longitude;
     }
 
     public void setLongitude(Double longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -91,11 +110,11 @@ public class UserSignUpRequestDto {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
 

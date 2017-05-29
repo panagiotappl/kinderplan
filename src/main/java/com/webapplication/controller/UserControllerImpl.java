@@ -4,11 +4,10 @@ import com.webapplication.authentication.Authenticator;
 import com.webapplication.dao.ParentRepository;
 import com.webapplication.dao.ProviderRepository;
 import com.webapplication.dao.UserRepository;
-import com.webapplication.dto.user.SessionInfo;
-import com.webapplication.dto.user.UserLogInRequestDto;
-import com.webapplication.dto.user.UserLogInResponseDto;
-import com.webapplication.dto.user.UserResponseDto;
-import com.webapplication.entity.Users;
+import com.webapplication.dto.user.*;
+import com.webapplication.entity.ParentEntity;
+import com.webapplication.entity.ProviderEntity;
+import com.webapplication.entity.UserEntity;
 import com.webapplication.error.user.UserError;
 import com.webapplication.error.user.UserLogInError;
 import com.webapplication.exception.NotAuthorizedException;
@@ -16,18 +15,14 @@ import com.webapplication.exception.ValidationException;
 import com.webapplication.exception.user.*;
 import com.webapplication.mapper.UserMapper;
 import com.webapplication.validator.user.UserRequestValidator;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.spec.KeySpec;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,6 +31,7 @@ import java.util.UUID;
 public class UserControllerImpl implements UserController {
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ProviderRepository providerRepository;
     @Autowired
@@ -48,40 +44,10 @@ public class UserControllerImpl implements UserController {
     private UserMapper userMapper;
 
 
-    /*@Override
-    @RequestMapping(path = "/providersignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public UserSignUpResponseDto providerSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
-        //todo check user's data
-        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
-        user.setRole("Providers");
-        Providers provider = new Providers();
-        provider.setVatNumber(0);
-        provider.setCompanyName(userSignUpRequestDto.getCompanyName());
-        provider.setUsersEntityByUserId(user);
-        providerRepository.saveAndFlush(provider);
-        System.out.println("hello");
-        return null;
-    }
-
-    @Override
-    @RequestMapping(path = "/parentsignup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public UserSignUpResponseDto parentSignUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto){
-        //todo check user's data
-        User user =UserMapper.registerRequestToUser(userSignUpRequestDto);
-        user.setRole("Parents");//todo create enum for roles
-        Parents parent = new Parents();
-        parent.setPoints(0);
-        parent.setUsersEntityByUserId(user);
-        parentRepository.saveAndFlush(parent);
-        System.out.println("hello");
-        return null;
-    } */
-
-
     public UserLogInResponseDto login(@RequestBody UserLogInRequestDto userLogInRequestDto) throws Exception {
         userRequestValidator.validate(userLogInRequestDto);
 
-        Users user = userRepository.findUsersByEmail(userLogInRequestDto.getEmail());
+        UserEntity user = userRepository.findUsersByEmail(userLogInRequestDto.getEmail());
 
         //Null credentials validation
         Optional.ofNullable(user).orElseThrow(() -> new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS));
@@ -120,8 +86,8 @@ public class UserControllerImpl implements UserController {
         Optional.ofNullable(sessionInfo).orElseThrow(() -> new NotAuthenticatedException(UserError.NOT_AUTHENTICATED));
         sessionInfo.setDate(DateTime.now().plusMinutes(Authenticator.SESSION_TIME_OUT_MINUTES));
 
-        //Get User
-        Users user = userRepository.findUsersById(userId);
+        //Get UserEntity
+        UserEntity user = userRepository.findUsersById(userId);
 
         //Validate Authorization
         if (!userId.equals(sessionInfo.getUserId()))
@@ -130,6 +96,34 @@ public class UserControllerImpl implements UserController {
 
         return  userMapper.userToUserResponse(user);
     }
+
+    @Override
+    public UserSignUpResponseDto signUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
+        UserEntity userEntity= userMapper.userEntityFromUserDto(userSignUpRequestDto);
+        userEntity.setValidated(true);
+        if (userSignUpRequestDto.getRole().equals("parent")){//todo make enump parent
+           saveParent(userEntity,userSignUpRequestDto.getParent());
+        }
+        else{
+            saveProvider(userEntity,userSignUpRequestDto.getProvider());
+        }
+        return null;
+    }
+
+    private void saveProvider(UserEntity userEntity, ProviderRequestDto providerRequestDto) {
+        ProviderEntity provider = userMapper.providerEntityFromProviderDto(providerRequestDto);
+        provider.setUser(userEntity);
+        userRepository.saveAndFlush(userEntity);
+        providerRepository.saveAndFlush(provider);
+    }
+
+    private void saveParent(UserEntity userEntity,ParentRequestDto parentRequestDto) {
+        ParentEntity parent = userMapper.parentEntityFromParentDto(parentRequestDto);
+        parent.setUser(userEntity);
+        userRepository.saveAndFlush(userEntity);  //todo check if you can save them with one call
+        parentRepository.saveAndFlush(parent);
+    }
+
 
     // Password validation method to be used later when there's salt and registration is done
 
@@ -173,7 +167,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @ExceptionHandler(Exception.class)
-    private void genericError(HttpServletResponse response) throws IOException {
+    private void genericError(HttpServletResponse response) throws IOException {//todo we do not see errors in console
         response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 }

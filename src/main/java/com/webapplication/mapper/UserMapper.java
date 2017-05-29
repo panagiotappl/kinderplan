@@ -1,14 +1,16 @@
 package com.webapplication.mapper;
 
 
-import com.webapplication.dto.user.UserResponseDto;
-import com.webapplication.entity.Users;
+import com.webapplication.dto.user.*;
+import com.webapplication.entity.ParentEntity;
+import com.webapplication.entity.ProviderEntity;
+import com.webapplication.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
 
-    public UserResponseDto userToUserResponse(Users user) {
+    public UserResponseDto userToUserResponse(UserEntity user) {
         if (user == null)
             return null;
 
@@ -22,33 +24,31 @@ public class UserMapper {
 
         return userResponse;
     }
-//    public static Users registerRequestToUsers(UsersSignUpRequestDto UsersDto) {
-//        Users user = new Users();
-//        user Users.setEmail(UsersDto.getEmail());
-//        user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-//        user.setUpdatedDate(new Timestamp(System.currentTimeMillis()));
-//        user.setLastLogin((new Timestamp(System.currentTimeMillis())));
-//        user.setName(UsersDto.getName());
-//        user.setSurname(UsersDto.getSurname());
-//        user.setPassword(UsersDto.getPassword());
-//        user.setValidated(true);
-//        return user;
-//    }
-//
-//    public static UsersDto fromUsersToResponseDto(Users Users) {
-//        UsersDto UsersDto = new UsersDto();
-//        UsersDto.setId(Users.getId());
-//        UsersDto.setRole(Users.getRole());
-//        UsersDto.setCreatedDate(Users.getCreatedDate());
-//        UsersDto.setEmail(Users.getEmail());
-//        UsersDto.setLastLogin(Users.getLastLogin());
-//        UsersDto.setName(Users.getName());
-//        UsersDto.setSurname(Users.getSurname());
-//        UsersDto.setEmail(Users.getEmail());
-//        UsersDto.setUpdatedDate(Users.getUpdatedDate());
-//        UsersDto.setValidated(Users.getValidated());
-//        return UsersDto;
-//    }
+
+    public UserEntity userEntityFromUserDto(UserSignUpRequestDto userSignUpRequestDto){
+        UserEntity userEntity= new UserEntity();
+        userEntity.setName(userSignUpRequestDto.getName());
+        userEntity.setSurname(userSignUpRequestDto.getSurname());
+        userEntity.setEmail(userSignUpRequestDto.getEmail());
+        userEntity.setCreatedDate(userSignUpRequestDto.getCreatedDate());
+        userEntity.setPassword(userSignUpRequestDto.getPassword());
+        userEntity.setRole(userSignUpRequestDto.getRole());
+        return userEntity;
+    }
+
+    public ProviderEntity providerEntityFromProviderDto(ProviderRequestDto providerRequestDto){
+        ProviderEntity providerEntity = new ProviderEntity();
+        providerEntity.setCompanyName(providerRequestDto.getCompanyName());
+        providerEntity.setVatNumber(providerRequestDto.getVatNumber());
+        return providerEntity;
+    }
+
+    public ParentEntity parentEntityFromParentDto(ParentRequestDto parentRequestDto){
+        ParentEntity parentEntity = new ParentEntity();
+        parentEntity.setPoints(parentRequestDto.getPoints());
+        return parentEntity;
+    }
+
 
 
 }

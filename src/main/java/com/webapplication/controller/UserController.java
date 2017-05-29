@@ -1,8 +1,6 @@
 package com.webapplication.controller;
 
-import com.webapplication.dto.user.UserLogInRequestDto;
-import com.webapplication.dto.user.UserLogInResponseDto;
-import com.webapplication.dto.user.UserResponseDto;
+import com.webapplication.dto.user.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -23,4 +21,7 @@ public interface UserController {
 
     @RequestMapping(path = "/user/{userId}", method = RequestMethod.GET, produces = "application/json")
     UserResponseDto getUser(@RequestHeader UUID authToken, @PathVariable Integer userId) throws Exception;
+
+    @RequestMapping(path = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    UserSignUpResponseDto signUp(UserSignUpRequestDto userSignUpRequestDto) throws Exception;
 }
