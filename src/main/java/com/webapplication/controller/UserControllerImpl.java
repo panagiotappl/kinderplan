@@ -99,6 +99,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public UserSignUpResponseDto signUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
+        userRequestValidator.validate(userSignUpRequestDto);
         UserEntity userEntity= userMapper.userEntityFromUserDto(userSignUpRequestDto);
         userEntity.setValidated(true);
         if (userSignUpRequestDto.getRole().equals("parent")){//todo make enump parent
@@ -107,18 +108,19 @@ public class UserControllerImpl implements UserController {
         else{
             saveProvider(userEntity,userSignUpRequestDto.getProvider());
         }
-        return null;
+        UserSignUpResponseDto response = new UserSignUpResponseDto(HttpStatus.OK,"User is registered succesfully");
+        return  response;
     }
 
-    private void saveProvider(UserEntity userEntity, ProviderRequestDto providerRequestDto) {
-        ProviderEntity provider = userMapper.providerEntityFromProviderDto(providerRequestDto);
+    private void saveProvider(UserEntity userEntity, ProviderDto providerDto) {
+        ProviderEntity provider = userMapper.providerEntityFromProviderDto(providerDto);
         provider.setUser(userEntity);
         userRepository.saveAndFlush(userEntity);
         providerRepository.saveAndFlush(provider);
     }
 
-    private void saveParent(UserEntity userEntity,ParentRequestDto parentRequestDto) {
-        ParentEntity parent = userMapper.parentEntityFromParentDto(parentRequestDto);
+    private void saveParent(UserEntity userEntity,ParentDto parentDto) {
+        ParentEntity parent = userMapper.parentEntityFromParentDto(parentDto);
         parent.setUser(userEntity);
         userRepository.saveAndFlush(userEntity);  //todo check if you can save them with one call
         parentRepository.saveAndFlush(parent);

@@ -36,16 +36,16 @@ public class UserMapper {
         return userEntity;
     }
 
-    public ProviderEntity providerEntityFromProviderDto(ProviderRequestDto providerRequestDto){
+    public ProviderEntity providerEntityFromProviderDto(ProviderDto providerDto){
         ProviderEntity providerEntity = new ProviderEntity();
-        providerEntity.setCompanyName(providerRequestDto.getCompanyName());
-        providerEntity.setVatNumber(providerRequestDto.getVatNumber());
+        providerEntity.setCompanyName(providerDto.getCompanyName());
+        providerEntity.setVatNumber(providerDto.getVatNumber());
         return providerEntity;
     }
 
-    public ParentEntity parentEntityFromParentDto(ParentRequestDto parentRequestDto){
+    public ParentEntity parentEntityFromParentDto(ParentDto parentDto){
         ParentEntity parentEntity = new ParentEntity();
-        parentEntity.setPoints(parentRequestDto.getPoints());
+        parentEntity.setPoints(parentDto.getPoints());
         return parentEntity;
     }
 

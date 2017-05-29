@@ -3,7 +3,7 @@ package com.webapplication.dto.user;
 /**
  * Created by dimitris on 5/29/2017.
  */
-public class ParentRequestDto {
+public class ParentDto {
     private Integer points;
 
     public Integer getPoints() {

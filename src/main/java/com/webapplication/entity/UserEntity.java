@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(
+        name="user_entity",
+        uniqueConstraints=
+        @UniqueConstraint(columnNames={"email"})
+)
 public class UserEntity {
 
     @Id

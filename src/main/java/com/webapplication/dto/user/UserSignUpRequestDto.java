@@ -15,9 +15,10 @@ public class UserSignUpRequestDto {
     private Double latitude;
     private Double longitude;
     private String password;
+    private String repassword;
     private Timestamp createdDate;
-    private ProviderRequestDto provider;
-    private ParentRequestDto parent;
+    private ProviderDto provider;
+    private ParentDto parent;
 
     public Timestamp getCreatedDate() {
         return createdDate;
@@ -27,21 +28,20 @@ public class UserSignUpRequestDto {
         this.createdDate = createdDate;
     }
 
-    public ParentRequestDto getParent() {
+    public ParentDto getParent() {
         return parent;
     }
 
-    public void setParent(ParentRequestDto parent) {
+    public void setParent(ParentDto parent) {
         this.parent = parent;
     }
 
 
-
-    public ProviderRequestDto getProvider() {
+    public ProviderDto getProvider() {
         return provider;
     }
 
-    public void setProvider(ProviderRequestDto provider) {
+    public void setProvider(ProviderDto provider) {
         this.provider = provider;
     }
 
@@ -52,6 +52,15 @@ public class UserSignUpRequestDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
+
 
     public String getRole() {
         return role;
@@ -116,8 +125,6 @@ public class UserSignUpRequestDto {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 
 
 }
