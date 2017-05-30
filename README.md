@@ -2,6 +2,7 @@
 **API Dodumentation**
 * [login](documentation/login.md)
 * [user](documentation/user.md)
+* [signup](documentation/signup.md)
 
 **Package Information**
 * **authentication**
@@ -9,33 +10,33 @@
 
 * **controller**
     * `API init and implementation`
-   
+
 * **dao**
     * `Data access object. Sql queries that access the database are written here.`
 
 * **dto**
     * `Data transfer object. Intermediate layer between entity and json response. Define this object to send only the data you really need to and skip or hide unnecessary information. `
-    
+
 * **entity**
     * `Class representation of database tables.`
-    
+
 * **error**
     * `Custom error messages declaration.`
 
 * **exception**
     * `Custom exception messages declaration.`
-    
+
 * **mapper**
     * `Maps entity into dto.`
-    
+
 * **validator**
     * `Validates request data.`
 
 
-    
+
 **Exception List**
 * **User:**
-    
+
     * EmailAlreadyInUseException
         * `HttpStatus.CONFLICT (409)`
     * EmailUnverifiedException
@@ -50,11 +51,11 @@
         * `HttpStatus.CONFLICT (409)`
     * UserNotFoundException
         * `HttpStatus.NOT_FOUND (404)`
-    
+
 
 
 * **General:**
-    
+
     * BadRequestException
         * `insert handler info here`
     * NotAuthorizedException
@@ -81,9 +82,9 @@
     * INVALID_DATA("Invalid data.")
     * INVALID_CREDENTIALS("Username and password do not match.")
     * USER_NOT_EMAIL_VERIFIED("User has not been verified yet.")
-    
+
 * **UserLoginError.java:**
-    
+
     * MISSING_DATA("Required attributes are missing.")
     * INVALID_DATA("Invalid data.")
     * EMAIL_ALREADY_USED("Email is already in use.")
