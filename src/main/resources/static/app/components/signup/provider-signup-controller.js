@@ -1,5 +1,5 @@
 
-router.controller('providerSignupController', function($scope, $cookies, UserService){
+router.controller('providerSignupController', function($scope, $cookies, UserService, $state){
 
     $scope.credentials = {
         company_name: '',
@@ -52,6 +52,7 @@ router.controller('providerSignupController', function($scope, $cookies, UserSer
         UserService.createUser(request)
             .then(function(response){
                 console.log(response)
+                $state.go('home');
 
             }, function(error){
                 console.log(error);

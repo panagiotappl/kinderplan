@@ -54,7 +54,8 @@ router.controller('parentSignupController', function($scope, $cookies, UserServi
 
         UserService.createUser(request)
             .then(function(response){
-                console.log(response)
+                console.log(response);
+                $state.go('home');
 
             }, function(error){
                 console.log(error);

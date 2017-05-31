@@ -16,18 +16,18 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Bean
-    public CommandLineRunner loadData(UserRepository repository, ParentRepository parentRepository) {
-		return (args) -> {
-			// save a couple of customers
-			UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","ParentEntity",true);
-			repository.save(user);
-			//repository.save(new UserEntity("a@a.gr","Chloe", "O'Brian","321","ProviderEntity",true));
-		    ParentEntity parentEntity = new ParentEntity();
-		    parentEntity.setPoints(20);
-		    parentEntity.setUser(user);
-		    parentRepository.save(parentEntity);
-		};
-	}
+//	@Bean
+//    public CommandLineRunner loadData(UserRepository repository, ParentRepository parentRepository) {
+//		return (args) -> {
+//			// save a couple of customers
+////			UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","ParentEntity",true);
+////			repository.save(user);
+//			//repository.save(new UserEntity("a@a.gr","Chloe", "O'Brian","321","ProviderEntity",true));
+////		    ParentEntity parentEntity = new ParentEntity();
+////		    parentEntity.setPoints(20);
+////		    parentEntity.setUser(user);
+////		    parentRepository.save(parentEntity);
+//		};
+//	}
 
 }

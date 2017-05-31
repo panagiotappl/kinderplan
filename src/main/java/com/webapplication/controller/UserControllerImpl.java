@@ -1,5 +1,7 @@
 package com.webapplication.controller;
 
+import org.joda.time.DateTime;
+
 import com.webapplication.authentication.Authenticator;
 import com.webapplication.dao.ParentRepository;
 import com.webapplication.dao.ProviderRepository;
@@ -15,7 +17,6 @@ import com.webapplication.exception.ValidationException;
 import com.webapplication.exception.user.*;
 import com.webapplication.mapper.UserMapper;
 import com.webapplication.validator.user.UserRequestValidator;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -102,6 +104,8 @@ public class UserControllerImpl implements UserController {
         userRequestValidator.validate(userSignUpRequestDto);
         UserEntity userEntity= userMapper.userEntityFromUserDto(userSignUpRequestDto);
         userEntity.setValidated(true);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        userEntity.setCreatedDate(timestamp);
         if (userSignUpRequestDto.getRole().equals("parent")){//todo make enump parent
            saveParent(userEntity,userSignUpRequestDto.getParent());
         }
