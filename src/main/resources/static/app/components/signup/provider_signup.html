@@ -10,9 +10,7 @@
                         Sign up as a Provider
                     </div>
                 </div>
-                <div class="alert alert-danger" ng-if="error_message">
-                    <strong>Error!</strong> {{error_message}}
-                </div>
+
                 <div class="form-group">
                     <div class="labels"><div class="required-field">*</div>Company Email Address <div class="missing-alert" ng-messages="signupform_1.email.$error" role="alert" ng-if="signupform_1.$submitted">
                         <span ng-message="required"> (Required field is missing)</span>
@@ -73,10 +71,14 @@
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
+
                         <div class="form-group">
-                            <div class="labels">VAT Number</div>
-                            <input type="text" class="form-control"  name=vat" ng-model="credentials.afm" >
+                            <div class="labels"><div class="required-field">*</div>Vat Number <div class="missing-alert" ng-messages="signupform_1.vat.$error" role="alert" ng-if="signupform_1.$submitted">
+                                <span ng-message="required"> (Required field is missing)</span>
+                            </div></div>
+                            <input type="text" name="vat" id="vat" class="form-control input-sm"  ng-model="credentials.vat" required>
                         </div>
+
                     </div>
 
                     </div>
