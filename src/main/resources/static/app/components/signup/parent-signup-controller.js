@@ -1,6 +1,7 @@
 
 router.controller('parentSignupController', function($scope, $cookies, UserService){
 
+    $scope.error_message = null;
     $scope.credentials = {
         email: '',
         password: '',
@@ -58,7 +59,9 @@ router.controller('parentSignupController', function($scope, $cookies, UserServi
                 $state.go('home');
 
             }, function(error){
-                console.log(error);
+                $scope.error_message = error.data.message;
+                console.log($scope.error_message);
+
             });
 
 

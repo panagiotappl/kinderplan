@@ -1,6 +1,7 @@
 
 router.controller('providerSignupController', function($scope, $cookies, UserService, $state){
 
+    $scope.error_message = null;
     $scope.credentials = {
         company_name: '',
         email: '',
@@ -51,11 +52,13 @@ router.controller('providerSignupController', function($scope, $cookies, UserSer
 
         UserService.createUser(request)
             .then(function(response){
-                console.log(response)
+                console.log(response);
                 $state.go('home');
 
             }, function(error){
-                console.log(error);
+                $scope.error_message = error.data.message;
+                console.log($scope.error_message);
+
             });
 
 
