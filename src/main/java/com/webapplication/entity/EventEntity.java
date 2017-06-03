@@ -5,7 +5,6 @@ package com.webapplication.entity;
  */
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
