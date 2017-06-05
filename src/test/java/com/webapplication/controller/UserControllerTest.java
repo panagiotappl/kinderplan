@@ -69,7 +69,7 @@ public class UserControllerTest {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
     }
     @Test
-    public void login() throws Exception {
+    public void userValidUserShouldLogin() throws Exception {
         UserLogInRequestDto logInRequestDto = new UserLogInRequestDto();
         logInRequestDto.setEmail("jimseinta@gmail.com");
         logInRequestDto.setPassword("seinta");
@@ -87,7 +87,7 @@ public class UserControllerTest {
 
 
     @Test
-    public void getUser() throws Exception {
+    public void userUserShouldBeReturned() throws Exception {
         SessionInfo session = new SessionInfo(1, DateTime.now().plusMinutes(Authenticator.SESSION_TIME_OUT_MINUTES), "parent");
         UUID authToken = authenticator.createSession(session);
 
@@ -102,7 +102,16 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.validated", is(true)))
                 .andExpect(jsonPath("$.parentDto.points", is(20)));
 
+    }
 
+    @Test
+    public void userInvalidTokenRequestShouldBeIgnored() throws Exception {
+        UUID invalidAuthToken = new UUID(0, 0);
+
+        mockMvc.perform(get("/api/user/1")
+                .header("authToken", invalidAuthToken))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
 
     }
 }
