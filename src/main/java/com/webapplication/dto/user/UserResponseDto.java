@@ -12,6 +12,8 @@ public class UserResponseDto {
     private Timestamp createdDate;
     private Timestamp updatedDate;
     private Timestamp lastLogin;
+    private ParentDto parentDto;
+    private ProviderDto providerDto;
 
     public Integer getId() {
         return id;
@@ -75,5 +77,21 @@ public class UserResponseDto {
 
     public void setLastLogin(Timestamp lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public ParentDto getParentDto() {
+        return parentDto;
+    }
+
+    public void setParentDto(ParentDto parentDto) {
+        this.parentDto = parentDto;
+    }
+
+    public ProviderDto getProviderDto() {
+        return providerDto;
+    }
+
+    public void setProviderDto(ProviderDto providerDto) {
+        this.providerDto = providerDto;
     }
 }

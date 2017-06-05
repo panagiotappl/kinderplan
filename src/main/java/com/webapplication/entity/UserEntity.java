@@ -28,6 +28,7 @@ public class UserEntity {
     private Timestamp updatedDate;
     private Timestamp lastLogin;
     private String role;
+    private String salt;
 
     public UserEntity(){
     }
@@ -121,5 +122,11 @@ public class UserEntity {
         this.role = role;
     }
 
+    public String getSalt() {
+        return salt;
+    }
 
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }

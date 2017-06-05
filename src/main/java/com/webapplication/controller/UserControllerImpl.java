@@ -1,5 +1,6 @@
 package com.webapplication.controller;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 
 import com.webapplication.authentication.Authenticator;
@@ -22,8 +23,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
@@ -56,13 +62,14 @@ public class UserControllerImpl implements UserController {
 
 
         //Password validation with salt callback to be used later. Using dummy validation below!
-        //        if (!validatePassword(userLogInRequestDto.getPassword(), user.getPassword(), user.getSalt()))
-//            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
+        if (!validatePassword(userLogInRequestDto.getPassword(), user.getPassword(), user.getSalt()))
+            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
 
         //Dummy password validation!
 
-        if(!user.getPassword().equals(userLogInRequestDto.getPassword()))
-            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
+//        if(!user.getPassword().equals(userLogInRequestDto.getPassword()))
+//            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
+
         //Not verified validation
         if (!user.getValidated())
             throw new EmailUnverifiedException(UserLogInError.USER_NOT_EMAIL_VERIFIED);
@@ -95,19 +102,34 @@ public class UserControllerImpl implements UserController {
         if (!userId.equals(sessionInfo.getUserId()))
             throw new NotAuthorizedException(UserError.UNAUTHORIZED);
 
+        ParentEntity parent = null;
+        ProviderEntity provider = null;
 
-        return  userMapper.userToUserResponse(user);
+        if(user.getRole().equals("parent"))
+            parent = parentRepository.findParentByUserId(userId);
+        else
+            provider = providerRepository.findProviderByUserId(userId);
+
+        return  userMapper.userToUserResponse(user, parent, provider);
     }
 
     @Override
     public UserSignUpResponseDto signUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
         userRequestValidator.validate(userSignUpRequestDto);
-        UserEntity userEntity= userMapper.userEntityFromUserDto(userSignUpRequestDto);
+
+        byte[] salt = createSaltForUser();
+        String encodedSaltAsString = new String(Base64.encodeBase64(salt));
+        String encodedPassword = encodePassword(userSignUpRequestDto.getPassword(), salt);
+
+        UserEntity userEntity= userMapper.userEntityFromUserDto(userSignUpRequestDto, encodedPassword, encodedSaltAsString);
         userEntity.setValidated(true);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         userEntity.setCreatedDate(timestamp);
+
+
+
         if (userSignUpRequestDto.getRole().equals("parent")){//todo make enump parent
-           saveParent(userEntity,userSignUpRequestDto.getParent());
+           saveParent(userEntity, userSignUpRequestDto.getParent());
         }
         else{
             saveProvider(userEntity,userSignUpRequestDto.getProvider());
@@ -123,7 +145,9 @@ public class UserControllerImpl implements UserController {
         providerRepository.saveAndFlush(provider);
     }
 
-    private void saveParent(UserEntity userEntity,ParentDto parentDto) {
+    private void saveParent(UserEntity userEntity, ParentDto parentDto) {
+
+
         ParentEntity parent = userMapper.parentEntityFromParentDto(parentDto);
         parent.setUser(userEntity);
         userRepository.saveAndFlush(userEntity);  //todo check if you can save them with one call
@@ -133,7 +157,7 @@ public class UserControllerImpl implements UserController {
 
     // Password validation method to be used later when there's salt and registration is done
 
-   /* private Boolean validatePassword(String attemptedPassword, String password, String saltStored) throws Exception {
+   private Boolean validatePassword(String attemptedPassword, String password, String saltStored) throws Exception {
         byte[] salt = Base64.decodeBase64(saltStored.getBytes());
         String algorithm = "PBKDF2WithHmacSHA1";
         int derivedKeyLength = 160;
@@ -141,11 +165,30 @@ public class UserControllerImpl implements UserController {
         KeySpec spec = new PBEKeySpec(attemptedPassword.toCharArray(), salt, iterations, derivedKeyLength);
         SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
         String encodedAttemptedPassword = new String(Base64.encodeBase64(f.generateSecret(spec).getEncoded()));
+        System.out.println(password.equals(encodedAttemptedPassword));
         return password.equals(encodedAttemptedPassword);
-    } */
+    }
 
 
     // EXCEPTION HANDLERS!
+
+
+    private byte[] createSaltForUser() throws NoSuchAlgorithmException {
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[8];
+        random.nextBytes(salt);
+        return salt;
+    }
+
+    private String encodePassword(String password, byte[] salt) throws Exception {
+        String algorithm = "PBKDF2WithHmacSHA1";
+        int derivedKeyLength = 160;
+        int iterations = 20000;
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, derivedKeyLength);
+        SecretKeyFactory f = SecretKeyFactory.getInstance(algorithm);
+        byte[] encodedPassword = Base64.encodeBase64(f.generateSecret(spec).getEncoded());
+        return new String(encodedPassword);
+    }
 
     @ExceptionHandler(ValidationException.class)
     private void invalidAttributes(HttpServletResponse response) throws IOException {

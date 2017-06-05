@@ -2,7 +2,11 @@ package com.webapplication.controller;
 
 import com.Application;
 import com.google.gson.Gson;
+import com.webapplication.authentication.Authenticator;
+import com.webapplication.dto.user.SessionInfo;
 import com.webapplication.dto.user.UserLogInRequestDto;
+import com.webapplication.dto.user.UserLogInResponseDto;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,18 +22,19 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 
-/**
- * Created by dimitris on 5/31/2017.
- */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @WebAppConfiguration
@@ -38,6 +43,8 @@ public class UserControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    @Autowired
+    private Authenticator authenticator;
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
@@ -63,20 +70,40 @@ public class UserControllerTest {
     }
     @Test
     public void login() throws Exception {
-        UserLogInRequestDto logInRequestDto=new UserLogInRequestDto();
-        logInRequestDto.setEmail("a@a.com");
-        logInRequestDto.setPassword("123");
+        UserLogInRequestDto logInRequestDto = new UserLogInRequestDto();
+        logInRequestDto.setEmail("jimseinta@gmail.com");
+        logInRequestDto.setPassword("seinta");
         Gson gson = new Gson();
         String json = gson.toJson(logInRequestDto);
         mockMvc.perform(post("/api/login/")
                 .content(json)
                 .contentType(contentType))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userId", is(1)))
+                .andExpect(jsonPath("$.userId", is(5)))
                 .andExpect(jsonPath("$.role", is("parent")));
 
     }
 
 
+
+    @Test
+    public void getUser() throws Exception {
+        SessionInfo session = new SessionInfo(1, DateTime.now().plusMinutes(Authenticator.SESSION_TIME_OUT_MINUTES), "parent");
+        UUID authToken = authenticator.createSession(session);
+
+        mockMvc.perform(get("/api/user/1")
+                .header("authToken", authToken))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email", is("a@a.com")))
+                .andExpect(jsonPath("$.name", is("Jack")))
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.surname", is("Bauer")))
+                .andExpect(jsonPath("$.validated", is(true)))
+                .andExpect(jsonPath("$.parentDto.points", is(20)));
+
+
+
+    }
 }
 

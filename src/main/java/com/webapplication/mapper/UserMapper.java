@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-    public UserResponseDto userToUserResponse(UserEntity user) {
+    public UserResponseDto userToUserResponse(UserEntity user, ParentEntity parent, ProviderEntity provider) {
         if (user == null)
             return null;
 
@@ -22,16 +22,29 @@ public class UserMapper {
         userResponse.setCreatedDate(user.getCreatedDate());
         userResponse.setValidated(user.getValidated());
 
+
+        ParentDto parentResponse = new ParentDto();
+        ProviderDto providerResponse = new ProviderDto();
+
+        if(user.getRole().equals("parent")) {
+            parentResponse.setPoints(parent.getPoints());
+            userResponse.setParentDto(parentResponse);
+        }else{
+            providerResponse.setCompanyName(provider.getCompanyName());
+            providerResponse.setVatNumber(provider.getVatNumber());
+            userResponse.setProviderDto(providerResponse);
+        }
         return userResponse;
     }
 
-    public UserEntity userEntityFromUserDto(UserSignUpRequestDto userSignUpRequestDto){
+    public UserEntity userEntityFromUserDto(UserSignUpRequestDto userSignUpRequestDto, String encodedPassword, String encodedSaltAsString){
         UserEntity userEntity= new UserEntity();
         userEntity.setName(userSignUpRequestDto.getName());
         userEntity.setSurname(userSignUpRequestDto.getSurname());
         userEntity.setEmail(userSignUpRequestDto.getEmail());
         userEntity.setCreatedDate(userSignUpRequestDto.getCreatedDate());
-        userEntity.setPassword(userSignUpRequestDto.getPassword());
+        userEntity.setPassword(encodedPassword);
+        userEntity.setSalt(encodedSaltAsString);
         userEntity.setRole(userSignUpRequestDto.getRole());
         return userEntity;
     }

@@ -20,8 +20,10 @@ public class UserLogInValidator implements Validator<UserLogInRequestDto> {
         Optional.ofNullable(request.getPassword()).orElseThrow(() -> new ValidationException(UserLogInError.MISSING_DATA));
         Optional.ofNullable(request.getEmail()).orElseThrow(() -> new ValidationException(UserLogInError.MISSING_DATA));
 
+
         if (Stream.of(request.getEmail(), request.getPassword()).filter(Objects::nonNull).anyMatch(String::isEmpty))
             throw new ValidationException(UserLogInError.INVALID_DATA);
+
 
     }
 
