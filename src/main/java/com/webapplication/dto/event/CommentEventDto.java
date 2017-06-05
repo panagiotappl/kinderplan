@@ -1,4 +1,6 @@
-package com.webapplication.dto.user;
+package com.webapplication.dto.event;
+
+import com.webapplication.dto.user.ParentDto;
 
 import java.sql.Timestamp;
 

@@ -1,4 +1,4 @@
-package com.webapplication.dto.user;
+package com.webapplication.dto.event;
 
 import java.sql.Timestamp;
 

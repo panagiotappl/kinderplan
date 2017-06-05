@@ -1,25 +1,34 @@
-package com.webapplication.dto.user;
+package com.webapplication.dto.event;
+
+import com.webapplication.dto.user.ProviderDto;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- * Created by mary on 4/6/2017.
+ * Created by mary on 5/6/2017.
  */
-public class EventDto {
+public class EventResponseDto {
+	private Integer id;
 	private String name;
 	private String address;
-	private ProviderDto provider;
+	//private ProviderDto provider;
 	private Float longitude;
 	private Float latitude;
 	private Integer age_from;
 	private Integer age_to;
 	private Integer ticket_price;
 	private String description;
-	private Timestamp date_created;
 	private Timestamp date_ending;
 	private Timestamp date_starting;
-	private ArrayList<EventDateDto> event_dates;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -37,13 +46,13 @@ public class EventDto {
 		this.address = address;
 	}
 
-	public ProviderDto getProvider() {
-		return provider;
-	}
+//	public ProviderDto getProvider() {
+//		return provider;
+//	}
 
-	public void setProvider(ProviderDto provider) {
-		this.provider = provider;
-	}
+//	public void setProvider(ProviderDto provider) {
+//		this.provider = provider;
+//	}
 
 	public Float getLongitude() {
 		return longitude;
@@ -93,14 +102,6 @@ public class EventDto {
 		this.description = description;
 	}
 
-	public Timestamp getDate_created() {
-		return date_created;
-	}
-
-	public void setDate_created(Timestamp date_created) {
-		this.date_created = date_created;
-	}
-
 	public Timestamp getDate_ending() {
 		return date_ending;
 	}
@@ -115,13 +116,5 @@ public class EventDto {
 
 	public void setDate_starting(Timestamp date_starting) {
 		this.date_starting = date_starting;
-	}
-
-	public ArrayList<EventDateDto> getEvent_dates() {
-		return event_dates;
-	}
-
-	public void setEvent_dates(ArrayList<EventDateDto> event_dates) {
-		this.event_dates = event_dates;
 	}
 }
