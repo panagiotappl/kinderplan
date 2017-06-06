@@ -6,11 +6,11 @@ import javax.persistence.*;
  * Created by mary on 3/6/2017.
  */
 
-
-@Entity
-@Table(
-		name="event_category"
-)
+//
+//@Entity
+//@Table(
+//		name="event_category"
+//)
 public class EventCategoryEntity {
 	private Integer event_id;
 	private Integer category_id;
