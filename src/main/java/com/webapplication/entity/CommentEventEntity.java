@@ -9,26 +9,28 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(
-		name="Comments_Events"
+		name="event_comments"
 )
 public class CommentEventEntity {
 	@Id
 	@SequenceGenerator(name = "commentEvent_id_seq",
 			sequenceName = "commentEvent_id_seq",
 			allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	@GeneratedValue(strategy = GenerationType.IDENTITY,
 			generator = "commentEvent_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	private String comment;
-	private Integer event;
+	@ManyToOne
+	private EventEntity event;
 	private Timestamp date;
-	private Integer user_id;
+	@ManyToOne
+	private ParentEntity user_id;
 
 	public CommentEventEntity() {
 	}
 
-	public CommentEventEntity(String comment, Integer event, Timestamp date, Integer user_id) {
+	public CommentEventEntity(String comment, EventEntity event, Timestamp date, ParentEntity user_id) {
 		this.comment = comment;
 		this.event = event;
 		this.date = date;
@@ -51,11 +53,11 @@ public class CommentEventEntity {
 		this.comment = comment;
 	}
 
-	public Integer getEvent() {
+	public EventEntity getEvent() {
 		return event;
 	}
 
-	public void setEvent(Integer event) {
+	public void setEvent(EventEntity event) {
 		this.event = event;
 	}
 
@@ -67,11 +69,11 @@ public class CommentEventEntity {
 		this.date = date;
 	}
 
-	public Integer getUser_id() {
+	public ParentEntity getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(Integer user_id) {
+	public void setUser_id(ParentEntity user_id) {
 		this.user_id = user_id;
 	}
 }

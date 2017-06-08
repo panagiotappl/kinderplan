@@ -9,18 +9,19 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(
-		name="Event_Dates"
+		name="event_dates"
 )
 public class EventDateEntity {
 	@Id
-//	@SequenceGenerator(name = "eventDates_id_seq",				// do we even need an id here?
-//			sequenceName = "eventDates_id_seq",
-//			allocationSize = 1)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-//			generator = "eventDates_id_seq")
+	@SequenceGenerator(name = "eventDates_id_seq",
+			sequenceName = "eventDates_id_seq",
+			allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY,
+			generator = "eventDates_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	private Integer event;
+	@ManyToOne
+	private EventEntity event;
 	private Timestamp start_date;
 	private Timestamp end_date;
 	private Integer available_tickets;
@@ -30,7 +31,7 @@ public class EventDateEntity {
 	public EventDateEntity() {
 	}
 
-	public EventDateEntity(Integer id, Integer event, Timestamp start_date, Timestamp end_date, Integer available_tickets) {
+	public EventDateEntity(Integer id, EventEntity event, Timestamp start_date, Timestamp end_date, Integer available_tickets) {
 		this.id = id;
 		this.event = event;
 		this.start_date = start_date;
@@ -38,7 +39,7 @@ public class EventDateEntity {
 		this.available_tickets = available_tickets;
 	}
 
-	public EventDateEntity(Integer id, Integer event, Timestamp start_date, Timestamp end_date, Integer available_tickets, String note) {
+	public EventDateEntity(Integer id, EventEntity event, Timestamp start_date, Timestamp end_date, Integer available_tickets, String note) {
 		this.id = id;
 		this.event = event;
 		this.start_date = start_date;
@@ -55,11 +56,11 @@ public class EventDateEntity {
 		this.id = id;
 	}
 
-	public Integer getEvent() {
+	public EventEntity getEvent() {
 		return event;
 	}
 
-	public void setEvent(Integer event) {
+	public void setEvent(EventEntity event) {
 		this.event = event;
 	}
 

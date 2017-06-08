@@ -5,31 +5,34 @@ package com.webapplication.entity;
  */
 
 import javax.persistence.*;
+import javax.swing.tree.ExpandVetoException;
 import java.sql.Timestamp;
 
 @Entity
 @Table(
-		name="Transactions"
+		name = "transactions"
 )
-public class Transaction {
+public class TransactionEntity {
 	@Id
-	@SequenceGenerator(name = "transaction_id_seq",
-			sequenceName = "transaction_id_seq",
+	@SequenceGenerator(name = "transactions_id_seq",
+			sequenceName = "transactions_id_seq",
 			allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-			generator = "transaction_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY,
+			generator = "transactions_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	private Integer user;
+	@ManyToOne
+	private ParentEntity user_id;
 	private Integer ammount;
 	private Timestamp date;
-	private Integer event;
+	@ManyToOne
+	private EventEntity event;
 
-	public Transaction() {
+	public TransactionEntity() {
 	}
 
-	public Transaction(Integer user, Integer ammount, Timestamp date, Integer event) {
-		this.user = user;
+	public TransactionEntity(ParentEntity user_id, Integer ammount, Timestamp date, EventEntity event) {
+		this.user_id = user_id;
 		this.ammount = ammount;
 		this.date = date;
 		this.event = event;
@@ -43,12 +46,12 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public Integer getUser() {
-		return user;
+	public ParentEntity getUser_id() {
+		return user_id;
 	}
 
-	public void setUser(Integer user) {
-		this.user = user;
+	public void setUser_id(ParentEntity user_id) {
+		this.user_id = user_id;
 	}
 
 	public Integer getAmmount() {
@@ -67,11 +70,11 @@ public class Transaction {
 		this.date = date;
 	}
 
-	public Integer getEvent() {
+	public EventEntity getEvent() {
 		return event;
 	}
 
-	public void setEvent(Integer event) {
+	public void setEvent(EventEntity event) {
 		this.event = event;
 	}
 }

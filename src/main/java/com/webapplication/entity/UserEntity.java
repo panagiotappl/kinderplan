@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(
-        name="user_entity",
+        name="users",
         uniqueConstraints=
         @UniqueConstraint(columnNames={"email"})
 )
@@ -15,7 +15,7 @@ public class UserEntity {
     @SequenceGenerator(name = "users_id_seq",
             sequenceName = "users_id_seq",
             allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "users_id_seq")
     @Column(name = "id", nullable = false)
     private Integer id;

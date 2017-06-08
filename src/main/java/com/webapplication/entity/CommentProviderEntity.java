@@ -9,28 +9,30 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(
-		name="Comments_Provider"
+		name="provider_comments"
 )
 public class CommentProviderEntity {
 	@Id
 	@SequenceGenerator(name = "commentProvider_id_seq",
 			sequenceName = "commentProvider_id_seq",
 			allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	@GeneratedValue(strategy = GenerationType.IDENTITY,
 			generator = "commentProvider_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	private String comment;
-	private Integer provider;
+	@ManyToOne
+	private ProviderEntity provider;
 	private Timestamp date;
-	private Integer user_id;
+	@ManyToOne
+	private ParentEntity user_id;
 
 	public CommentProviderEntity() {
 	}
 
-	public CommentProviderEntity(String comment, Integer event, Timestamp date, Integer user_id) {
+	public CommentProviderEntity(String comment, ProviderEntity provider, Timestamp date, ParentEntity user_id) {
 		this.comment = comment;
-		this.provider = event;
+		this.provider = provider;
 		this.date = date;
 		this.user_id = user_id;
 	}
@@ -51,12 +53,12 @@ public class CommentProviderEntity {
 		this.comment = comment;
 	}
 
-	public Integer getEvent() {
+	public ProviderEntity getProvider() {
 		return provider;
 	}
 
-	public void setEvent(Integer event) {
-		this.provider = event;
+	public void setProvider(ProviderEntity provider) {
+		this.provider = provider;
 	}
 
 	public Timestamp getDate() {
@@ -67,11 +69,11 @@ public class CommentProviderEntity {
 		this.date = date;
 	}
 
-	public Integer getUser_id() {
+	public ParentEntity getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(Integer user_id) {
+	public void setUser_id(ParentEntity user_id) {
 		this.user_id = user_id;
 	}
 }

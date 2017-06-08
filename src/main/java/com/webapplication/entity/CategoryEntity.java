@@ -21,7 +21,7 @@ public class CategoryEntity {
 	@SequenceGenerator(name = "categories_id_seq",
 			sequenceName = "categories_id_seq",
 			allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	@GeneratedValue(strategy = GenerationType.IDENTITY,
 			generator = "categories_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;

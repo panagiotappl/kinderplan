@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(
-        name="events"
+        name = "events"
 )
 public class EventEntity {
 
@@ -19,7 +19,7 @@ public class EventEntity {
     @SequenceGenerator(name = "events_id_seq",
             sequenceName = "events_id_seq",
             allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "events_id_seq")
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -39,6 +39,18 @@ public class EventEntity {
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="events_categories", joinColumns={@JoinColumn(referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(referencedColumnName="id")})
 	private Set<CategoryEntity> categories = new HashSet<CategoryEntity>(0);
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "event_id")
+	private Set<CommentEventEntity> comments = new HashSet<CommentEventEntity>(0);
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "event_id")
+	private Set<EventDateEntity> dates = new HashSet<EventDateEntity>(0);
+	@OneToMany
+	@JoinColumn(name = "event_id")
+	private Set<TransactionEntity> transactions = new HashSet<TransactionEntity>(0);
+	@OneToMany
+	@JoinColumn(name = "event_id")
+	private Set<EventPhotosEntity> photos = new HashSet<EventPhotosEntity>(0);
 
     public EventEntity(){
     }
@@ -169,5 +181,37 @@ public class EventEntity {
 
 	public void setCategories(Set<CategoryEntity> categories) {
 		this.categories = categories;
+	}
+
+	public Set<CommentEventEntity> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentEventEntity> comments) {
+		this.comments = comments;
+	}
+
+	public Set<EventDateEntity> getDates() {
+		return dates;
+	}
+
+	public void setDates(Set<EventDateEntity> dates) {
+		this.dates = dates;
+	}
+
+	public Set<TransactionEntity> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Set<TransactionEntity> transactions) {
+		this.transactions = transactions;
+	}
+
+	public Set<EventPhotosEntity> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Set<EventPhotosEntity> photos) {
+		this.photos = photos;
 	}
 }

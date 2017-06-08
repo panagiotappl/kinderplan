@@ -9,26 +9,27 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(
-		name="Invoices"
+		name="invoices"
 )
-public class Invoice {
+public class InvoiceEntity {
 	@Id
 	@SequenceGenerator(name = "invoice_id_seq",
 			sequenceName = "invoice_id_seq",
 			allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	@GeneratedValue(strategy = GenerationType.IDENTITY,
 			generator = "invoice_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	private Float amount;
-	private Integer provider;
+	@ManyToOne
+	private ProviderEntity provider;
 	private Timestamp date_issued;
 	private Timestamp date_send;
 
-	public Invoice() {
+	public InvoiceEntity() {
 	}
 
-	public Invoice(Float amount, Integer provider, Timestamp date_issued, Timestamp date_send) {
+	public InvoiceEntity(Float amount, ProviderEntity provider, Timestamp date_issued, Timestamp date_send) {
 		this.amount = amount;
 		this.provider = provider;
 		this.date_issued = date_issued;
@@ -51,11 +52,11 @@ public class Invoice {
 		this.amount = amount;
 	}
 
-	public Integer getProvider() {
+	public ProviderEntity getProvider() {
 		return provider;
 	}
 
-	public void setProvider(Integer provider) {
+	public void setProvider(ProviderEntity provider) {
 		this.provider = provider;
 	}
 
