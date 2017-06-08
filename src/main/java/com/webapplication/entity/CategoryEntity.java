@@ -6,10 +6,12 @@ package com.webapplication.entity;
  */
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
-		name="Categories",
+		name="categories",
 		uniqueConstraints=
 		@UniqueConstraint(columnNames={"category"})
 )
@@ -24,6 +26,8 @@ public class CategoryEntity {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	private String category;
+	@ManyToMany(mappedBy="categories")
+	private Set<EventEntity> events = new HashSet<EventEntity>(0);
 
 	public CategoryEntity(){
 	}
@@ -46,5 +50,13 @@ public class CategoryEntity {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public Set<EventEntity> getStocks() {
+		return events;
+	}
+
+	public void setStocks(Set<EventEntity> events) {
+		this.events = events;
 	}
 }

@@ -6,10 +6,12 @@ package com.webapplication.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
-        name="event_entity"
+        name="events"
 )
 public class EventEntity {
 
@@ -22,7 +24,8 @@ public class EventEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
     private String name;
-    private Integer provider;
+    @ManyToOne
+    private ProviderEntity provider;
     private String address;
     private Float longitude;
     private Float latitude;
@@ -33,16 +36,19 @@ public class EventEntity {
     private Timestamp date_created;
     private Timestamp date_ending;
     private Timestamp date_starting;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="events_categories", joinColumns={@JoinColumn(referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(referencedColumnName="id")})
+	private Set<CategoryEntity> categories = new HashSet<CategoryEntity>(0);
 
     public EventEntity(){
     }
 
-	public EventEntity(String name, Integer provider, String address, Float longtitude, Float latitude, Integer age_from, Integer age_to, Integer ticket_price,
+	public EventEntity(String name, ProviderEntity provider, String address, Float longtitude, Float latitude, Integer age_from, Integer age_to, Integer ticket_price,
 					   String description, Timestamp date_created, Timestamp date_ending, Timestamp date_starting) {
 		this.name = name;
 		this.provider = provider;
 		this.address = address;
-		this.longitude = longtitude;
+		this.longitude = longitude;
 		this.latitude = latitude;
 		this.age_from = age_from;
 		this.age_to = age_to;
@@ -69,11 +75,11 @@ public class EventEntity {
 		this.name = name;
 	}
 
-	public Integer getProvider() {
+	public ProviderEntity getProvider() {
 		return provider;
 	}
 
-	public void setProvider(Integer provider) {
+	public void setProvider(ProviderEntity provider) {
 		this.provider = provider;
 	}
 
@@ -85,12 +91,12 @@ public class EventEntity {
 		this.address = address;
 	}
 
-	public Float getLongtitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongtitude(Float longtitude) {
-		this.longitude = longtitude;
+	public void setLongitude(Float longitude) {
+		this.longitude = longitude;
 	}
 
 	public Float getLatitude() {
@@ -155,5 +161,13 @@ public class EventEntity {
 
 	public void setDate_starting(Timestamp date_starting) {
 		this.date_starting = date_starting;
+	}
+
+	public Set<CategoryEntity> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<CategoryEntity> categories) {
+		this.categories = categories;
 	}
 }

@@ -1,6 +1,8 @@
 package com.webapplication.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by dimitris on 5/21/2017.
@@ -19,6 +21,9 @@ public class ProviderEntity {
     private String companyName;
     @OneToOne
     private UserEntity user;
+    @OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "provider_id")
+    private Set<EventEntity> events = new HashSet<EventEntity>(0);
 
     public UserEntity getUser() {
         return user;
@@ -51,5 +56,13 @@ public class ProviderEntity {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public Set<EventEntity> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<EventEntity> events) {
+        this.events = events;
     }
 }

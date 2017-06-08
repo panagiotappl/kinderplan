@@ -18,7 +18,7 @@ public class EventMapper {
 		eventResponse.setId(event.getId());
 		eventResponse.setName(event.getName());
 		eventResponse.setAddress(event.getAddress());
-		eventResponse.setLongitude(event.getLongtitude());
+		eventResponse.setLongitude(event.getLongitude());
 		eventResponse.setLatitude(event.getLatitude());
 		eventResponse.setAge_from(event.getAge_from());
 		eventResponse.setAge_to(event.getAge_to());
