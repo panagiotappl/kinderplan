@@ -8,11 +8,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-//@Table(
-//        name="Events",
-//        uniqueConstraints=
-//        @UniqueConstraint(columnNames={""})
-//)
+@Table(
+        name="event_entity"
+)
 public class EventEntity {
 
     @Id

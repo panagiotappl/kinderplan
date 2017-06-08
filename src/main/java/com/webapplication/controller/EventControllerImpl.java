@@ -24,13 +24,11 @@ public class EventControllerImpl implements EventController{
 	private EventMapper eventMapper;
 
 	@Override
-	public EventResponseDto getEvent(@RequestHeader UUID authToken, @PathVariable Integer eventId) throws Exception {
-		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
+	public EventResponseDto getEvent(@PathVariable Integer eventId) throws Exception {
 		Optional.ofNullable(eventId).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
 
 		//Get EventEntity
 		EventEntity event = eventRepository.findEventsById(eventId);
-
 		return  eventMapper.eventToEventResponse(event);
 	}
 }

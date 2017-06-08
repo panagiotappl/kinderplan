@@ -12,6 +12,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "/api")
 public interface EventController {
-	@RequestMapping(path = "/user/{eventId}", method = RequestMethod.GET, produces = "application/json")
-	EventResponseDto getEvent(@RequestHeader UUID authToken, @PathVariable Integer eventId) throws Exception;
+	@RequestMapping(path = "/event/{eventId}", method = RequestMethod.GET, produces = "application/json")
+	EventResponseDto getEvent(@PathVariable Integer eventId) throws Exception;
 }
