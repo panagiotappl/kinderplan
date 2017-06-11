@@ -29,4 +29,25 @@ public class EventMapper {
 
 		return eventResponse;
 	}
+
+	public EventEntity eventEntityFromEventDto(EventSubmitRequestDto eventSubmitRequestDto){
+		EventEntity eventEntity= new EventEntity();
+		eventEntity.setName(eventSubmitRequestDto.getName());
+		//eventEntity.setProvider(eventSubmitRequestDto.getProvider());
+		eventEntity.setAddress(eventSubmitRequestDto.getAddress());
+		eventEntity.setLongitude(eventSubmitRequestDto.getLongitude());
+		eventEntity.setLatitude(eventSubmitRequestDto.getLatitude());
+		eventEntity.setAge_from(eventSubmitRequestDto.getAge_from());
+		eventEntity.setAge_to(eventSubmitRequestDto.getAge_to());
+		eventEntity.setTicket_price(eventSubmitRequestDto.getTicket_price());
+		eventEntity.setDescription(eventSubmitRequestDto.getDescription());
+		eventEntity.setDate_ending(eventSubmitRequestDto.getDate_ending());
+		eventEntity.setDate_starting(eventSubmitRequestDto.getDate_starting());
+		//eventEntity.setCategories(eventSubmitRequestDto.getCategories());
+		eventEntity.setComments(null);
+		//eventEntity.setDates(eventSubmitRequestDto.getDates());
+		eventEntity.setTransactions(null);
+		//eventEntity.setPhotos(eventSubmitRequestDto.getPhotos());
+		return eventEntity;
+	}
 }

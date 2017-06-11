@@ -14,4 +14,7 @@ import java.util.UUID;
 public interface EventController {
 	@RequestMapping(path = "/event/{eventId}", method = RequestMethod.GET, produces = "application/json")
 	EventResponseDto getEvent(@PathVariable Integer eventId) throws Exception;
+
+	@RequestMapping(path = "/submitEvent", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, EventSubmitRequestDto eventSubmitRequestDto) throws Exception;
 }
