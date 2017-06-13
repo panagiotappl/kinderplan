@@ -1,17 +1,17 @@
 <navigation></navigation>
-<div  class="container-fluid signup-container">
+<div  class="container-fluid form-container">
     <div class="row centered-form">
         <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 
             <form role="form" name="eventsAddForm" ng-submit="add()" novalidate>
                 <div class="form-group">
                     <div class="row" align="middle">
-                        Add an event
+                        <h3>Create a new event</h3>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <div class="labels"><div class="required-field">*</div>Event Name <div class="missing-alert" ng-messages="eventsAddForm.name.$error" role="alert" ng-if="eventsAddForm.$submitted">
+                    <div class="labels"><div class="required-field">*</div>Event Name <div class="missing-alert" ng-messages="eventsAddForm.eventName.$error" role="alert" ng-if="eventsAddForm.$submitted">
                         <span ng-message="required"> (Required field is missing)</span>
                     </div> </div>
                     <input type="text" name="eventName"  class="form-control input-sm"  ng-model="credentials.eventName" required>
@@ -68,11 +68,11 @@
                                 <div class="labels"><div class="required-field">*</div>Start Date<div class="missing-alert" ng-messages="eventsAddForm.dateStartDate.$error" role="alert" ng-if="eventsAddForm.$submitted">
                                 <span ng-message="required"> (Required field is missing)</span>
                                 </div></div>
-                                <input class="form-control"
+                                <input name="dateStartDate" class="form-control"
                                     ng-model="date.startDate"
                                     ng-model-options="{ updateOn: 'blur' }"
                                     placeholder="Select a start date..."
-                                    moment-picker="ctrl.input">
+                                    moment-picker="ctrl.input" required>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -80,11 +80,11 @@
                                 <div class="labels"><div class="required-field">*</div>End Date<div class="missing-alert" ng-messages="eventsAddForm.dateEndDate.$error" role="alert" ng-if="eventsAddForm.$submitted">
                                 <span ng-message="required"> (Required field is missing)</span>
                                 </div></div>
-                                    <input class="form-control"
+                                    <input name="dateEndDate" class="form-control"
                                            ng-model="date.endDate"
                                            ng-model-options="{ updateOn: 'blur' }"
                                            placeholder="Select an end date..."
-                                           moment-picker="ctrl.input">
+                                           moment-picker="ctrl.input" required>
                                 </div>
                             </div>
                         </div>
@@ -93,12 +93,21 @@
                         <div class="labels"><div class="required-field">*</div>Number of available tickets <div class="missing-alert" ng-messages="eventsAddForm.eventAvailableTickets.$error" role="alert" ng-if="eventsAddForm.$submitted">
                             <span ng-message="required"> (Required field is missing)</span>
                         </div> </div>
-                        <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control input-sm" name="eventAvailableTickets" ng-model="date.availableTickets"/>
+                        <input type="number" min="0" step="1" value="0" data-number-to-fixed="0" class="form-control input-sm" name="eventAvailableTickets" ng-model="date.availableTickets" required>
                     </div>
                 </fieldset>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <button type="button" class="addfields form-add-btn" ng-click="addNewDate()">Add more dates</button>
 
-                <button class="remove" ng-click="removeDate()">Remove last Added Date</button>
-                <button class="addfields" ng-click="addNewDate()">Add more dates</button>
+
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <button type="button" class="remove form-add-btn" ng-click="removeDate()">Remove last Added Date</button>
+
+                    </div>
+
+                </div>
 
                 <input type="submit" value="Create Event" class="form-complete-btn">
 

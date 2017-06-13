@@ -3,7 +3,6 @@ router.controller('navigationController', function($scope, $http, $cookies, User
     $scope.signedIn = {};
     $scope.donotmatch = false;
 
-   console.log($cookies.get('signedIn'));
     if($cookies.get('signedIn') === 'yes'){
         $scope.signedIn = true;
         $scope.user.userId = $cookies.get('id');

@@ -6,8 +6,12 @@ import com.webapplication.authentication.Authenticator;
 import com.webapplication.dto.user.SessionInfo;
 import com.webapplication.dto.user.UserLogInRequestDto;
 import com.webapplication.dto.user.UserLogInResponseDto;
+import com.webapplication.entity.ParentEntity;
+import com.webapplication.entity.UserEntity;
 import org.joda.time.DateTime;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +68,8 @@ public class UserControllerTest {
                 this.mappingJackson2HttpMessageConverter);
     }
 
+
+
     @Before
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
@@ -84,6 +90,18 @@ public class UserControllerTest {
 
     }
 
+
+    @BeforeClass
+    public static void doYourOneTimeSetup() {
+        UserEntity user = new UserEntity();
+        ParentEntity parent = new ParentEntity();
+
+    }
+
+    @AfterClass
+    public static void doYourOneTimeTeardown() {
+
+    }
 
 
     @Test

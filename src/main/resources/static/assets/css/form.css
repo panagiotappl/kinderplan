@@ -92,6 +92,26 @@
     /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
+.form-add-btn {
+    /* border: 1px solid #3079ed; */
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    border: 0px;
+    color: #fff;
+    text-shadow: 0 1px rgba(217, 67, 25, 0.1);
+    background-color: #347767;
+    padding: 7px 0px;
+    font-size: 14px;
+    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+.form-add-btn:hover {
+    /* border: 1px solid #2f5bb7; */
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: #4ABDAC;
+    /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+}
 .form-complete-btn:hover {
     /* border: 1px solid #2f5bb7; */
     border: 0px;

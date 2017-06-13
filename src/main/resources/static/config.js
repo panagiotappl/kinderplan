@@ -22,13 +22,13 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             url: '/signup/provider',
             templateUrl: 'app/components/signup/provider_signup.html',
             controller: 'providerSignupController',
-            data: {pageTitle : "Signup - Provider"}
+            data: {pageTitle : "Provider Sign Up"}
         })
         .state('parentSignup', {
             url: '/signup/parent',
             templateUrl: 'app/components/signup/parent_signup.html',
             controller: 'parentSignupController',
-            data: {pageTitle : "Signup - Parent"}
+            data: {pageTitle : "Parent Sign Up"}
         })
         .state('signup', {
             url: '/signup',
@@ -37,9 +37,15 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             data: {pageTitle : "Sign Up"}
         })
         .state('addEvent', {
-            url: '/events/add',
+            url: '/event/add',
             templateUrl: 'app/components/events/add_event.html',
             controller: 'addEventController',
             data: {pageTitle : "Add event"}
+        })
+        .state('event', {
+            url: '/event?id',
+            templateUrl: 'app/components/events/event.html',
+            controller: 'eventController',
+            data: {pageTitle : ""}
         });
 });

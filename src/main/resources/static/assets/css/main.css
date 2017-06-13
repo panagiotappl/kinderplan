@@ -11,3 +11,7 @@ body{
 a.md-default-theme:not(.md-button), a:not(.md-button) {
     color: rgb(56, 134, 117);
 }
+
+.portfolio-item {
+    margin-bottom: 25px;
+}

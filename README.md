@@ -4,6 +4,30 @@
 * [user](documentation/user.md)
 * [signup](documentation/signup.md)
 
+**APIs in Progress**
+* add event
+* get event
+
+**Views in Progress**
+* /#/ (Missing: touch ups, advanced search - Form is not working - First Draft)
+* /#/signup (First Draft)
+* /#/signup/parent (Missing: touch ups - Form is working)
+* /#/signup/provider (Missing: touch ups - Form is working)
+* /#/event/add (Missing: touch ups - Form is not working)
+* /#/event?id={eventId}
+* /#/search?{list of search parameters}
+
+**<font style='color:red'>Future Views and APIs</font>**
+* <font style='color:red'>/#/profile?id={userId} </font>
+* <font style='color:red'>Free Text Search API</font>
+* <font style='color:red'>Search List Results API</font>
+
+
+**Unit Tests**
+* login: Tests if dummy user has logged in successfully
+* getUser: Tests if dummy authenticated user is retrieved successfully
+
+
 **Package Information**
 * **authentication**
     * `Creates new session,  returns current session and clears all sessions. Stores all sessions in an concurrent hash map.`
@@ -83,7 +107,7 @@
     * INVALID_CREDENTIALS("Username and password do not match.")
     * USER_NOT_EMAIL_VERIFIED("User has not been verified yet.")
 
-* **UserLoginError.java:**
+* **UserRegisterError.java:**
 
     * MISSING_DATA("Required attributes are missing.")
     * INVALID_DATA("Invalid data.")

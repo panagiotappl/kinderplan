@@ -4,7 +4,8 @@ router.factory('UserService', function($http, $cookies) {
     userService.login = function (user) {
         return $http.post('/api/login', user)
             .then(function (response) {
-                $cookies.put('id', response.data.id);
+                console.log(response);
+                $cookies.put('id', response.data.userId);
                 $cookies.put('role', response.data.role);
                 $cookies.put('signedIn', 'yes');
                 $cookies.put('authToken', response.data.authToken);

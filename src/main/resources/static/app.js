@@ -1,4 +1,4 @@
-var router = angular.module('router', [ 'ui.router', 'ui.bootstrap', 'ngCookies', 'ngMessages', 'ngAutocomplete',"ngAnimate","ngAria", 'ngMaterial', 'moment-picker']);
+var router = angular.module('router', [ 'ui.router', 'ui.bootstrap', 'ngCookies', 'ngMap', 'ngMessages', 'ngAutocomplete',"ngAnimate","ngAria", 'ngMaterial', 'moment-picker']);
 
 
 router.run([

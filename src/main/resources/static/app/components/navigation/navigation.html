@@ -1,19 +1,58 @@
 <div ng-controller="navigationController">
-    <nav id="navigation" class="navbar">
-        <div class="container-fluid navbar-cont">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </button>
-                <a class="navbar-brand" href="#"><img src="assets/images/logo2.png" height="60px"></a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
+    <!--<nav id="navigation" class="navbar">-->
+    <!--<div class="container-fluid navbar-cont">-->
+    <!--<div class="navbar-header">-->
+    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">-->
+    <!--<i class="fa fa-bars" aria-hidden="true"></i>-->
+    <!--</button>-->
+    <!--<a class="navbar-brand" href="#"><img src="assets/images/logo2.png" height="60px"></a>-->
+    <!--</div>-->
+    <!--<div class="collapse navbar-collapse" id="myNavbar">-->
 
-                <ul  ng-if="!signedIn" class="nav navbar-nav navbar-right">
-                    <li><a href="#" ui-sref="signup"> Sign Up</a></li>
-                    <li ><a  data-toggle="modal" data-target="#signin-modal"> Sign In</a></li>
+    <!--<ul  ng-if="!signedIn" class="nav navbar-nav navbar-right">-->
+    <!--<li><a href="#" ui-sref="signup"> Sign Up</a></li>-->
+    <!--<li ><a  data-toggle="modal" data-target="#signin-modal"> Sign In</a></li>-->
+    <!--</ul>-->
+    <!--<ul   ng-if="signedIn" class="nav navbar-nav navbar-right">-->
+    <!--<li>-->
+    <!--<a  data-toggle="dropdown">Welcome, {{user.name}}-->
+    <!--<span class="caret"></span></a>-->
+    <!--<ul class="dropdown-menu">-->
+    <!--<li><a ng-click="signout()" href="#">Sign Out</a></li>-->
+
+    <!--</ul>-->
+    <!--</li>-->
+
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</nav>-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="assets/images/logo2.png" alt="">
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul ng-if="!signedIn" class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" ui-sref="signup">Sign Up</a>
+                    </li>
+                    <li>
+                        <a  data-toggle="modal" data-target="#signin-modal">Sing In</a>
+                    </li>
+
                 </ul>
-                <ul   ng-if="signedIn" class="nav navbar-nav navbar-right">
+                <ul ng-if="signedIn" class="nav navbar-nav navbar-right">
                     <li>
                         <a  data-toggle="dropdown">Welcome, {{user.name}}
                             <span class="caret"></span></a>
@@ -25,7 +64,9 @@
 
                 </ul>
             </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
     </nav>
 
     <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
