@@ -16,13 +16,14 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             url: '/',
             templateUrl: 'app/components/homepage/homepage.html',
             controller: 'homepageController',
-            data: {pageTitle : ""}
+            data: {pageTitle : "Kinderplan"}
         })
         .state('providerSignup', {
             url: '/signup/provider',
             templateUrl: 'app/components/signup/provider_signup.html',
             controller: 'providerSignupController',
             data: {pageTitle : "Provider Sign Up"}
+
         })
         .state('parentSignup', {
             url: '/signup/parent',
@@ -47,5 +48,11 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             templateUrl: 'app/components/events/event.html',
             controller: 'eventController',
             data: {pageTitle : ""}
+        })
+        .state('listEvents', {
+            url: '/events/list',
+            templateUrl: 'app/components/events/list_events.html',
+            controller: 'listEventsController',
+            data: {pageTitle : "Events"}
         });
 });

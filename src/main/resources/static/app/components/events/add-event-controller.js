@@ -2,7 +2,7 @@
  * Created by Panos on 20/05/2017.
  */
 
-router.controller('addEventController', function($scope, $cookies, UserService){
+router.controller('addEventController', function($scope, $cookies, UserService, FilesService){
 
     $scope.credentials = {
         provider: '',
@@ -60,7 +60,27 @@ router.controller('addEventController', function($scope, $cookies, UserService){
 
         console.log(request)
 
-    }
+    };
+
+
+    $scope.files = [];
+    $scope.upload= function(){
+        var files = $scope.files;
+        console.log(files);
+
+        var fileCount = files.length;
+
+        for (var i = 0; i < fileCount; i++) {
+
+            FilesService.upload_file(files[i])
+                .then(function (response){
+                    console.log(response);
+                    $scope.credentials.photos.push(response.data.path);
+                });
+
+        }
+
+    };
 
 });
 
