@@ -62,8 +62,8 @@ public class UserControllerImpl implements UserController {
 
 
         //Password validation with salt callback to be used later. Using dummy validation below!
-        if (!validatePassword(userLogInRequestDto.getPassword(), user.getPassword(), user.getSalt()))
-            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
+    //    if (!validatePassword(userLogInRequestDto.getPassword(), user.getPassword(), user.getSalt()))//TODO FIX THIS
+     //       throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
 
         //Dummy password validation!
 
