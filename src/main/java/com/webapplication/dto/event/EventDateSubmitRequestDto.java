@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by mary on 4/6/2017.
  */
-public class EventDateDto{
+public class EventDateSubmitRequestDto {
 	private Timestamp start_date;
 	private Timestamp end_date;
 	private Integer available_tickets;

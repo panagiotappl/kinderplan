@@ -4,6 +4,7 @@ import com.webapplication.dto.user.ProviderDto;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by mary on 4/6/2017.
@@ -21,7 +22,7 @@ public class EventDto {
 	private Timestamp date_created;
 	private Timestamp date_ending;
 	private Timestamp date_starting;
-	private ArrayList<EventDateDto> event_dates;
+	private HashSet<EventDateSubmitRequestDto> event_dates;
 
 	public String getName() {
 		return name;
@@ -119,11 +120,11 @@ public class EventDto {
 		this.date_starting = date_starting;
 	}
 
-	public ArrayList<EventDateDto> getEvent_dates() {
+	public HashSet<EventDateSubmitRequestDto> getEvent_dates() {
 		return event_dates;
 	}
 
-	public void setEvent_dates(ArrayList<EventDateDto> event_dates) {
+	public void setEvent_dates(HashSet<EventDateSubmitRequestDto> event_dates) {
 		this.event_dates = event_dates;
 	}
 }

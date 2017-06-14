@@ -29,8 +29,8 @@ public class EventSubmitValidator implements Validator <EventSubmitRequestDto> {
 		Optional.ofNullable(request.getDescription()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DESCRIPTION));
 		Optional.ofNullable(request.getDate_starting()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DATE_STARTING));
 		Optional.ofNullable(request.getDate_ending()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DATE_ENDING));
-		//Optional.ofNullable(request.getCategories()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_CATEGORY));
-		//Optional.ofNullable(request.getDates()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DATES));
+		Optional.ofNullable(request.getCategories()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_CATEGORY));
+		Optional.ofNullable(request.getDates()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DATES));
 		//if (eventRepository.findEventsByNameAndProviderAndDate_starting(request.getName(), request.getProvider(), request.getDate_starting())!=null){
 		//	throw new ValidationException(EventSubmitError.EXISTING_EVENT);
 		//}

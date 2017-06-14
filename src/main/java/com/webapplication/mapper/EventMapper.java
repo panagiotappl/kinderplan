@@ -2,6 +2,7 @@ package com.webapplication.mapper;
 
 import com.webapplication.dto.event.*;
 import com.webapplication.entity.EventEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EventMapper {
+	@Autowired
+	EventDateMapper eventDateMapper;
+	@Autowired
+	CategoryMapper categoryMapper;
+
 	public EventResponseDto eventToEventResponse(EventEntity event){
 		if (event == null)
 			return null;
@@ -43,9 +49,9 @@ public class EventMapper {
 		eventEntity.setDescription(eventSubmitRequestDto.getDescription());
 		eventEntity.setDate_ending(eventSubmitRequestDto.getDate_ending());
 		eventEntity.setDate_starting(eventSubmitRequestDto.getDate_starting());
-		//eventEntity.setCategories(eventSubmitRequestDto.getCategories());
+		eventEntity.setCategories(categoryMapper.categoryEntityFromCategoryDto(eventSubmitRequestDto.getCategories()));
 		eventEntity.setComments(null);
-		//eventEntity.setDates(eventSubmitRequestDto.getDates());
+		eventEntity.setDates(eventDateMapper.eventDateEntitiyFromEventDateDto(eventSubmitRequestDto.getDates()));
 		eventEntity.setTransactions(null);
 		//eventEntity.setPhotos(eventSubmitRequestDto.getPhotos());
 		return eventEntity;

@@ -1,6 +1,9 @@
 package com.webapplication.dto.event;
 
+import com.webapplication.dto.CategoryDto;
+
 import java.sql.Timestamp;
+import java.util.HashSet;
 
 /**
  * Created by mary on 11/6/2017.
@@ -18,8 +21,8 @@ public class EventSubmitRequestDto {
 	private String description;
 	private Timestamp date_ending;
 	private Timestamp date_starting;
-	//private HashSet<String> categories;
-	//private HashSet<Timestamp,Timestamp> dates;
+	private HashSet<CategoryDto> categories;
+	private HashSet<EventDateSubmitRequestDto> dates;
 	//private HashSet<String> photos;
 
 	public Integer getId() {
@@ -119,23 +122,23 @@ public class EventSubmitRequestDto {
 		this.date_starting = date_starting;
 	}
 
-//	public HashSet<String> getCategories() {
-//		return categories;
-//	}
+	public HashSet<EventDateSubmitRequestDto> getDates() {
+		return dates;
+	}
 
-//	public void setCategories(HashSet<String> categories) {
-//		this.categories = categories;
-//	}
+	public void setDates(HashSet<EventDateSubmitRequestDto> dates) {
+		this.dates = dates;
+	}
 
-//	public HashSet<Timestamp, Timestamp> getDates() {
-//		return dates;
-//	}
+	public HashSet<CategoryDto> getCategories() {
+		return categories;
+	}
 
-//	public void setDates(HashSet<Timestamp, Timestamp> dates) {
-//		this.dates = dates;
-//	}
+	public void setCategories(HashSet<CategoryDto> categories) {
+		this.categories = categories;
+	}
 
-//	public HashSet<String> getPhotos() {
+	//	public HashSet<String> getPhotos() {
 //		return photos;
 //	}
 
