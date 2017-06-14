@@ -15,6 +15,8 @@ public class EventMapper {
 	EventDateMapper eventDateMapper;
 	@Autowired
 	CategoryMapper categoryMapper;
+	@Autowired
+	EventPhotoMapper eventPhotoMapper;
 
 	public EventResponseDto eventToEventResponse(EventEntity event){
 		if (event == null)
@@ -53,7 +55,7 @@ public class EventMapper {
 		eventEntity.setComments(null);
 		eventEntity.setDates(eventDateMapper.eventDateEntitiyFromEventDateDto(eventSubmitRequestDto.getDates()));
 		eventEntity.setTransactions(null);
-		//eventEntity.setPhotos(eventSubmitRequestDto.getPhotos());
+		eventEntity.setPhotos(eventPhotoMapper.eventPhotosEntitiyFromPhotoDto(eventSubmitRequestDto.getPhotos()));
 		return eventEntity;
 	}
 }

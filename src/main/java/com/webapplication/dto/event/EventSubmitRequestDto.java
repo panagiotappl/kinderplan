@@ -23,7 +23,7 @@ public class EventSubmitRequestDto {
 	private Timestamp date_starting;
 	private HashSet<CategoryDto> categories;
 	private HashSet<EventDateSubmitRequestDto> dates;
-	//private HashSet<String> photos;
+	private HashSet<EventPhotosDto> photos;
 
 	public Integer getId() {
 		return id;
@@ -138,11 +138,11 @@ public class EventSubmitRequestDto {
 		this.categories = categories;
 	}
 
-	//	public HashSet<String> getPhotos() {
-//		return photos;
-//	}
+	public HashSet<EventPhotosDto> getPhotos() {
+		return photos;
+	}
 
-//	public void setPhotos(HashSet<String> photos) {
-//		this.photos = photos;
-//	}
+	public void setPhotos(HashSet<EventPhotosDto> photos) {
+		this.photos = photos;
+	}
 }

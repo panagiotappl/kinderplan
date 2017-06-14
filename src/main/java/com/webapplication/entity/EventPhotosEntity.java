@@ -23,6 +23,9 @@ public class EventPhotosEntity {
 	@ManyToOne
 	private EventEntity event;
 
+	public EventPhotosEntity() {
+	}
+
 	public EventPhotosEntity(String photo_path, EventEntity event) {
 		this.photo_path = photo_path;
 		this.event = event;
