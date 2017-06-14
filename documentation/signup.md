@@ -27,7 +27,7 @@
 "surname":"seintaridis",
 "latitude":"38.0984785",
 "longitude":"23.67137219999995",
-"email":"jimseinta@gmal.com",
+"email":"jimseinta@gmail.com",
 "password":"seinta",
 "phone":"+123456789",
 "repassword":"seinta",
