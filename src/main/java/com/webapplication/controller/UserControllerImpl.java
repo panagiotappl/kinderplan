@@ -56,17 +56,17 @@ public class UserControllerImpl implements UserController {
         userRequestValidator.validate(userLogInRequestDto);
 
         UserEntity user = userRepository.findUsersByEmail(userLogInRequestDto.getEmail());
-
+        System.out.println(user);
         //Null credentials validation
         Optional.ofNullable(user).orElseThrow(() -> new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS));
 
 
-        //Password validation with salt callback to be used later. Using dummy validation below!
-    //    if (!validatePassword(userLogInRequestDto.getPassword(), user.getPassword(), user.getSalt()))//TODO FIX THIS
-     //       throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
+       // Password validation with salt callback to be used later. Using dummy validation below!
+        if (!validatePassword(userLogInRequestDto.getPassword(), user.getPassword(), user.getSalt()))//TODO FIX THIS
+            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
 
-        //Dummy password validation!
-
+//        //Dummy password validation!
+//
 //        if(!user.getPassword().equals(userLogInRequestDto.getPassword()))
 //            throw new NotAuthenticatedException(UserLogInError.INVALID_CREDENTIALS);
 
