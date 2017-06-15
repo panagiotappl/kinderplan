@@ -92,8 +92,10 @@ public class Application  implements CommandLineRunner{
 //			// save a couple of customers
 		/*	UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","parent",true);
 		elasticRepository.save(user);
+//		UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","parent",true);
+//		repository.save(user);
 
-			ParentEntity parentEntity = new ParentEntity();
+		/*	ParentEntity parentEntity = new ParentEntity();
 			parentEntity.setPoints(20);
 			parentEntity.setUser(user);
 			parentRepository.save(parentEntity);
