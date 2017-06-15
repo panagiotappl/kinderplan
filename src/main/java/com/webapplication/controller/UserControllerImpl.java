@@ -91,9 +91,7 @@ public class UserControllerImpl implements UserController {
         Optional.ofNullable(userId).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
 
         //Get Active Session
-        SessionInfo sessionInfo = authenticator.getSession(authToken);
-        Optional.ofNullable(sessionInfo).orElseThrow(() -> new NotAuthenticatedException(UserError.NOT_AUTHENTICATED));
-        sessionInfo.setDate(DateTime.now().plusMinutes(Authenticator.SESSION_TIME_OUT_MINUTES));
+        SessionInfo sessionInfo = authenticator.checkUpdateSession(authToken);
 
         //Get UserEntity
         UserEntity user = userRepository.findUsersById(userId);
