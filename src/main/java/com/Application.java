@@ -22,10 +22,10 @@ public class Application {
 	public CommandLineRunner loadData(UserRepository repository, ParentRepository parentRepository, ProviderRepository providerRepository) {
 		return (args) -> {
 //			// save a couple of customers
-		/*	UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","parent",true);
-		repository.save(user);
+//		UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","parent",true);
+//		repository.save(user);
 
-			ParentEntity parentEntity = new ParentEntity();
+		/*	ParentEntity parentEntity = new ParentEntity();
 			parentEntity.setPoints(20);
 			parentEntity.setUser(user);
 			parentRepository.save(parentEntity);
