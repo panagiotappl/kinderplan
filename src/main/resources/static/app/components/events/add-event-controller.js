@@ -59,7 +59,6 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         req.longitude = address.lng();
 
         var request = {
-            authToken: $cookies.get('authToken'), // FIXME: Shouldnt send id. Should be token or smth.
             name: req.eventName,
             address: req.address,
             latitude: req.latitude,
@@ -108,10 +107,10 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
 
 
         console.log(request);
-        EventsService.submitEvent(request)
+        EventsService.submitEvent(request, $cookies.get('authToken'))
             .then(function(response){
                 console.log(response);
-                $state.go('home');
+                // $state.go('home');
 
             }, function(error){
                 $scope.error_message = error.data.message;
