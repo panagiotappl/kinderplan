@@ -52,7 +52,7 @@
 "role":"provider",
 "provider":{
 	       "vatnumber":"20",
-	       "companyname":"facebook"
+	       "companyName":"facebook"
         }
 }`
 

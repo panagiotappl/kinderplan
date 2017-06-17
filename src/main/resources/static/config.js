@@ -54,5 +54,16 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             templateUrl: 'app/components/events/list_events.html',
             controller: 'listEventsController',
             data: {pageTitle : "Events"}
+        })
+        .state('profile', {
+            url: '/profile',
+            templateUrl: 'app/components/profile/profile.html',
+            controller: 'profileController',
+            data: {pageTitle : "My Profile"}
+        })
+        .state('notValid', {
+            url: '/forbidden',
+            templateUrl: 'app/components/misc/notValid.html',
+            data: {pageTitle: "Forbidden"}
         });
 });

@@ -31,4 +31,4 @@ router.directive('ngFileModel', ['$parse', function ($parse) {
             });
         }
     };
-});
+}]);

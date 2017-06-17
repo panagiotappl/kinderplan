@@ -10,10 +10,9 @@ router.controller('navigationController', function($scope, $http, $cookies, User
 
         UserService.getuser($scope.user.userId ,$scope.user.authToken)
             .then(function(response){
-                $scope.user.email = response.data.email;
-                $scope.user.name = response.data.name;
+                $scope.user = response.data;
             }, function(response){
-                console.log(response);
+                $scope.signedIn = false;
             });
     }else{
         $scope.signedIn = false;
@@ -38,8 +37,7 @@ router.controller('navigationController', function($scope, $http, $cookies, User
                 UserService.getuser(response.data.userId ,response.data.authToken)
                     .then(function(response){
                         $scope.signedIn = true;
-                        $scope.user.email = response.data.email;
-                        $scope.user.name = response.data.name;
+                        $scope.user = response.data;
 
                     }, function(response){
                         console.log(response);

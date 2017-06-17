@@ -1,3 +1,54 @@
-Profile!! v3 :)
+<navigation></navigation>
 
-<a ui-sref="home">home</a>
+
+<div id="profile" class="container-fluid">
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+            <div id="profilePanel" class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{user.name}} {{user.surname}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="/assets/images/user.png" class="img-circle img-responsive"> </div>
+
+
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td>{{user.email}}</td>
+                                </tr>
+                                <tr ng-if="parent">
+                                    <td>Points:</td>
+                                    <td>{{user.parentDto.points}}</td>
+                                </tr>
+                                <tr ng-if="provider">
+                                    <td>Company Name:</td>
+                                    <td>{{user.providerDto.companyName}}</td>
+                                </tr>
+
+
+
+                                </tbody>
+                            </table>
+
+                            <a ng-if="parent" href="#"  class="profileBtn btn btn-primary">My Wallet</a>
+                            <a ng-if="provider" ui-sref="addEvent"  class=" profileBtn btn btn-primary">Add Event</a>
+                            <a ng-if="provider" ui-sref="addEvent"  class="profileBtn btn btn-primary">My Events</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer></footer>

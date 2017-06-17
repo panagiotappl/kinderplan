@@ -48,7 +48,7 @@
                         <a href="#" ui-sref="signup">Sign Up</a>
                     </li>
                     <li>
-                        <a  data-toggle="modal" data-target="#signin-modal">Sing In</a>
+                        <a  data-toggle="modal" data-target="#signin-modal">Sign In</a>
                     </li>
 
                 </ul>
@@ -57,6 +57,8 @@
                         <a  data-toggle="dropdown">Welcome, {{user.name}}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a ui-sref="profile" href="#">Profile</a></li>
+
                             <li><a ng-click="signout()" href="#">Sign Out</a></li>
 
                         </ul>
