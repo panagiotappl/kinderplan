@@ -49,7 +49,7 @@ public class EventControllerImpl implements EventController{
 
 	@Override
 	public EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, @RequestBody EventSubmitRequestDto eventSubmitRequestDto) throws Exception {
-
+		System.out.println(eventSubmitRequestDto);
 		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
 		//Get Active Session
 		SessionInfo sessionInfo = authenticator.checkUpdateSession(authToken);
