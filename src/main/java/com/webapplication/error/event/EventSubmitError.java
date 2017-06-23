@@ -6,6 +6,7 @@ package com.webapplication.error.event;
 public enum EventSubmitError {
 	MISSING_DATA("Required attributes are missing."),
 	MISSING_NAME("Name is missing."),
+	MISSING_PROVIDER("Provider is missing."),
 	MISSING_ADDRESS("Address is missing."),
 	MISSING_AGE_FROM("Minimum Age restriction is missing"),
 	MISSING_AGE_TO("Maximum Age restriction is missing."),
@@ -16,6 +17,7 @@ public enum EventSubmitError {
 	MISSING_CATEGORY("Category is missing."),
 	MISSING_DATES("Event Dates are not specified"),
 	INVALID_DATA("Invalid data."),
+	NOT_A_PROVIDER("The user is not a provider."),
 	EXISTING_EVENT("There already exists an event with these details.");
 
 	private final String description;

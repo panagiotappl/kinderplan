@@ -6,6 +6,7 @@ import com.webapplication.dao.ProviderRepository;
 import com.webapplication.dto.event.*;
 import com.webapplication.dto.user.SessionInfo;
 import com.webapplication.entity.EventEntity;
+import com.webapplication.entity.ProviderEntity;
 import com.webapplication.exception.ValidationException;
 import com.webapplication.error.event.EventError;
 import com.webapplication.error.user.UserError;
@@ -51,11 +52,14 @@ public class EventControllerImpl implements EventController{
 	public EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, @RequestBody EventSubmitRequestDto eventSubmitRequestDto) throws Exception {
 
 		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
-		//Get Active Session
-		SessionInfo sessionInfo = authenticator.checkUpdateSession(authToken);
+		ProviderEntity providerEntity = providerRepository.findProviderById(eventSubmitRequestDto.getProvider());
+		if (authenticator.getSession(authToken).getUserId() != providerEntity.getUser().getId()){
+			throw new ValidationException(UserError.UNAUTHORIZED);
+		}
 		eventRequestValidator.validate(eventSubmitRequestDto);
+
 		EventEntity eventEntity= eventMapper.eventEntityFromEventDto(eventSubmitRequestDto);
-		eventEntity.setProvider(providerRepository.findProviderByUserId(sessionInfo.getUserId()));
+		eventEntity.setProvider(providerEntity);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		eventEntity.setDate_created(timestamp);
 		eventRepository.saveAndFlush(eventEntity);
