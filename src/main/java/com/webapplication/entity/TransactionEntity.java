@@ -21,9 +21,44 @@ public class TransactionEntity {
 			generator = "transactions_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	@ManyToOne
-	private ParentEntity user_id;
+
+	public String getCard_number() {
+		return card_number;
+	}
+
+	public void setCard_number(String card_number) {
+		this.card_number = card_number;
+	}
+
+	public String getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
+	}
+
+	public String getCardHolder() {
+		return cardHolder;
+	}
+
+	public void setCardHolder(String cardHolder) {
+		this.cardHolder = cardHolder;
+	}
+
+	public Timestamp getDate_expiration() {
+		return date_expiration;
+	}
+
+	public void setDate_expiration(Timestamp date_expiration) {
+		this.date_expiration = date_expiration;
+	}
+
 	private Integer ammount;
+	private String card_number;
+	private String cvv;
+	private String cardHolder;
+	private Timestamp date_expiration;
 	private Timestamp date;
 	@ManyToOne
 	private EventEntity event;
@@ -31,8 +66,8 @@ public class TransactionEntity {
 	public TransactionEntity() {
 	}
 
-	public TransactionEntity(ParentEntity user_id, Integer ammount, Timestamp date, EventEntity event) {
-		this.user_id = user_id;
+	public TransactionEntity( Integer ammount, Timestamp date, EventEntity event) {
+
 		this.ammount = ammount;
 		this.date = date;
 		this.event = event;
@@ -46,13 +81,7 @@ public class TransactionEntity {
 		this.id = id;
 	}
 
-	public ParentEntity getUser_id() {
-		return user_id;
-	}
 
-	public void setUser_id(ParentEntity user_id) {
-		this.user_id = user_id;
-	}
 
 	public Integer getAmmount() {
 		return ammount;
