@@ -71,5 +71,9 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             url: '/forbidden',
             templateUrl: 'app/components/misc/notValid.html',
             data: {pageTitle: "Forbidden"}
-        });
+        }).state('success', {
+        url: '/success',
+        templateUrl: 'app/components/misc/success.html',
+        data: {pageTitle: "Payment Successful"}
+         });
 });

@@ -1,9 +1,5 @@
 package com.webapplication.entity;
 
-/**
- * Created by mary on 3/6/2017.
- */
-
 import javax.persistence.*;
 import javax.swing.tree.ExpandVetoException;
 import java.sql.Timestamp;
@@ -46,31 +42,29 @@ public class TransactionEntity {
 		this.cardHolder = cardHolder;
 	}
 
-	public Timestamp getDate_expiration() {
+	public String getDate_expiration() {
 		return date_expiration;
 	}
 
-	public void setDate_expiration(Timestamp date_expiration) {
+	public void setDate_expiration(String date_expiration) {
 		this.date_expiration = date_expiration;
 	}
 
-	private Integer ammount;
+	private Integer amount;
 	private String card_number;
 	private String cvv;
 	private String cardHolder;
-	private Timestamp date_expiration;
+	private String date_expiration;
 	private Timestamp date;
-	@ManyToOne
-	private EventEntity event;
+
 
 	public TransactionEntity() {
 	}
 
-	public TransactionEntity( Integer ammount, Timestamp date, EventEntity event) {
+	public TransactionEntity( Integer amount, Timestamp date) {
 
-		this.ammount = ammount;
+		this.amount = amount;
 		this.date = date;
-		this.event = event;
 	}
 
 	public Integer getId() {
@@ -83,12 +77,12 @@ public class TransactionEntity {
 
 
 
-	public Integer getAmmount() {
-		return ammount;
+	public Integer getAmount() {
+		return amount;
 	}
 
-	public void setAmmount(Integer ammount) {
-		this.ammount = ammount;
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 	public Timestamp getDate() {
@@ -99,11 +93,5 @@ public class TransactionEntity {
 		this.date = date;
 	}
 
-	public EventEntity getEvent() {
-		return event;
-	}
 
-	public void setEvent(EventEntity event) {
-		this.event = event;
-	}
 }

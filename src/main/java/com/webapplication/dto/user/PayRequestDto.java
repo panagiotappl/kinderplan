@@ -4,6 +4,8 @@ package com.webapplication.dto.user;
 public class PayRequestDto {
     private Integer userId;
     private Integer points;
+    private TransactionDto transactionDto;
+
 
     public Integer getUserId() {
         return userId;
@@ -13,6 +15,14 @@ public class PayRequestDto {
         this.userId = userId;
     }
 
+    public TransactionDto getTransactionDto() {
+        return transactionDto;
+    }
+
+    public void setTransactionDto(TransactionDto transactionDto) {
+        this.transactionDto = transactionDto;
+    }
+
     public Integer getPoints() {
         return points;
     }
@@ -20,4 +30,5 @@ public class PayRequestDto {
     public void setPoints(Integer points) {
         this.points = points;
     }
+
 }
