@@ -38,8 +38,8 @@ public class EventSubmitValidator implements Validator <EventSubmitRequestDto> {
 		if (providerRepository.findProviderByUserId(request.getProvider()) == null) {
 			throw new ValidationException(EventSubmitError.NOT_A_PROVIDER);
 		}
-		//if (eventRepository.findEventsByNameAndProviderAndDate_starting(request.getName(), request.getProvider(), request.getDate_starting())!=null){
-		//	throw new ValidationException(EventSubmitError.EXISTING_EVENT);
-		//}
+		if (eventRepository.findEventsByNameAndProvider_idAndDateStarting(request.getName(), request.getProvider(), request.getDate_starting())!=null){
+			throw new ValidationException(EventSubmitError.EXISTING_EVENT);
+		}
 	}
 }

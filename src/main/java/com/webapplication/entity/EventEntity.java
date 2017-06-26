@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(
         name = "events"
@@ -33,9 +34,9 @@ public class EventEntity {
     private Integer age_to;
     private Integer ticket_price;
     private String description;
-    private Timestamp date_created;
-    private Timestamp date_ending;
-    private Timestamp date_starting;
+    private Timestamp dateCreated;
+    private Timestamp dateEnding;
+    private Timestamp dateStarting;
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="events_categories", joinColumns={@JoinColumn(referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(referencedColumnName="id")})
 	private Set<CategoryEntity> categories = new HashSet<CategoryEntity>(0);
@@ -55,7 +56,7 @@ public class EventEntity {
     public EventEntity(){
     }
 
-	public EventEntity(String name, ProviderEntity provider, String address, Float longtitude, Float latitude, Integer age_from, Integer age_to, Integer ticket_price,
+	public EventEntity(String name, ProviderEntity provider, String address, Float longitude, Float latitude, Integer age_from, Integer age_to, Integer ticket_price,
 					   String description, Timestamp date_created, Timestamp date_ending, Timestamp date_starting) {
 		this.name = name;
 		this.provider = provider;
@@ -66,9 +67,9 @@ public class EventEntity {
 		this.age_to = age_to;
 		this.ticket_price = ticket_price;
 		this.description = description;
-		this.date_created = date_created;
-		this.date_ending = date_ending;
-		this.date_starting = date_starting;
+		this.dateCreated = date_created;
+		this.dateEnding = date_ending;
+		this.dateStarting = date_starting;
 	}
 
 	public Integer getId() {
@@ -152,27 +153,27 @@ public class EventEntity {
 	}
 
 	public Timestamp getDate_created() {
-		return date_created;
+		return dateCreated;
 	}
 
 	public void setDate_created(Timestamp date_created) {
-		this.date_created = date_created;
+		this.dateCreated = date_created;
 	}
 
 	public Timestamp getDate_ending() {
-		return date_ending;
+		return dateEnding;
 	}
 
 	public void setDate_ending(Timestamp date_ending) {
-		this.date_ending = date_ending;
+		this.dateEnding = date_ending;
 	}
 
 	public Timestamp getDate_starting() {
-		return date_starting;
+		return dateStarting;
 	}
 
 	public void setDate_starting(Timestamp date_starting) {
-		this.date_starting = date_starting;
+		this.dateStarting = date_starting;
 	}
 
 	public Set<CategoryEntity> getCategories() {

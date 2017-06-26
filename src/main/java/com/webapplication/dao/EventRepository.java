@@ -14,5 +14,5 @@ import java.sql.Timestamp;
 @Repository
 public interface EventRepository extends JpaRepository<EventEntity, Long>{
 	EventEntity findEventsById(int id);
-	//EventEntity findEventsByNameAndProviderAndDate_starting(String name, int provider, Timestamp date_starting);
+	EventEntity findEventsByNameAndProvider_idAndDateStarting(String name, int provider, Timestamp date_starting);
 }
