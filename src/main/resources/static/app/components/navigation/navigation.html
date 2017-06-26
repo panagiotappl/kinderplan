@@ -43,7 +43,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul ng-if="!signedIn" class="nav navbar-nav navbar-right">
+                <ul ng-hide="signedIn" class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#" ui-sref="signup">Sign Up</a>
                     </li>
@@ -52,7 +52,7 @@
                     </li>
 
                 </ul>
-                <ul ng-if="signedIn" class="nav navbar-nav navbar-right">
+                <ul ng-show="signedIn" class="nav navbar-nav navbar-right">
                     <li>
                         <a  data-toggle="dropdown">Welcome, {{user.name}}
                             <span class="caret"></span></a>

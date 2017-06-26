@@ -61,6 +61,12 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             controller: 'profileController',
             data: {pageTitle : "My Profile"}
         })
+        .state('wallet', {
+            url: '/wallet',
+            templateUrl: 'app/components/profile/wallet.html',
+            controller: 'walletController',
+            data: {pageTitle : "My Wallet"}
+        })
         .state('notValid', {
             url: '/forbidden',
             templateUrl: 'app/components/misc/notValid.html',

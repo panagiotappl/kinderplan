@@ -29,5 +29,17 @@ router.factory('UserService', function($http, $cookies) {
             });
     };
 
+
+    userService.pay = function(userId, authToken, quantity){
+        console.log(authToken);
+        var data = {userId: userId, points: quantity};
+        console.log(data);
+        return $http.post('/api/pay', data, {headers: {'authToken': authToken}})
+            .then(function(response){
+                console.log(response);
+                return response;
+            });
+    };
+
     return userService;
 });

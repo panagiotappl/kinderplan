@@ -136,6 +136,36 @@ public class UserControllerImpl implements UserController {
         return  response;
     }
 
+    @Override
+    public PayResponseDto pay(@RequestHeader UUID authToken, @RequestBody  PayRequestDto payRequestDto) throws Exception{
+        System.out.print(payRequestDto.getPoints() + payRequestDto.getUserId());
+        Integer userId = payRequestDto.getUserId();
+        Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
+        Optional.ofNullable(userId).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
+
+        //Get Active Session
+        SessionInfo sessionInfo = authenticator.checkUpdateSession(authToken);
+
+        //Get UserEntity
+        UserEntity user = userRepository.findUsersById(userId);
+
+        //Validate Authorization
+        if (!userId.equals(sessionInfo.getUserId()))
+            throw new NotAuthorizedException(UserError.UNAUTHORIZED);
+
+
+        //Only parents can buy points
+        if(!user.getRole().equals("parent"))
+            throw new NotAuthorizedException(UserError.UNAUTHORIZED);
+
+        ParentEntity parent = parentRepository.findParentByUserId(userId);
+        parent.setPoints(parent.getPoints() + payRequestDto.getPoints());
+        parentRepository.save(parent);
+
+
+        return null;
+    }
+
     private void saveProvider(UserEntity userEntity, ProviderDto providerDto) {
         ProviderEntity provider = userMapper.providerEntityFromProviderDto(providerDto);
         provider.setUser(userEntity);
