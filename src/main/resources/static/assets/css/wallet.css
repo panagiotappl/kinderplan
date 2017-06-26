@@ -1,0 +1,83 @@
+.credit-card-div  span {
+    padding-top:10px;
+}
+.credit-card-div img {
+    padding-top:30px;
+}
+.credit-card-div .small-font {
+    font-size:9px;
+}
+.credit-card-div .pad-adjust {
+    padding-top:10px;
+}
+
+.myLabel{
+    background-color: #eee;
+    color: #6d6d6d;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.selector{
+    border-radius: 3px;
+    border: 1px solid #a7a7a7;
+    font-size: 16px;
+}
+
+.total{
+    border-top: 1px solid #ccc;
+}
+
+#wallet.container{
+    padding-top: 50px;
+
+}
+
+
+.choice{
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #3c9280;
+    background-color: #3c9280;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+
+.choice:hover, .choice:focus{
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #79e7b9;
+    background-color: #79e7b9;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+.choice2{
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #ff4500;
+    background-color: #ff4500;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    margin: 5px;
+}
+
+
+.choice2:hover, .choice2:focus{
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid #ff9449;
+    background-color: #ff9449;
+    color: white;
+    width: 100px;
+    border-radius: 3px;
+    margin: 5px;
+}
