@@ -1,5 +1,7 @@
 package com.webapplication.controller;
 
+import com.webapplication.dao.TransactionRepository;
+import com.webapplication.entity.TransactionEntity;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 
@@ -44,6 +46,8 @@ public class UserControllerImpl implements UserController {
     private ProviderRepository providerRepository;
     @Autowired
     private ParentRepository parentRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
     @Autowired
     private UserRequestValidator userRequestValidator;
     @Autowired
@@ -162,10 +166,19 @@ public class UserControllerImpl implements UserController {
         parent.setPoints(parent.getPoints() + payRequestDto.getPoints());
         parentRepository.save(parent);
 
+        addTransaction(payRequestDto.getTransactionDto(), payRequestDto.getPoints());
 
         return null;
     }
 
+
+
+    private void addTransaction(TransactionDto transactionDto, Integer amount){
+        System.out.println("mphka");
+        TransactionEntity transactionEntity = userMapper.transactionEntityFromTransactionDto(transactionDto, amount);
+        transactionRepository.save(transactionEntity);
+
+    }
     private void saveProvider(UserEntity userEntity, ProviderDto providerDto) {
         ProviderEntity provider = userMapper.providerEntityFromProviderDto(providerDto);
         provider.setUser(userEntity);

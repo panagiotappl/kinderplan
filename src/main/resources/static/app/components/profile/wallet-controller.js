@@ -3,6 +3,7 @@ router.controller('walletController', function($scope, $cookies, $state, UserSer
     $scope.parent = false;
     $scope.provider = false;
     $scope.selected = false;
+    $scope.notSelected = false;
 
     $scope.items = [{
         id: 1,
@@ -70,19 +71,32 @@ router.controller('walletController', function($scope, $cookies, $state, UserSer
 
     $scope.select = function(id, type){
         $scope.selected = true;
+        $scope.notSelected = false;
         if(type === "normal")
             $scope.selection = $scope.items[id - 1];
         else $scope.selection = $scope.discount[id - 1];
     }
 
+    $scope.data = {};
     $scope.pay = function(){
-        console.log($scope.user.authToken);
-        UserService.pay($scope.user.id, $scope.user.authToken, $scope.selection.quantity)
-            .then(function(response){
+        if($scope.selected){
 
-            }, function(response){
 
-            })
+            $scope.notSelected = false;
+
+
+            $scope.data.userId = $scope.user.id;
+            $scope.data.transactionDto.date = $scope.month + "/" + $scope.year;
+            $scope.data.points = $scope.selection.quantity;
+
+
+            UserService.pay($scope.data, $scope.user.authToken)
+                .then(function (response) {
+                    $state.go('success');
+                }, function (response) {
+
+                });
+        }else $scope.notSelected = true;
 
     }
 

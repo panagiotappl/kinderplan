@@ -30,9 +30,8 @@ router.factory('UserService', function($http, $cookies) {
     };
 
 
-    userService.pay = function(userId, authToken, quantity){
+    userService.pay = function(data, authToken){
         console.log(authToken);
-        var data = {userId: userId, points: quantity};
         console.log(data);
         return $http.post('/api/pay', data, {headers: {'authToken': authToken}})
             .then(function(response){

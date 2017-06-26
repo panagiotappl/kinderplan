@@ -4,8 +4,11 @@ package com.webapplication.mapper;
 import com.webapplication.dto.user.*;
 import com.webapplication.entity.ParentEntity;
 import com.webapplication.entity.ProviderEntity;
+import com.webapplication.entity.TransactionEntity;
 import com.webapplication.entity.UserEntity;
 import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
 
 @Component
 public class UserMapper {
@@ -63,5 +66,17 @@ public class UserMapper {
     }
 
 
+    public TransactionEntity transactionEntityFromTransactionDto(TransactionDto transactionDto, Integer amount){
+        TransactionEntity transactionEntity = new TransactionEntity();
+        transactionEntity.setAmount(amount);
+        transactionEntity.setCard_number(transactionDto.getCard_number());
+        transactionEntity.setCardHolder(transactionDto.getCard_holder());
+        transactionEntity.setCvv(transactionDto.getCvv());
+        transactionEntity.setDate_expiration(transactionDto.getDate());
+        System.out.println("mapper mapper");
+        transactionEntity.setDate(new Timestamp(System.currentTimeMillis()));
 
+        return transactionEntity;
+
+    }
 }
