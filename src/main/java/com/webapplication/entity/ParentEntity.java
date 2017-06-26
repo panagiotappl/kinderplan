@@ -30,7 +30,7 @@ public class ParentEntity {
     @JoinColumn(name = "user_id")
     private Set<CommentProviderEntity> provider_comments = new HashSet<CommentProviderEntity>(0);
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "parent_id")
     private Set<TransactionEntity> transactions = new HashSet<TransactionEntity>(0);
 
     public UserEntity getUser() {
