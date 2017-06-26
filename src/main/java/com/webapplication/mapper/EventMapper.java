@@ -41,7 +41,6 @@ public class EventMapper {
 	public EventEntity eventEntityFromEventDto(EventSubmitRequestDto eventSubmitRequestDto){
 		EventEntity eventEntity= new EventEntity();
 		eventEntity.setName(eventSubmitRequestDto.getName());
-		//eventEntity.setProvider(eventSubmitRequestDto.getProvider());
 		eventEntity.setAddress(eventSubmitRequestDto.getAddress());
 		eventEntity.setLongitude(eventSubmitRequestDto.getLongitude());
 		eventEntity.setLatitude(eventSubmitRequestDto.getLatitude());
@@ -55,7 +54,6 @@ public class EventMapper {
 		eventEntity.setComments(null);
 		eventEntity.setDates(eventDateMapper.eventDateEntitiyFromEventDateDto(eventSubmitRequestDto.getDates()));
 		eventEntity.setTransactions(null);
-		eventEntity.setPhotos(eventPhotoMapper.eventPhotosEntitiyFromPhotoDto(eventSubmitRequestDto.getPhotos()));
 		return eventEntity;
 	}
 }
