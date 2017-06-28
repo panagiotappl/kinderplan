@@ -2,13 +2,13 @@ package com.webapplication.controller;
 
 import com.webapplication.dao.TransactionRepository;
 import com.webapplication.entity.TransactionEntity;
+import com.webapplication.dao.jpaRepository.ParentRepository;
+import com.webapplication.dao.jpaRepository.ProviderRepository;
+import com.webapplication.dao.jpaRepository.UserRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 
 import com.webapplication.authentication.Authenticator;
-import com.webapplication.dao.ParentRepository;
-import com.webapplication.dao.ProviderRepository;
-import com.webapplication.dao.UserRepository;
 import com.webapplication.dto.user.*;
 import com.webapplication.entity.ParentEntity;
 import com.webapplication.entity.ProviderEntity;

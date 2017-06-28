@@ -1,23 +1,25 @@
 package com.webapplication.controller;
 
 import com.webapplication.authentication.Authenticator;
-import com.webapplication.dao.EventRepository;
-import com.webapplication.dao.ProviderRepository;
+import com.webapplication.dao.elasticRepository.ElasticEventRepository;
+import com.webapplication.dao.jpaRepository.EventRepository;
+import com.webapplication.dao.jpaRepository.ProviderRepository;
 import com.webapplication.dto.event.*;
-import com.webapplication.dto.user.SessionInfo;
+import com.webapplication.elasticEntity.ElasticEventEntity;
 import com.webapplication.entity.EventEntity;
 import com.webapplication.entity.ProviderEntity;
 import com.webapplication.exception.ValidationException;
 import com.webapplication.error.event.EventError;
 import com.webapplication.error.user.UserError;
-import com.webapplication.exception.user.NotAuthenticatedException;
 import com.webapplication.mapper.EventMapper;
 import com.webapplication.validator.event.EventRequestValidator;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.sql.Timestamp;
@@ -38,6 +40,9 @@ public class EventControllerImpl implements EventController{
 	private Authenticator authenticator;
 	@Autowired
 	private ProviderRepository providerRepository;
+	@Autowired
+	private ElasticEventRepository elasticEventRepository;
+
 
 	@Override
 	public EventResponseDto getEvent(@PathVariable Integer eventId) throws Exception {
@@ -66,6 +71,15 @@ public class EventControllerImpl implements EventController{
 		EventSubmitResponseDto response = new EventSubmitResponseDto(HttpStatus.OK,"Event is registered succesfully");
 		return  response;
 	}
+
+	@Override
+	public List<ElasticEventEntity> searchEvents(@RequestBody EventSearchRequestDto eventSearchRequestDto) throws Exception {
+		ArrayList elasticEventEntityList= elasticEventRepository.findByName(eventSearchRequestDto.getName());
+		elasticEventEntityList.addAll(elasticEventRepository.findByProvider(eventSearchRequestDto.getProvider()));
+        return elasticEventEntityList;
+	}
+
+
 }
 
 
