@@ -1,7 +1,7 @@
 package com.webapplication.validator.event;
 
-import com.webapplication.dao.EventRepository;
-import com.webapplication.dao.ProviderRepository;
+import com.webapplication.dao.jpaRepository.EventRepository;
+import com.webapplication.dao.jpaRepository.ProviderRepository;
 import com.webapplication.dto.event.EventSubmitRequestDto;
 import com.webapplication.error.event.EventSubmitError;
 import com.webapplication.exception.ValidationException;

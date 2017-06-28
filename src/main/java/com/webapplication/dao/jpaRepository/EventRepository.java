@@ -1,4 +1,4 @@
-package com.webapplication.dao;
+package com.webapplication.dao.jpaRepository;
 
 import com.webapplication.entity.EventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
