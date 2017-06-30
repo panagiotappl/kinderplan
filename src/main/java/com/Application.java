@@ -53,11 +53,12 @@ public class Application  implements CommandLineRunner{
 		eventEntity.setAge_from(10);
 		eventEntity.setAge_to(30);
 		eventRepository.saveAndFlush(eventEntity);
-		ElasticEventEntity elasticEventEntity= new ElasticEventEntity();
-		elasticEventEntity.setName(eventEntity.getName());
-		elasticEventEntity.setProvider(provider.getUser().getName());
-		elasticEventEntity.setId(eventEntity.getId().toString());
-		elasticEventRepository.save(elasticEventEntity);
+
+
+		elasticEventRepository.save(new ElasticEventEntity("11","football","dimitris"));
+		elasticEventRepository.save(new ElasticEventEntity("12","football","panos"));
+		elasticEventRepository.save(new ElasticEventEntity("13","baleto","yiota"));
+		elasticEventRepository.save(new ElasticEventEntity("14","tenis","maria"));
 
 
 
