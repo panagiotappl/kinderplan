@@ -1,6 +1,7 @@
 package com.webapplication.validator.user;
 
-import com.webapplication.dao.UserRepository;
+
+import com.webapplication.dao.jpaRepository.UserRepository;
 import com.webapplication.dto.user.UserSignUpRequestDto;
 import com.webapplication.error.user.UserLogInError;
 import com.webapplication.error.user.UserRegisterError;

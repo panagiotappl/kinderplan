@@ -1,8 +1,11 @@
 package com.webapplication.controller;
 
 import com.webapplication.dto.event.*;
+import com.webapplication.elasticEntity.ElasticEventEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -17,4 +20,8 @@ public interface EventController {
 
 	@RequestMapping(path = "/submitEvent", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, EventSubmitRequestDto eventSubmitRequestDto) throws Exception;
+
+    @RequestMapping(path="/searchEvent",method= RequestMethod.POST,consumes = "application/json",produces="application/json")
+	List<ElasticEventEntity> searchEvents(EventFreeTextSearchDto eventFreeTextSearchDto)throws  Exception;
 }
+
