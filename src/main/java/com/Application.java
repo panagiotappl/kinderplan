@@ -5,7 +5,6 @@ import com.webapplication.dao.jpaRepository.*;
 import com.webapplication.elasticEntity.ElasticEventEntity;
 import com.webapplication.entity.EventEntity;
 import com.webapplication.entity.ProviderEntity;
-import org.elasticsearch.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

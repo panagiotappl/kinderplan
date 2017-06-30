@@ -3,7 +3,7 @@ package com.webapplication.controller;
 import com.webapplication.dao.jpaRepository.ParentRepository;
 import com.webapplication.dao.jpaRepository.ProviderRepository;
 import com.webapplication.dao.jpaRepository.UserRepository;
-import com.webapplication.dao.TransactionRepository;
+import com.webapplication.dao.jpaRepository.TransactionRepository;
 import com.webapplication.entity.TransactionEntity;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
