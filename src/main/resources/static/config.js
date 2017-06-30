@@ -75,5 +75,10 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
         url: '/success',
         templateUrl: 'app/components/misc/success.html',
         data: {pageTitle: "Payment Successful"}
-         });
+         }).state('search', {
+        url: '/search?query',
+        templateUrl: 'app/components/events/list_events.html',
+        controller: 'listEventsController',
+        data: {pageTitle: "Search"}
+    });
 });

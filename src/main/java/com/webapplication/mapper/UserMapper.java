@@ -66,7 +66,7 @@ public class UserMapper {
     }
 
 
-    public TransactionEntity transactionEntityFromTransactionDto(TransactionDto transactionDto, Integer amount){
+    public TransactionEntity transactionEntityFromTransactionDto(TransactionDto transactionDto, Integer amount, ParentEntity parent){
         TransactionEntity transactionEntity = new TransactionEntity();
         transactionEntity.setAmount(amount);
         transactionEntity.setCard_number(transactionDto.getCard_number());
@@ -75,7 +75,7 @@ public class UserMapper {
         transactionEntity.setDate_expiration(transactionDto.getDate());
         System.out.println("mapper mapper");
         transactionEntity.setDate(new Timestamp(System.currentTimeMillis()));
-
+        transactionEntity.setParent(parent);
         return transactionEntity;
 
     }

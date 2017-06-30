@@ -1,7 +1,7 @@
 <navigation></navigation>
-<link rel="stylesheet" href="assets/css/eventsList.css">
+<link rel="stylesheet" href="assets/css/event.css">
 
-<div class="container">
+<div id="eventslist" class="container-fluid">
 
     <div class="flex-row row">
 
@@ -9,8 +9,8 @@
             <div class="thumbnail ">
                 <img src="http://placehold.it/350x150">
                 <div class="caption">
-                    <h3>Event {{$index + 1}} Name</h3>
-                        <p class="flex-text text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, vel, quia. Non nostrum, consectetur ipsum doloribus enim maiores a laudantium, odio vel blanditiis id ea dolorum expedita fugit incidunt commodi.</p>
+                    <h3>{{event.name}}</h3>
+                        <p class="flex-text text-muted">{{event.description}}</p>
                         <p>
                             <a class="btn btn-primary" href="#">Event Details</a>
                         </p>

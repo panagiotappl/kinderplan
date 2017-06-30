@@ -48,9 +48,6 @@ public class EventEntity {
 	private Set<EventDateEntity> dates = new HashSet<EventDateEntity>(0);
 	@OneToMany
 	@JoinColumn(name = "event_id")
-	private Set<TransactionEntity> transactions = new HashSet<TransactionEntity>(0);
-	@OneToMany
-	@JoinColumn(name = "event_id")
 	private Set<EventPhotosEntity> photos = new HashSet<EventPhotosEntity>(0);
 
     public EventEntity(){
@@ -198,14 +195,6 @@ public class EventEntity {
 
 	public void setDates(Set<EventDateEntity> dates) {
 		this.dates = dates;
-	}
-
-	public Set<TransactionEntity> getTransactions() {
-		return transactions;
-	}
-
-	public void setTransactions(Set<TransactionEntity> transactions) {
-		this.transactions = transactions;
 	}
 
 	public Set<EventPhotosEntity> getPhotos() {

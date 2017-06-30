@@ -1,4 +1,4 @@
-router.controller('homepageController', function($scope, $cookies, UserService){
+router.controller('homepageController', function($scope, $cookies, UserService, $state){
     $scope.items = ["Any Day", "Monday", "Tuesday", "Thursday", "Wednesday", "Friday", "Saturday", "Sunday"];
     $scope.selected = [];
 
@@ -15,4 +15,10 @@ router.controller('homepageController', function($scope, $cookies, UserService){
     $scope.exists = function (item, list) {
         return list.indexOf(item) > -1;
     };
+
+
+    $scope.search = function(){
+        $state.go('search', {query: $scope.searchQuery});
+    }
+
 });
