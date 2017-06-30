@@ -12,6 +12,16 @@ public class ElasticEventEntity {
     String name;
     String provider;
 
+    public ElasticEventEntity() {}
+
+    public ElasticEventEntity(String id, String name, String provider) {
+        this.id = id;
+        this.name = name;
+        this.provider = provider;
+    }
+
+
+
     public String getId() {
         return id;
     }

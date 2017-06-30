@@ -13,16 +13,24 @@ import com.webapplication.error.event.EventError;
 import com.webapplication.error.user.UserError;
 import com.webapplication.mapper.EventMapper;
 import com.webapplication.validator.event.EventRequestValidator;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.sql.Timestamp;
+
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
  * Created by mary on 5/6/2017.
@@ -73,10 +81,19 @@ public class EventControllerImpl implements EventController{
 	}
 
 	@Override
-	public List<ElasticEventEntity> searchEvents(@RequestBody EventSearchRequestDto eventSearchRequestDto) throws Exception {
-		ArrayList elasticEventEntityList= elasticEventRepository.findByName(eventSearchRequestDto.getName());
-		elasticEventEntityList.addAll(elasticEventRepository.findByProvider(eventSearchRequestDto.getProvider()));
-        return elasticEventEntityList;
+	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
+
+		SearchQuery searchQuery = new NativeSearchQueryBuilder()
+				.withQuery(multiMatchQuery(eventFreeTextSearchDto.getText())
+						.field("name")
+						.field("provider")
+						.type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+				)
+				.build();
+		return elasticEventRepository.search(searchQuery).getContent();
+
+
+
 	}
 
 

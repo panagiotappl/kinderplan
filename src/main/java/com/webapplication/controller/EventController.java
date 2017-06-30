@@ -22,5 +22,6 @@ public interface EventController {
 	EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, EventSubmitRequestDto eventSubmitRequestDto) throws Exception;
 
     @RequestMapping(path="/searchEvent",method= RequestMethod.POST,consumes = "application/json",produces="application/json")
-	List<ElasticEventEntity> searchEvents(EventSearchRequestDto eventSearchRequestDto)throws  Exception;
+	List<ElasticEventEntity> searchEvents(EventFreeTextSearchDto eventFreeTextSearchDto)throws  Exception;
 }
+
