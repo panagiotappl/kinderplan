@@ -17,6 +17,8 @@ public class TransactionEntity {
 			generator = "transactions_id_seq")
 	@Column(name = "id", nullable = false)
 	private Integer id;
+	@ManyToOne
+	private ParentEntity parent;
 
 	public String getCard_number() {
 		return card_number;
@@ -93,5 +95,11 @@ public class TransactionEntity {
 		this.date = date;
 	}
 
+	public ParentEntity getParent() {
+		return parent;
+	}
 
+	public void setParent(ParentEntity parent) {
+		this.parent = parent;
+	}
 }

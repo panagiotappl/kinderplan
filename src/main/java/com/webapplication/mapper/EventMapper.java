@@ -53,7 +53,6 @@ public class EventMapper {
 		eventEntity.setCategories(categoryMapper.categoryEntityFromCategoryDto(eventSubmitRequestDto.getCategories()));
 		eventEntity.setComments(null);
 		eventEntity.setDates(eventDateMapper.eventDateEntitiyFromEventDateDto(eventSubmitRequestDto.getDates()));
-		eventEntity.setTransactions(null);
 		return eventEntity;
 	}
 }

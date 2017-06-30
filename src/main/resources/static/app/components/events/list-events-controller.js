@@ -5,7 +5,8 @@
 
 router.controller('listEventsController', function($scope, $cookies, UserService) {
 
-    $scope.events = [1,2,3];
+    $scope.events = [{name: "PlayGround", description: "Ennoies twn ergwn, sxediasmos, Xronikos programmatismos, ergaleia, texnikes kai methodologia"},
+        {name: "Kinderkarden", description: "I'm a puppet on a string, tracy island, time travelling diamong cutted shaped heart aches"}];
 
 
 });

@@ -166,16 +166,16 @@ public class UserControllerImpl implements UserController {
         parent.setPoints(parent.getPoints() + payRequestDto.getPoints());
         parentRepository.save(parent);
 
-        addTransaction(payRequestDto.getTransactionDto(), payRequestDto.getPoints());
+        addTransaction(payRequestDto.getTransactionDto(), payRequestDto.getPoints(), parent);
 
         return null;
     }
 
 
 
-    private void addTransaction(TransactionDto transactionDto, Integer amount){
+    private void addTransaction(TransactionDto transactionDto, Integer amount, ParentEntity parent){
         System.out.println("mphka");
-        TransactionEntity transactionEntity = userMapper.transactionEntityFromTransactionDto(transactionDto, amount);
+        TransactionEntity transactionEntity = userMapper.transactionEntityFromTransactionDto(transactionDto, amount, parent);
         transactionRepository.save(transactionEntity);
 
     }
