@@ -6,6 +6,8 @@ package com.webapplication.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -27,6 +29,9 @@ public class EventDateEntity {
 	private Integer available_tickets;
 	private Integer tickets_sold;
 	private String note;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "event_date_id")
+	private Set<BookingEntity> bookings = new HashSet<BookingEntity>(0);
 
 	public EventDateEntity() {
 	}
@@ -102,5 +107,13 @@ public class EventDateEntity {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Set<BookingEntity> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(Set<BookingEntity> bookings) {
+		this.bookings = bookings;
 	}
 }
