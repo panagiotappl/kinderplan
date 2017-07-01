@@ -52,6 +52,10 @@ public class BookingEntity {
 		return booking_time;
 	}
 
+	public void setBooking_time(Timestamp booking_time) {
+		this.booking_time = booking_time;
+	}
+
 	public void setNumOfTickets(Integer numOfTickets) {
 		this.numOfTickets = numOfTickets;
 	}
