@@ -15,8 +15,6 @@ public class EventMapper {
 	EventDateMapper eventDateMapper;
 	@Autowired
 	CategoryMapper categoryMapper;
-	@Autowired
-	EventPhotoMapper eventPhotoMapper;
 
 	public EventResponseDto eventToEventResponse(EventEntity event){
 		if (event == null)
