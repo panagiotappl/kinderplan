@@ -1,6 +1,7 @@
 package com.webapplication.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by mary on 1/7/2017.
@@ -20,6 +21,7 @@ public class BookingEntity {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	private Integer numOfTickets;
+	private Timestamp booking_time;
 	@ManyToOne
 	private ParentEntity parent;
 	@ManyToOne
@@ -44,6 +46,10 @@ public class BookingEntity {
 
 	public Integer getNumOfTickets() {
 		return numOfTickets;
+	}
+
+	public Timestamp getBooking_time() {
+		return booking_time;
 	}
 
 	public void setNumOfTickets(Integer numOfTickets) {
