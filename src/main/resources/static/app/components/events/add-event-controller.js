@@ -59,6 +59,7 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         req.longitude = address.lng();
 
         var request = {
+            provider: $cookies.get('id'),
             name: req.eventName,
             address: req.address,
             latitude: req.latitude,
