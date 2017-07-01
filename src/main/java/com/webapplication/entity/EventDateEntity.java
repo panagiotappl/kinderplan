@@ -26,7 +26,7 @@ public class EventDateEntity {
 	private EventEntity event;
 	private Timestamp start_date;
 	private Timestamp end_date;
-	private Integer available_tickets;
+	private Integer available_tickets;		// tickets left, reduced after every reservation
 	private Integer tickets_sold;
 	private String note;
 	@OneToMany(cascade = CascadeType.ALL)

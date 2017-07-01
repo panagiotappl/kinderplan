@@ -16,6 +16,7 @@ public class BookingMapper {
 		BookingEntity bookingEntity = new BookingEntity();
 
 		bookingEntity.setNumOfTickets(newBookingRequestDto.getNumOfTickets());
+		bookingEntity.setTotal_price(newBookingRequestDto.getNumOfTickets()*eventDateEntity.getEvent().getTicket_price());
 		bookingEntity.setEventDate(eventDateEntity);
 		bookingEntity.setParent(parentEntity);
 

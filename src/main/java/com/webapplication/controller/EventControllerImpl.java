@@ -77,7 +77,7 @@ public class EventControllerImpl implements EventController{
 
 		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
 		eventRequestValidator.validate(eventSubmitRequestDto);
-		ProviderEntity providerEntity = providerRepository.findProviderById(eventSubmitRequestDto.getProvider());
+		ProviderEntity providerEntity = providerRepository.findProviderByUserId(eventSubmitRequestDto.getProvider());
 		if (authenticator.getSession(authToken).getUserId() != providerEntity.getUser().getId()){
 			throw new ValidationException(UserError.UNAUTHORIZED);
 		}
@@ -131,6 +131,9 @@ public class EventControllerImpl implements EventController{
 			throw new ValidationException(NewBookingSubmitError.NOT_ENOUGH_POINTS);
 		}
 
+		parentEntity.setPoints(parentEntity.getPoints()-eventDateEntity.getEvent().getTicket_price()*newBookingRequestDto.getNumOfTickets());
+		eventDateEntity.setAvailable_tickets(eventDateEntity.getAvailable_tickets() - newBookingRequestDto.getNumOfTickets());
+		eventDateEntity.setTickets_sold(eventDateEntity.getTickets_sold() + newBookingRequestDto.getNumOfTickets());
 		BookingEntity bookingEntity = bookingMapper.bookingEntityFromBookingRequestDto(newBookingRequestDto, parentEntity, eventDateEntity);
 		bookingEntity.setBooking_time(new Timestamp(System.currentTimeMillis()));
 		bookingRepository.saveAndFlush(bookingEntity);
