@@ -8,9 +8,7 @@ router.factory('EventsService', function($http) {
             });
     };
 
-    var eventService = {};
-
-    eventService.search = function (query) {
+    eventsService.search = function (query) {
         return $http.post('/api/searchEvent', {text: query})
             .then(function (response) {
                 console.log(response);
@@ -20,5 +18,5 @@ router.factory('EventsService', function($http) {
     };
 
 
-    return eventService;
+    return eventsService;
 });
