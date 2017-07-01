@@ -21,6 +21,7 @@ public class BookingEntity {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	private Integer numOfTickets;
+	private Integer total_price;
 	private Timestamp booking_time;
 	@ManyToOne
 	private ParentEntity parent;
@@ -48,16 +49,24 @@ public class BookingEntity {
 		return numOfTickets;
 	}
 
+	public void setNumOfTickets(Integer numOfTickets) {
+		this.numOfTickets = numOfTickets;
+	}
+
+	public Integer getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(Integer total_price) {
+		this.total_price = total_price;
+	}
+
 	public Timestamp getBooking_time() {
 		return booking_time;
 	}
 
 	public void setBooking_time(Timestamp booking_time) {
 		this.booking_time = booking_time;
-	}
-
-	public void setNumOfTickets(Integer numOfTickets) {
-		this.numOfTickets = numOfTickets;
 	}
 
 	public ParentEntity getParent() {
