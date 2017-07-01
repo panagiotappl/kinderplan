@@ -29,5 +29,5 @@ public interface ElasticEventRepository extends ElasticsearchRepository<ElasticE
     @Query("\"{\"bool\" : {\"must\" : {\"field\" : {\"name\" : \"?\"}}}}")
     Page<ElasticEventEntity> findByText(String name,Pageable pageable);
     ArrayList findByName(String name);
-    List<ElasticEventEntity> findByProvider(String provider);
+    List<ElasticEventEntity> findByProviderName(String provider);
 }
