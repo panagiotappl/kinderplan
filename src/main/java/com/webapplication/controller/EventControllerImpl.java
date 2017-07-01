@@ -76,6 +76,7 @@ public class EventControllerImpl implements EventController{
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		eventEntity.setDate_created(timestamp);
 		eventRepository.saveAndFlush(eventEntity);
+		elasticEventRepository.save(new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName()));
 		EventSubmitResponseDto response = new EventSubmitResponseDto(HttpStatus.OK,"Event is registered succesfully");
 		return  response;
 	}
@@ -86,7 +87,9 @@ public class EventControllerImpl implements EventController{
 		SearchQuery searchQuery = new NativeSearchQueryBuilder()
 				.withQuery(multiMatchQuery(eventFreeTextSearchDto.getText())
 						.field("name")
-						.field("provider")
+						.field("providerName")
+						.field("company")
+						.field("description")
 						.type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
 				)
 				.build();

@@ -46,11 +46,11 @@ public class EventResponseDto {
 		this.address = address;
 	}
 
-//	public ProviderDto getProvider() {
+//	public ProviderDto getProviderName() {
 //		return provider;
 //	}
 
-//	public void setProvider(ProviderDto provider) {
+//	public void setProviderName(ProviderDto provider) {
 //		this.provider = provider;
 //	}
 
