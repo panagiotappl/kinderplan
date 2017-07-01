@@ -5,7 +5,6 @@ import com.webapplication.dao.jpaRepository.*;
 import com.webapplication.elasticEntity.ElasticEventEntity;
 import com.webapplication.entity.EventEntity;
 import com.webapplication.entity.ProviderEntity;
-import org.elasticsearch.client.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -46,19 +45,19 @@ public class Application  implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		EventEntity eventEntity = new EventEntity();
+		/*EventEntity eventEntity = new EventEntity();
 		ProviderEntity provider = providerRepository.findProviderById(1);
 		eventEntity.setProvider(provider);
 		eventEntity.setName("baleto");
 		eventEntity.setAge_from(10);
 		eventEntity.setAge_to(30);
-		eventRepository.saveAndFlush(eventEntity);
+		eventRepository.saveAndFlush(eventEntity);*/
 
 
-		elasticEventRepository.save(new ElasticEventEntity("11","football","dimitris"));
-		elasticEventRepository.save(new ElasticEventEntity("12","football","panos"));
-		elasticEventRepository.save(new ElasticEventEntity("13","baleto","yiota"));
-		elasticEventRepository.save(new ElasticEventEntity("14","tenis","maria"));
+	//	elasticEventRepository.save(new ElasticEventEntity("11","football","football for small kids","Nikolis","Olimpiakos"));
+	//	elasticEventRepository.save(new ElasticEventEntity("12","football","panos"));
+	//	elasticEventRepository.save(new ElasticEventEntity("13","baleto","yiota"));
+	//	elasticEventRepository.save(new ElasticEventEntity("14","tenis","maria"));
 
 
 

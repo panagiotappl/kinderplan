@@ -10,17 +10,42 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class ElasticEventEntity {
     String id;
     String name;
-    String provider;
+    String providerName;
+    String company;
+    String description;
+
+
+
 
     public ElasticEventEntity() {}
 
-    public ElasticEventEntity(String id, String name, String provider) {
+    public ElasticEventEntity(String id, String name,String description, String providerName,String company) {
         this.id = id;
         this.name = name;
-        this.provider = provider;
+        this.description=description;
+        this.providerName = providerName;
+        this.company = company;
     }
 
 
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getId() {
         return id;
@@ -38,11 +63,11 @@ public class ElasticEventEntity {
         this.name = name;
     }
 
-    public String getProvider() {
-        return provider;
+    public String getProviderName() {
+        return providerName;
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 }

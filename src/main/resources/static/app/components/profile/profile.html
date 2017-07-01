@@ -27,7 +27,7 @@
                                     <td>Points:</td>
                                     <td>{{user.parentDto.points}}</td>
                                 </tr>
-                                <tr ng-if="provider">
+                                <tr ng-if="providerName">
                                     <td>Company Name:</td>
                                     <td>{{user.providerDto.companyName}}</td>
                                 </tr>
@@ -40,8 +40,8 @@
                             <a ng-if="parent" ui-sref="wallet"  class="profileBtn btn btn-primary">Buy Points</a>
                             <a ng-if="parent" ui-sref="wallet"  class="profileBtn btn btn-primary">Purchase History</a>
 
-                            <a ng-if="provider" ui-sref="addEvent"  class=" profileBtn btn btn-primary">Add Event</a>
-                            <a ng-if="provider" ui-sref="addEvent"  class="profileBtn btn btn-primary">My Events</a>
+                            <a ng-if="providerName" ui-sref="addEvent"  class=" profileBtn btn btn-primary">Add Event</a>
+                            <a ng-if="providerName" ui-sref="addEvent"  class="profileBtn btn btn-primary">My Events</a>
 
 
                         </div>
