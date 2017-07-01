@@ -26,10 +26,14 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Iterator;
 import java.sql.Timestamp;
 
 import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
@@ -111,6 +115,33 @@ public class EventControllerImpl implements EventController{
 		return elasticEventRepository.search(searchQuery).getContent();
 
 
+
+	}
+
+	@Override
+	public UploadFileResponseDto UploadFile(MultipartHttpServletRequest request) throws IOException {
+
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile file = request.getFile(itr.next());
+		String fileName = file.getOriginalFilename();
+
+		File dir = new File("./src/main/resources/static/images/user_uploads");
+		if (dir.isDirectory()) {
+
+			File serverFile = new File(dir, fileName);
+
+			BufferedOutputStream stream = new BufferedOutputStream(
+					new FileOutputStream(serverFile));
+			stream.write(file.getBytes());
+			stream.close();
+
+			String path = "images/user_uploads/" + fileName;
+			UploadFileResponseDto uploadFileResponseDto = new UploadFileResponseDto();
+			uploadFileResponseDto.setPath(path);
+			return uploadFileResponseDto;
+		} else {
+			return null;
+		}
 
 	}
 

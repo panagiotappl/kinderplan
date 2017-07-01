@@ -17,6 +17,7 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         startDate: null,
         endDate: null,
         dates: [],
+        photos: [],
         datesPicker: [{startDate: null, // TODO: Add today here
             endDate: null,  // TODO: And here
             availableTickets: 0
