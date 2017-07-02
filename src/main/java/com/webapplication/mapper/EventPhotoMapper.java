@@ -5,6 +5,7 @@ import com.webapplication.entity.EventPhotosEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mary on 14/6/2017.
@@ -22,6 +23,21 @@ public class EventPhotoMapper {
 			}
 
 			return eventPhotosEntities;
+		}
+		else {
+			return null;
+		}
+	}
+
+	public HashSet<EventPhotosDto> eventPhotosDtosFromEventPhotosEntities(Set<EventPhotosEntity> eventPhotosEntities){
+		if (eventPhotosEntities != null){
+			HashSet<EventPhotosDto> eventPhotosDtos = new HashSet<>(eventPhotosEntities.size());
+			for (EventPhotosEntity eventPhotosEntity : eventPhotosEntities){
+				EventPhotosDto eventPhotosDto = new EventPhotosDto();
+				eventPhotosDto.setPath(eventPhotosEntity.getPhoto_path());
+				eventPhotosDtos.add(eventPhotosDto);
+			}
+			return eventPhotosDtos;
 		}
 		else{
 			return null;

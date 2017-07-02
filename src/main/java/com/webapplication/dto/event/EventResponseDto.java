@@ -1,9 +1,12 @@
 package com.webapplication.dto.event;
 
+import com.webapplication.dto.CategoryDto;
 import com.webapplication.dto.user.ProviderDto;
+import com.webapplication.dto.user.ProviderViewEventDto;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by mary on 5/6/2017.
@@ -12,7 +15,7 @@ public class EventResponseDto {
 	private Integer id;
 	private String name;
 	private String address;
-	//private ProviderDto provider;
+	private ProviderViewEventDto provider;
 	private Float longitude;
 	private Float latitude;
 	private Integer age_from;
@@ -21,6 +24,10 @@ public class EventResponseDto {
 	private String description;
 	private Timestamp date_ending;
 	private Timestamp date_starting;
+	private HashSet<EventDateDto> dates;
+	private HashSet<CategoryDto> categories;
+	private HashSet<CommentEventDto> comments;
+	private HashSet<EventPhotosDto> photos;
 
 	public Integer getId() {
 		return id;
@@ -46,13 +53,13 @@ public class EventResponseDto {
 		this.address = address;
 	}
 
-//	public ProviderDto getProviderName() {
-//		return provider;
-//	}
+	public ProviderViewEventDto getProvider() {
+		return provider;
+	}
 
-//	public void setProviderName(ProviderDto provider) {
-//		this.provider = provider;
-//	}
+	public void setProvider(ProviderViewEventDto provider) {
+		this.provider = provider;
+	}
 
 	public Float getLongitude() {
 		return longitude;
@@ -116,5 +123,37 @@ public class EventResponseDto {
 
 	public void setDate_starting(Timestamp date_starting) {
 		this.date_starting = date_starting;
+	}
+
+	public HashSet<EventDateDto> getDates() {
+		return dates;
+	}
+
+	public void setDates(HashSet<EventDateDto> dates) {
+		this.dates = dates;
+	}
+
+	public HashSet<CategoryDto> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(HashSet<CategoryDto> categories) {
+		this.categories = categories;
+	}
+
+	public HashSet<CommentEventDto> getComments() {
+		return comments;
+	}
+
+	public void setComments(HashSet<CommentEventDto> comments) {
+		this.comments = comments;
+	}
+
+	public HashSet<EventPhotosDto> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(HashSet<EventPhotosDto> photos) {
+		this.photos = photos;
 	}
 }

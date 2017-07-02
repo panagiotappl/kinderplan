@@ -79,4 +79,23 @@ public class UserMapper {
         return transactionEntity;
 
     }
+
+    public ParentCommentDto parentCommentDtoFromParentEntity(ParentEntity parentEntity){
+        ParentCommentDto parentCommentDto = new ParentCommentDto();
+        parentCommentDto.setId(parentEntity.getId());
+        parentCommentDto.setUser_id(parentEntity.getUser().getId());
+        parentCommentDto.setName(parentEntity.getUser().getName());
+        parentCommentDto.setSurname(parentEntity.getUser().getSurname());
+        return parentCommentDto;
+    }
+
+    public ProviderViewEventDto providerViewEventDtoFromProviderEntity(ProviderEntity providerEntity){
+        ProviderViewEventDto providerDto = new ProviderViewEventDto();
+        providerDto.setId(providerEntity.getId());
+        providerDto.setVatNumber(providerEntity.getVatNumber());
+        providerDto.setCompanyName(providerEntity.getCompanyName());
+        providerDto.setUser_id(providerEntity.getUser().getId());
+        providerDto.setEmail(providerEntity.getUser().getEmail());
+        return providerDto;
+    }
 }

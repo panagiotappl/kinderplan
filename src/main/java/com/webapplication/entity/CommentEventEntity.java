@@ -25,7 +25,7 @@ public class CommentEventEntity {
 	private EventEntity event;
 	private Timestamp date;
 	@ManyToOne
-	private ParentEntity user_id;
+	private ParentEntity parent;
 
 	public CommentEventEntity() {
 	}
@@ -34,7 +34,7 @@ public class CommentEventEntity {
 		this.comment = comment;
 		this.event = event;
 		this.date = date;
-		this.user_id = user_id;
+		this.parent = user_id;
 	}
 
 	public Integer getId() {
@@ -69,11 +69,11 @@ public class CommentEventEntity {
 		this.date = date;
 	}
 
-	public ParentEntity getUser_id() {
-		return user_id;
+	public ParentEntity getParent() {
+		return parent;
 	}
 
-	public void setUser_id(ParentEntity user_id) {
-		this.user_id = user_id;
+	public void setParent(ParentEntity parent) {
+		this.parent = parent;
 	}
 }

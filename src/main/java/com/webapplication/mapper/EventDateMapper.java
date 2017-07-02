@@ -1,10 +1,12 @@
 package com.webapplication.mapper;
 
+import com.webapplication.dto.event.EventDateDto;
 import com.webapplication.dto.event.EventDateSubmitRequestDto;
 import com.webapplication.entity.EventDateEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mary on 14/6/2017.
@@ -25,5 +27,20 @@ public class EventDateMapper {
 		}
 
 		return eventDatesEntity;
+	}
+
+	public HashSet<EventDateDto> eventDateDtosFromEventDateEntities(Set<EventDateEntity> eventDateEntities){
+		HashSet<EventDateDto> eventDateDtos = new HashSet<>(eventDateEntities.size());
+		for (EventDateEntity eventDateEntity : eventDateEntities){
+			EventDateDto eventDateDto = new EventDateDto();
+			eventDateDto.setId(eventDateEntity.getId());
+			eventDateDto.setStart_date(eventDateEntity.getStart_date());
+			eventDateDto.setEnd_date(eventDateEntity.getEnd_date());
+			eventDateDto.setAvailable_tickets(eventDateEntity.getAvailable_tickets());
+			eventDateDto.setNote(eventDateEntity.getNote());
+			eventDateDtos.add(eventDateDto);
+		}
+
+		return eventDateDtos;
 	}
 }

@@ -12,9 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventMapper {
 	@Autowired
-	EventDateMapper eventDateMapper;
+	private EventDateMapper eventDateMapper;
 	@Autowired
-	CategoryMapper categoryMapper;
+	private CategoryMapper categoryMapper;
+	@Autowired
+	private CommentEventMapper commentEventMapper;
+	@Autowired
+	private EventPhotoMapper eventPhotoMapper;
+	@Autowired
+	private UserMapper userMapper;
 
 	public EventResponseDto eventToEventResponse(EventEntity event){
 		if (event == null)
@@ -24,6 +30,7 @@ public class EventMapper {
 		eventResponse.setId(event.getId());
 		eventResponse.setName(event.getName());
 		eventResponse.setAddress(event.getAddress());
+		eventResponse.setProvider(userMapper.providerViewEventDtoFromProviderEntity(event.getProvider()));
 		eventResponse.setLongitude(event.getLongitude());
 		eventResponse.setLatitude(event.getLatitude());
 		eventResponse.setAge_from(event.getAge_from());
@@ -32,7 +39,10 @@ public class EventMapper {
 		eventResponse.setDescription(event.getDescription());
 		eventResponse.setDate_starting(event.getDate_starting());
 		eventResponse.setDate_ending(event.getDate_ending());
-
+		eventResponse.setDates(eventDateMapper.eventDateDtosFromEventDateEntities(event.getDates()));
+		eventResponse.setComments(commentEventMapper.commentEventDtosFromCommentEventEntities(event.getComments()));
+		eventResponse.setCategories(categoryMapper.categoryDtosFromCategoryEntities(event.getCategories()));
+		eventResponse.setPhotos(eventPhotoMapper.eventPhotosDtosFromEventPhotosEntities(event.getPhotos()));
 		return eventResponse;
 	}
 

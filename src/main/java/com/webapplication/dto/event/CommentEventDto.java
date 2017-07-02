@@ -1,5 +1,6 @@
 package com.webapplication.dto.event;
 
+import com.webapplication.dto.user.ParentCommentDto;
 import com.webapplication.dto.user.ParentDto;
 
 import java.sql.Timestamp;
@@ -9,9 +10,8 @@ import java.sql.Timestamp;
  */
 public class CommentEventDto {
 	private String comment;
-	private EventDto event;
 	private Timestamp date;
-	private ParentDto user_id;
+	private ParentCommentDto parent;
 
 	public String getComment() {
 		return comment;
@@ -19,14 +19,6 @@ public class CommentEventDto {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public EventDto getEvent() {
-		return event;
-	}
-
-	public void setEvent(EventDto event) {
-		this.event = event;
 	}
 
 	public Timestamp getDate() {
@@ -37,11 +29,11 @@ public class CommentEventDto {
 		this.date = date;
 	}
 
-	public ParentDto getUser_id() {
-		return user_id;
+	public ParentCommentDto getParent() {
+		return parent;
 	}
 
-	public void setUser_id(ParentDto user_id) {
-		this.user_id = user_id;
+	public void setParent(ParentCommentDto parent) {
+		this.parent = parent;
 	}
 }

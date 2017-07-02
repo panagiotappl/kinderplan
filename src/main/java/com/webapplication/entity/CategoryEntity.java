@@ -52,11 +52,11 @@ public class CategoryEntity {
 		this.category = category;
 	}
 
-	public Set<EventEntity> getStocks() {
+	public Set<EventEntity> getEvents() {
 		return events;
 	}
 
-	public void setStocks(Set<EventEntity> events) {
+	public void setEvents(Set<EventEntity> events) {
 		this.events = events;
 	}
 }

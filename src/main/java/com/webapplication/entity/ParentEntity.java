@@ -33,7 +33,8 @@ public class ParentEntity {
     @JoinColumn(name = "parent_id")
     private Set<TransactionEntity> transactions = new HashSet<TransactionEntity>(0);
     @OneToMany(cascade = CascadeType.ALL)
-    private  Set<BookingEntity> bookings = new HashSet<BookingEntity>(0);
+    @JoinColumn(name = "parent_id")
+    private Set<BookingEntity> bookings = new HashSet<BookingEntity>(0);
 
     public UserEntity getUser() {
         return user;
