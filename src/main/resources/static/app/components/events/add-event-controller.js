@@ -75,22 +75,8 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
                 {category: "sports"},
                 {category: "team"}
             ],
-            dates: []
-            // ,
-            // "dates":[
-            //     {"start_date":"1495965135222",
-            //         "end_date":"1495965135222",
-            //         "available_tickets":"5",
-            //         "tickets_sold":"2",
-            //         "note":"oraia mera"
-            //     },
-            //     {"start_date":"1495965135222",
-            //         "end_date":"1495965135222",
-            //         "available_tickets":"5",
-            //         "tickets_sold":"2",
-            //         "note":"asximi mera"
-            //     }
-            // ]
+            dates: [],
+            photos: req.photos
         };
 
 
@@ -112,7 +98,6 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         EventsService.submitEvent(request, $cookies.get('authToken'))
             .then(function(response){
                 console.log(response);
-                // $state.go('home');
 
             }, function(error){
                 $scope.error_message = error.data.message;

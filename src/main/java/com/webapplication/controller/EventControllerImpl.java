@@ -2,12 +2,19 @@ package com.webapplication.controller;
 
 import com.webapplication.authentication.Authenticator;
 import com.webapplication.dao.elasticRepository.ElasticEventRepository;
-
 import com.webapplication.dao.jpaRepository.*;
 import com.webapplication.dto.event.*;
 import com.webapplication.elasticEntity.ElasticEventEntity;
 import com.webapplication.entity.*;
 import com.webapplication.error.event.NewBookingSubmitError;
+import com.webapplication.dao.jpaRepository.EventRepository;
+import com.webapplication.dao.jpaRepository.PhotosRepository;
+import com.webapplication.dao.jpaRepository.ProviderRepository;
+import com.webapplication.dto.event.*;
+import com.webapplication.elasticEntity.ElasticEventEntity;
+import com.webapplication.entity.EventEntity;
+import com.webapplication.entity.EventPhotosEntity;
+import com.webapplication.entity.ProviderEntity;
 import com.webapplication.exception.ValidationException;
 import com.webapplication.error.event.EventError;
 import com.webapplication.error.user.UserError;
@@ -67,6 +74,9 @@ public class EventControllerImpl implements EventController{
 	private ParentRepository parentRepository;
 	@Autowired
 	private ElasticEventRepository elasticEventRepository;
+	@Autowired
+	private PhotosRepository photosRepository;
+
 
 
 	@Override
@@ -94,6 +104,23 @@ public class EventControllerImpl implements EventController{
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		eventEntity.setDate_created(timestamp);
 		eventRepository.saveAndFlush(eventEntity);
+
+		if (eventSubmitRequestDto.getPhotos() != null) {
+			List<String> photos = eventSubmitRequestDto.getPhotos();
+
+
+			photos.forEach(photo -> {
+				EventPhotosEntity photosEntity = new EventPhotosEntity();
+
+				photosEntity.setEvent(eventEntity);
+				photosEntity.setPhoto_path(photo);
+
+				System.out.println(photo);
+
+				photosRepository.saveAndFlush(photosEntity);
+			});
+		};
+
 		elasticEventRepository.save(new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName()));
 
 		EventSubmitResponseDto response = new EventSubmitResponseDto(HttpStatus.OK,"Event registered succesfully");

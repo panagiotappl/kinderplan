@@ -58,9 +58,8 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="profile" href="#">Profile</a></li>
-
+                            <li ng-if="user.providerDto" ><a href="#/event/add">Add Event</a></li>
                             <li><a ng-click="signout()" href="#">Sign Out</a></li>
-
                         </ul>
                     </li>
 
