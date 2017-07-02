@@ -1,4 +1,4 @@
-router.factory('EventsService', function($http) {
+router.factory('EventService', function($http) {
     var eventsService = {};
 
     eventsService.submitEvent = function(request, authToken){
