@@ -1,11 +1,10 @@
 package com.webapplication.validator.event;
 
-import com.webapplication.dao.jpaRepository.EventRepository;
 import com.webapplication.dao.jpaRepository.ParentRepository;
 import com.webapplication.dto.event.SubmitEventCommentRequestDto;
 import com.webapplication.error.event.EventCommentSubmitError;
 import com.webapplication.exception.ValidationException;
-import com.webapplication.validator.ValidatorWrapper.CommentValidatorWrapper;
+import com.webapplication.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
  */
 
 @Component
-public class EventCommentValidator implements CommentValidatorWrapper{
+public class EventCommentValidator implements Validator<SubmitEventCommentRequestDto> {
 	@Autowired
 	private ParentRepository parentRepository;
 

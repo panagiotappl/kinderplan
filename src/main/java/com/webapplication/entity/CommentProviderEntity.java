@@ -25,16 +25,16 @@ public class CommentProviderEntity {
 	private ProviderEntity provider;
 	private Timestamp date;
 	@ManyToOne
-	private ParentEntity user_id;
+	private ParentEntity parent;
 
 	public CommentProviderEntity() {
 	}
 
-	public CommentProviderEntity(String comment, ProviderEntity provider, Timestamp date, ParentEntity user_id) {
+	public CommentProviderEntity(String comment, ProviderEntity provider, Timestamp date, ParentEntity parent) {
 		this.comment = comment;
 		this.provider = provider;
 		this.date = date;
-		this.user_id = user_id;
+		this.parent = parent;
 	}
 
 	public Integer getId() {
@@ -69,11 +69,11 @@ public class CommentProviderEntity {
 		this.date = date;
 	}
 
-	public ParentEntity getUser_id() {
-		return user_id;
+	public ParentEntity getParent() {
+		return parent;
 	}
 
-	public void setUser_id(ParentEntity user_id) {
-		this.user_id = user_id;
+	public void setParent(ParentEntity user_id) {
+		this.parent = user_id;
 	}
 }

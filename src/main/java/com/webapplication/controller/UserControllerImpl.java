@@ -1,24 +1,21 @@
 package com.webapplication.controller;
 
+import com.webapplication.dao.jpaRepository.*;
+import com.webapplication.entity.*;
 import com.webapplication.entity.TransactionEntity;
 import com.webapplication.dao.jpaRepository.ParentRepository;
 import com.webapplication.dao.jpaRepository.ProviderRepository;
 import com.webapplication.dao.jpaRepository.UserRepository;
 import com.webapplication.dao.jpaRepository.TransactionRepository;
 import com.webapplication.entity.TransactionEntity;
-import com.webapplication.dao.jpaRepository.ParentRepository;
-import com.webapplication.dao.jpaRepository.ProviderRepository;
-import com.webapplication.dao.jpaRepository.UserRepository;
-import com.webapplication.dao.jpaRepository.TransactionRepository;
-import com.webapplication.entity.TransactionEntity;
+import com.webapplication.error.user.ProviderCommentSubmitError;
+import com.webapplication.mapper.CommentProviderMapper;
+import com.webapplication.validator.user.ProviderCommentValidator;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.joda.time.DateTime;
 
 import com.webapplication.authentication.Authenticator;
 import com.webapplication.dto.user.*;
-import com.webapplication.entity.ParentEntity;
-import com.webapplication.entity.ProviderEntity;
-import com.webapplication.entity.UserEntity;
 import com.webapplication.error.user.UserError;
 import com.webapplication.error.user.UserLogInError;
 import com.webapplication.exception.NotAuthorizedException;
@@ -47,7 +44,6 @@ import java.util.UUID;
 public class UserControllerImpl implements UserController {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ProviderRepository providerRepository;
     @Autowired
@@ -55,11 +51,20 @@ public class UserControllerImpl implements UserController {
     @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
-    private UserRequestValidator userRequestValidator;
-    @Autowired
-    private Authenticator authenticator;
+    private CommentProviderRepository commentProviderRepository;
+
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentProviderMapper commentProviderMapper;
+
+    @Autowired
+    private UserRequestValidator userRequestValidator;
+    @Autowired
+    private ProviderCommentValidator providerCommentValidator;
+
+    @Autowired
+    private Authenticator authenticator;
 
 
     public UserLogInResponseDto login(@RequestBody UserLogInRequestDto userLogInRequestDto) throws Exception {
@@ -198,6 +203,29 @@ public class UserControllerImpl implements UserController {
         parent.setUser(userEntity);
         userRepository.saveAndFlush(userEntity);  //todo check if you can save them with one call
         parentRepository.saveAndFlush(parent);
+    }
+
+    @Override
+    public SubmitProviderCommentResponseDto submitComment(@RequestHeader UUID authToken, SubmitProviderCommentRequestDto request) throws Exception{
+
+        Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
+        providerCommentValidator.validate(request);
+        ParentEntity parentEntity = parentRepository.findParentByUserId(request.getUser_id());
+        if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
+            throw new ValidationException(UserError.UNAUTHORIZED);
+        }
+        ProviderEntity providerEntity = providerRepository.findProviderById(request.getProvider_id());
+        if (providerEntity == null){
+            throw new ValidationException(ProviderCommentSubmitError.PROVIDER_NOT_EXISTS);
+        }
+
+        CommentProviderEntity commentProviderEntity = commentProviderMapper.commentProviderEntityFromSubmitCommentProviderDto(request, parentEntity, providerEntity);
+        commentProviderEntity.setDate(new Timestamp(System.currentTimeMillis()));
+        commentProviderRepository.saveAndFlush(commentProviderEntity);
+        SubmitProviderCommentResponseDto response = new SubmitProviderCommentResponseDto(HttpStatus.OK, "Comment submitted successfully.");
+
+        return response;
+
     }
 
 

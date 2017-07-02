@@ -20,4 +20,7 @@ public interface UserController {
 
     @RequestMapping(path = "/pay", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     PayResponseDto pay(@RequestHeader UUID authToken, PayRequestDto payRequestDto) throws Exception;
+
+    @RequestMapping(path = "/provider/submitComment", method = RequestMethod.POST, consumes = "application/json", produces="application/json")
+    SubmitProviderCommentResponseDto submitComment(@RequestHeader UUID authToken, SubmitProviderCommentRequestDto request) throws Exception;
 }
