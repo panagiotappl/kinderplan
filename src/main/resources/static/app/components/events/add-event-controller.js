@@ -14,8 +14,6 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         latitude: '',
         longitude: '',
         address: '',
-        startDate: null,
-        endDate: null,
         dates: [],
         photos: [],
         datesPicker: [{startDate: null, // TODO: Add today here
