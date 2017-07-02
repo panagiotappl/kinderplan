@@ -35,7 +35,8 @@ public class EventSubmitValidator implements Validator <EventSubmitRequestDto> {
 		Optional.ofNullable(request.getDate_ending()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DATE_ENDING));
 		Optional.ofNullable(request.getCategories()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_CATEGORY));
 		Optional.ofNullable(request.getDates()).orElseThrow(() -> new ValidationException(EventSubmitError.MISSING_DATES));
-		if (providerRepository.findProviderByUserId(request.getProvider()) == null) {
+
+		if (providerRepository.findProviderById(request.getProvider()) == null) {
 			throw new ValidationException(EventSubmitError.NOT_A_PROVIDER);
 		}
 		if (eventRepository.findEventsByNameAndProvider_idAndDateStarting(request.getName(), request.getProvider(), request.getDate_starting())!=null){

@@ -65,7 +65,12 @@ public class EventControllerImpl implements EventController{
 	public EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, @RequestBody EventSubmitRequestDto eventSubmitRequestDto) throws Exception {
 
 		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
-		ProviderEntity providerEntity = providerRepository.findProviderById(eventSubmitRequestDto.getProvider());
+		if(eventSubmitRequestDto.getProvider() == null){
+			System.out.println("null");
+		}else{
+			System.out.println(eventSubmitRequestDto.getProvider());
+		}
+		ProviderEntity providerEntity = providerRepository.findProviderByUserId(eventSubmitRequestDto.getProvider());
 		if (authenticator.getSession(authToken).getUserId() != providerEntity.getUser().getId()){
 			throw new ValidationException(UserError.UNAUTHORIZED);
 		}
