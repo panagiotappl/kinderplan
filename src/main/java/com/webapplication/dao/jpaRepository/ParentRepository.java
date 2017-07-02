@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ParentRepository extends JpaRepository<ParentEntity, Long> {
 
+    ParentEntity findParentById(int id);
     ParentEntity findParentByUserId(int id);
 
 }

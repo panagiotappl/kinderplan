@@ -4,6 +4,7 @@ import com.webapplication.dto.CategoryDto;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by mary on 11/6/2017.
@@ -23,6 +24,7 @@ public class EventSubmitRequestDto {
 	private Timestamp date_starting;
 	private HashSet<CategoryDto> categories;
 	private HashSet<EventDateSubmitRequestDto> dates;
+	private List<String> photos;
 
 	public Integer getId() {
 		return id;
@@ -137,4 +139,11 @@ public class EventSubmitRequestDto {
 		this.categories = categories;
 	}
 
+	public List<String> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<String> photos) {
+		this.photos = photos;
+	}
 }

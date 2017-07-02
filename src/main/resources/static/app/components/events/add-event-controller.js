@@ -2,7 +2,7 @@
  * Created by Panos on 20/05/2017.
  */
 
-router.controller('addEventController', function($scope, $cookies, UserService, FilesService){
+router.controller('addEventController', function($scope, $cookies, FilesService, EventsService){
 
     $scope.credentials = {
         provider: '',
@@ -16,23 +16,24 @@ router.controller('addEventController', function($scope, $cookies, UserService, 
         address: '',
         startDate: null,
         endDate: null,
-        dates: [{startDate: null,
-                 endDate: null,
-                 availableTickets: 0
-                }]
-
+        dates: [],
+        photos: [],
+        datesPicker: [{startDate: null, // TODO: Add today here
+            endDate: null,  // TODO: And here
+            availableTickets: 0
+        }]
     };
 
     $scope.addNewDate = function() {
-        $scope.credentials.dates.push({startDate: null,
+        $scope.credentials.datesPicker.push({startDate: null,
             endDate: null,
             availableTickets: 0
         });
     };
 
     $scope.removeDate = function() {
-        var lastItem = $scope.credentials.dates.length-1;
-        $scope.credentials.dates.splice(lastItem);
+        var lastItem = $scope.credentials.datesPicker.length-1;
+        $scope.credentials.datesPicker.splice(lastItem);
     };
 
 
@@ -40,10 +41,10 @@ router.controller('addEventController', function($scope, $cookies, UserService, 
         var error = false;
         var miss_error = false;
 
-        var request = $scope.credentials;
+        req = $scope.credentials;
 
-        request.createdDate = new Date();
-        request.address = $scope.geoloc;
+        req.createdDate = new Date();
+        req.address = $scope.geoloc;
 
         $scope.options = {
             types: 'geocode',
@@ -55,10 +56,55 @@ router.controller('addEventController', function($scope, $cookies, UserService, 
 
         var address = $scope.details.geometry.location;
 
-        request.latitude = address.lat();
-        request.longitude = address.lng();
+        req.latitude = address.lat();
+        req.longitude = address.lng();
 
-        console.log(request)
+        var request = {
+            provider: $cookies.get('id'),
+            name: req.eventName,
+            address: req.address,
+            latitude: req.latitude,
+            longitude: req.longitude,
+            age_from: req.ageFrom,
+            age_to: req.ageTo,
+            ticket_price: req.ticketPrice,
+            description: req.description,
+            date_ending: 1495965135222, // TODO: Get first date from dates
+            date_starting: 1495965135222, //TODO: Get last date from dates
+            categories:[
+                {category: "sports"},
+                {category: "team"}
+            ],
+            dates: [],
+            photos: req.photos
+        };
+
+
+
+        req.datesPicker.forEach( function (date)
+        {
+            var startDate = new Date(date.startDate._d);
+            var endDate = new Date(date.endDate._d);
+
+            request.dates.push({
+                start_date: startDate.getTime(),
+                end_date: endDate.getTime(),
+                available_tickets: date.availableTickets
+            });
+        });
+
+
+        console.log(request);
+        EventsService.submitEvent(request, $cookies.get('authToken'))
+            .then(function(response){
+                console.log(response);
+
+            }, function(error){
+                $scope.error_message = error.data.message;
+                console.log($scope.error_message);
+
+            });
+
 
     };
 

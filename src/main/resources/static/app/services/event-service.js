@@ -1,8 +1,15 @@
 
-router.factory('EventService', function($http) {
-    var eventService = {};
+router.factory('EventsService', function($http) {
+    var eventsService = {};
 
-    eventService.search = function (query) {
+    eventsService.submitEvent = function(request, authToken){
+        return $http.post('/api/submitEvent/',request,{headers: {'authToken': authToken}})
+            .then(function(response){
+                return response;
+            });
+    };
+
+    eventsService.search = function (query) {
         return $http.post('/api/searchEvent', {text: query})
             .then(function (response) {
                 console.log(response);
@@ -11,6 +18,16 @@ router.factory('EventService', function($http) {
 
     };
 
+    eventsService.getevent = function(id){
+        return $http.get('/api/event/' + id)
+            .then(function(response) {
+                console.log(response);
+                return response;
+            });
 
-    return eventService;
+    };
+
+
+
+    return eventsService;
 });
