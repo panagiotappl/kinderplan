@@ -2,7 +2,7 @@
  * Created by Panos on 20/05/2017.
  */
 
-router.controller('addEventController', function($scope, $cookies, FilesService, EventsService){
+router.controller('addEventController', function($scope, $cookies, $state, FilesService, EventsService){
 
     $scope.credentials = {
         provider: '',
@@ -14,8 +14,6 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         latitude: '',
         longitude: '',
         address: '',
-        startDate: null,
-        endDate: null,
         dates: [],
         photos: [],
         datesPicker: [{startDate: null, // TODO: Add today here
@@ -38,6 +36,7 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
 
 
     $scope.add = function(){
+        $scope.upload();
         var error = false;
         var miss_error = false;
 
@@ -98,6 +97,7 @@ router.controller('addEventController', function($scope, $cookies, FilesService,
         EventsService.submitEvent(request, $cookies.get('authToken'))
             .then(function(response){
                 console.log(response);
+                $state.go('home');
 
             }, function(error){
                 $scope.error_message = error.data.message;

@@ -1,5 +1,5 @@
 
-router.controller('parentSignupController', function($scope, $cookies, UserService){
+router.controller('parentSignupController', function($scope, $cookies, $state, UserService){
 
     $scope.error_message = null;
     $scope.credentials = {

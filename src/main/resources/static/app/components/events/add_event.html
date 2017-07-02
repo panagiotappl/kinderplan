@@ -61,7 +61,6 @@
 
                 <div class="form-group">
                     <input type="file" ng-file-model="files" multiple/>
-                    <button type="button" ng-click="upload()">Upload</button>
                 </div>
 
                 <fieldset  class="scheduler-border" data-ng-repeat="date in credentials.datesPicker">
@@ -76,7 +75,7 @@
                                     ng-model="date.startDate"
                                     ng-model-options="{ updateOn: 'blur' }"
                                     placeholder="Select a start date..."
-                                    moment-picker="ctrl.input" required>
+                                    moment-picker="ctrl.startDate" required>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -88,7 +87,7 @@
                                            ng-model="date.endDate"
                                            ng-model-options="{ updateOn: 'blur' }"
                                            placeholder="Select an end date..."
-                                           moment-picker="ctrl.input" required>
+                                           moment-picker="ctrl.endDate" required>
                                 </div>
                             </div>
                         </div>
