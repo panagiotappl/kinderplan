@@ -23,5 +23,9 @@ public interface EventController {
 
     @RequestMapping(path="/searchEvent",method= RequestMethod.POST,consumes = "application/json",produces="application/json")
 	List<ElasticEventEntity> searchEvents(EventFreeTextSearchDto eventFreeTextSearchDto)throws  Exception;
+
+
+	@RequestMapping(path="/event/book",method= RequestMethod.POST,consumes = "application/json",produces="application/json")
+	NewBookingResponseDto bookEvent(@RequestHeader UUID authToken, NewBookingRequestDto newBookingRequestDto) throws  Exception;
 }
 

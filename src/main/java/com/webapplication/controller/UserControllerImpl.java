@@ -1,5 +1,11 @@
 package com.webapplication.controller;
 
+import com.webapplication.entity.TransactionEntity;
+import com.webapplication.dao.jpaRepository.ParentRepository;
+import com.webapplication.dao.jpaRepository.ProviderRepository;
+import com.webapplication.dao.jpaRepository.UserRepository;
+import com.webapplication.dao.jpaRepository.TransactionRepository;
+import com.webapplication.entity.TransactionEntity;
 import com.webapplication.dao.jpaRepository.ParentRepository;
 import com.webapplication.dao.jpaRepository.ProviderRepository;
 import com.webapplication.dao.jpaRepository.UserRepository;
@@ -174,7 +180,6 @@ public class UserControllerImpl implements UserController {
 
 
     private void addTransaction(TransactionDto transactionDto, Integer amount, ParentEntity parent){
-        System.out.println("mphka");
         TransactionEntity transactionEntity = userMapper.transactionEntityFromTransactionDto(transactionDto, amount, parent);
         transactionRepository.save(transactionEntity);
 

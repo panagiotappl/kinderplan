@@ -90,10 +90,15 @@ public class Application  implements CommandLineRunner{
 	public CommandLineRunner loadData(UserRepository repository, ParentRepository parentRepository, ProviderRepository providerRepository) {
 		return (args) -> {
 //			// save a couple of customers
+
 		/*	UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","parent",true);
 		elasticRepository.save(user);
+=======
+//		UserEntity user = new UserEntity("a@a.com","Jack", "Bauer","123","parent",true);
+//		repository.save(user);
+>>>>>>> 36516b37b53da92ce62fc5713a3f3532c9147e06
 
-			ParentEntity parentEntity = new ParentEntity();
+		/*	ParentEntity parentEntity = new ParentEntity();
 			parentEntity.setPoints(20);
 			parentEntity.setUser(user);
 			parentRepository.save(parentEntity);

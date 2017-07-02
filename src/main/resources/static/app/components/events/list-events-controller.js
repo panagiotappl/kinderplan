@@ -1,19 +1,17 @@
-/**
- * Created by Panos on 10/06/2017.
- */
 
+router.controller('listEventsController', function($state, $scope, $cookies, $stateParams, EventsService) {
 
-router.controller('listEventsController', function($scope, $cookies, $stateParams, EventService) {
-
-    EventService.search($stateParams.query)
+    EventsService.search($stateParams.query)
         .then( function (response){
             console.log(response);
+            $scope.events = response.data;
         }, function(response){
             console.log(response);
         });
 
-    $scope.events = [{name: "PlayGround", description: "Ennoies twn ergwn, sxediasmos, Xronikos programmatismos, ergaleia, texnikes kai methodologia"},
-        {name: "Kinderkarden", description: "I'm a puppet on a string, tracy island, time travelling diamong cutted shaped heart aches"}];
 
 
+    $scope.getevent = function(id){
+        $state.go('event', {id: id});
+    }
 });
