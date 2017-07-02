@@ -32,5 +32,7 @@ public interface EventController {
 	@RequestMapping(value = "/upload_image", method = RequestMethod.POST)
 	UploadFileResponseDto UploadFile(MultipartHttpServletRequest request) throws IOException;
 
+	@RequestMapping(value = "/event/submitComment", method = RequestMethod.POST)
+	SubmitEventCommentResponseDto submitComment(@RequestHeader UUID authToken, SubmitEventCommentRequestDto submitEventCommentRequestDto) throws Exception;
 }
 

@@ -1,5 +1,6 @@
 package com.webapplication.exception;
 
+import com.webapplication.error.event.EventCommentSubmitError;
 import com.webapplication.error.event.EventError;
 import com.webapplication.error.event.EventSubmitError;
 import com.webapplication.error.event.NewBookingSubmitError;
@@ -30,6 +31,10 @@ public class ValidationException extends Exception {
     }
 
     public ValidationException(NewBookingSubmitError error){
+        super(error.getDescription());
+    }
+
+    public ValidationException(EventCommentSubmitError error){
         super(error.getDescription());
     }
 }

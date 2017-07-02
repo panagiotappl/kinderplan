@@ -6,6 +6,7 @@ import com.webapplication.dao.jpaRepository.*;
 import com.webapplication.dto.event.*;
 import com.webapplication.elasticEntity.ElasticEventEntity;
 import com.webapplication.entity.*;
+import com.webapplication.error.event.EventCommentSubmitError;
 import com.webapplication.error.event.NewBookingSubmitError;
 import com.webapplication.dao.jpaRepository.EventRepository;
 import com.webapplication.dao.jpaRepository.PhotosRepository;
@@ -19,7 +20,9 @@ import com.webapplication.exception.ValidationException;
 import com.webapplication.error.event.EventError;
 import com.webapplication.error.user.UserError;
 import com.webapplication.mapper.BookingMapper;
+import com.webapplication.mapper.CommentEventMapper;
 import com.webapplication.mapper.EventMapper;
+import com.webapplication.validator.event.EventCommentValidator;
 import com.webapplication.validator.event.EventRequestValidator;
 import com.webapplication.validator.event.NewBookingValidator;
 import org.elasticsearch.common.unit.Fuzziness;
@@ -56,26 +59,34 @@ public class EventControllerImpl implements EventController{
 	@Autowired
 	private EventDateRepository eventDateRepository;
 	@Autowired
-	private EventMapper eventMapper;
-	@Autowired
-	private BookingMapper bookingMapper;
-	@Autowired
 	private BookingRepository bookingRepository;
-	@Autowired
-	private EventRequestValidator eventRequestValidator;
-	@Autowired
-	private NewBookingValidator newBookingValidator;
-	@Autowired
-	private Authenticator authenticator;
 	@Autowired
 	private ProviderRepository providerRepository;
 	@Autowired
-
 	private ParentRepository parentRepository;
 	@Autowired
 	private ElasticEventRepository elasticEventRepository;
 	@Autowired
 	private PhotosRepository photosRepository;
+	@Autowired
+	private CommentEventRepository commentEventRepository;
+
+	@Autowired
+	private EventMapper eventMapper;
+	@Autowired
+	private BookingMapper bookingMapper;
+	@Autowired
+	private CommentEventMapper commentEventMapper;
+
+	@Autowired
+	private EventRequestValidator eventRequestValidator;
+	@Autowired
+	private NewBookingValidator newBookingValidator;
+	@Autowired
+	private EventCommentValidator eventCommentValidator;
+
+	@Autowired
+	private Authenticator authenticator;
 
 
 
@@ -200,6 +211,30 @@ public class EventControllerImpl implements EventController{
 		bookingEntity.setBooking_time(new Timestamp(System.currentTimeMillis()));
 		bookingRepository.saveAndFlush(bookingEntity);
 		NewBookingResponseDto response = new NewBookingResponseDto(HttpStatus.OK, "Tickets successfully booked");
+
+		return response;
+
+	}
+
+
+	@Override
+	public SubmitEventCommentResponseDto submitComment(@RequestHeader UUID authToken, SubmitEventCommentRequestDto submitEventCommentRequestDto) throws Exception{
+
+		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
+		eventCommentValidator.validate(submitEventCommentRequestDto);
+		ParentEntity parentEntity = parentRepository.findParentByUserId(submitEventCommentRequestDto.getUser_id());
+		if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
+			throw new ValidationException(UserError.UNAUTHORIZED);
+		}
+		EventEntity eventEntity = eventRepository.findEventsById(submitEventCommentRequestDto.getEvent_id());
+		if (eventEntity == null){
+			throw new ValidationException(EventCommentSubmitError.EVENT_NOT_EXISTS);
+		}
+
+		CommentEventEntity commentEventEntity = commentEventMapper.commentEventEntityFromSubmitCommentEventDto(submitEventCommentRequestDto, parentEntity, eventEntity);
+		commentEventEntity.setDate(new Timestamp(System.currentTimeMillis()));
+		commentEventRepository.saveAndFlush(commentEventEntity);
+		SubmitEventCommentResponseDto response = new SubmitEventCommentResponseDto(HttpStatus.OK, "Comment submitted successfully");
 
 		return response;
 	}

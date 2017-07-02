@@ -1,8 +1,11 @@
 package com.webapplication.mapper;
 
 import com.webapplication.dto.event.CommentEventDto;
+import com.webapplication.dto.event.SubmitEventCommentRequestDto;
 import com.webapplication.dto.user.ParentCommentDto;
 import com.webapplication.entity.CommentEventEntity;
+import com.webapplication.entity.EventEntity;
+import com.webapplication.entity.ParentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +31,14 @@ public class CommentEventMapper {
 			commentEventDtos.add(commentDto);
 		}
 		return commentEventDtos;
+	}
+
+	public CommentEventEntity commentEventEntityFromSubmitCommentEventDto(SubmitEventCommentRequestDto submitEventCommentRequestDto, ParentEntity parentEntity, EventEntity eventEntity){
+		CommentEventEntity commentEventEntity = new CommentEventEntity();
+		commentEventEntity.setComment(submitEventCommentRequestDto.getComment());
+		commentEventEntity.setParent(parentEntity);
+		commentEventEntity.setEvent(eventEntity);
+		return commentEventEntity;
 	}
 
 }
