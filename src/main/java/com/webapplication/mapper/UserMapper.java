@@ -6,12 +6,19 @@ import com.webapplication.entity.ParentEntity;
 import com.webapplication.entity.ProviderEntity;
 import com.webapplication.entity.TransactionEntity;
 import com.webapplication.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
 @Component
 public class UserMapper {
+    @Autowired
+    private BookingMapper bookingMapper;
+    @Autowired
+    private EventMapper eventMapper;
+    @Autowired
+    private CommentProviderMapper commentProviderMapper;
 
     public UserResponseDto userToUserResponse(UserEntity user, ParentEntity parent, ProviderEntity provider) {
         if (user == null)
@@ -30,7 +37,9 @@ public class UserMapper {
         ProviderDto providerResponse = new ProviderDto();
 
         if(user.getRole().equals("parent")) {
+            parentResponse.setParent_id(parent.getId());
             parentResponse.setPoints(parent.getPoints());
+            parentResponse.setBookings(bookingMapper.bookingDtosFromBookingEntities(parent.getBookings()));
             userResponse.setParentDto(parentResponse);
         }else{
             providerResponse.setCompanyName(provider.getCompanyName());
@@ -39,6 +48,19 @@ public class UserMapper {
         }
         return userResponse;
     }
+
+
+    public GuestProfileResponseDto userToGuestProfileResponse(UserEntity userEntity, ProviderEntity providerEntity){
+        GuestProfileResponseDto userDto = new GuestProfileResponseDto();
+        userDto.setId(userEntity.getId());
+        userDto.setName(userEntity.getName());
+        userDto.setSurname(userEntity.getSurname());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setProvider(guestProfileProviderDtoFromProviderEntity(providerEntity));
+
+        return userDto;
+    }
+
 
     public UserEntity userEntityFromUserDto(UserSignUpRequestDto userSignUpRequestDto, String encodedPassword, String encodedSaltAsString){
         UserEntity userEntity= new UserEntity();
@@ -57,6 +79,21 @@ public class UserMapper {
         providerEntity.setCompanyName(providerDto.getCompanyName());
         providerEntity.setVatNumber(providerDto.getVatNumber());
         return providerEntity;
+    }
+
+    public GuestProfileProviderDto guestProfileProviderDtoFromProviderEntity(ProviderEntity providerEntity){
+        if (providerEntity != null) {
+            GuestProfileProviderDto providerDto = new GuestProfileProviderDto();
+            providerDto.setProvider_id(providerEntity.getId());
+            providerDto.setCompanyName(providerEntity.getCompanyName());
+            providerDto.setEvents(eventMapper.eventProfileDtosFromEventEntities(providerEntity.getEvents()));
+            providerDto.setComments(commentProviderMapper.profileCommentProviderDtosFromCommentProviderEntities(providerEntity.getComments()));
+
+            return providerDto;
+        }
+        else {
+            return null;
+        }
     }
 
     public ParentEntity parentEntityFromParentDto(ParentDto parentDto){

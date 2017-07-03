@@ -5,6 +5,9 @@ import com.webapplication.entity.EventEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by mary on 5/6/2017.
  */
@@ -62,5 +65,18 @@ public class EventMapper {
 		eventEntity.setComments(null);
 		eventEntity.setDates(eventDateMapper.eventDateEntitiyFromEventDateDto(eventSubmitRequestDto.getDates()));
 		return eventEntity;
+	}
+
+	public HashSet<EventProfileDto> eventProfileDtosFromEventEntities(Set<EventEntity> eventEntities){
+		HashSet<EventProfileDto> eventProfileDtos = new HashSet<>(eventEntities.size());
+		for (EventEntity eventEntity : eventEntities){
+			EventProfileDto eventDto = new EventProfileDto();
+			eventDto.setId(eventEntity.getId());
+			eventDto.setName(eventEntity.getName());
+			eventDto.setDescription(eventEntity.getDescription());
+			eventDto.setPhoto(eventPhotoMapper.eventPhotosDtoFromFirstEventPhotosEntitiy(eventEntity.getPhotos()));
+			eventProfileDtos.add(eventDto);
+		}
+		return eventProfileDtos;
 	}
 }

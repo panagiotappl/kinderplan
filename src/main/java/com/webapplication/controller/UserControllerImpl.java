@@ -127,6 +127,22 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
+    public GuestProfileResponseDto getProfile(@PathVariable Integer userId) throws Exception{
+        Optional.ofNullable(userId).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
+
+        UserEntity user = userRepository.findUsersById(userId);
+        if (user == null){
+            throw new UserNotFoundException(UserError.USER_DOES_NOT_EXIST);
+        }
+
+        ProviderEntity provider = null;
+        if(user.getRole().equals("provider"))
+            provider = providerRepository.findProviderByUserId(userId);
+
+        return userMapper.userToGuestProfileResponse(user, provider);
+    }
+
+    @Override
     public UserSignUpResponseDto signUp(@RequestBody UserSignUpRequestDto userSignUpRequestDto) throws Exception {
         userRequestValidator.validate(userSignUpRequestDto);
 

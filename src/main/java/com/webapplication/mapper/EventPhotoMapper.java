@@ -43,4 +43,15 @@ public class EventPhotoMapper {
 			return null;
 		}
 	}
+
+	public EventPhotosDto eventPhotosDtoFromFirstEventPhotosEntitiy(Set<EventPhotosEntity> eventPhotosEntities){
+		if (!eventPhotosEntities.isEmpty()) {
+			EventPhotosDto eventPhotosDto = new EventPhotosDto();
+			eventPhotosDto.setPath(eventPhotosEntities.iterator().next().getPhoto_path());
+			return eventPhotosDto;
+		}
+		else{
+			return null;
+		}
+	}
 }
