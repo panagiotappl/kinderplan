@@ -2,9 +2,9 @@ package com.webapplication.mapper;
 
 import com.webapplication.dto.event.*;
 import com.webapplication.entity.EventEntity;
+import com.webapplication.entity.EventPhotosEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.HashSet;
 import java.util.Set;
 
