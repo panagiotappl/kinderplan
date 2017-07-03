@@ -37,7 +37,7 @@ public class EventEntity {
     private Timestamp dateCreated;
     private Timestamp dateEnding;
     private Timestamp dateStarting;
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany()
 	@JoinTable(name="events_categories", joinColumns={@JoinColumn(referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(referencedColumnName="id")})
 	private Set<CategoryEntity> categories = new HashSet<CategoryEntity>(0);
 	@OneToMany(cascade = CascadeType.ALL)

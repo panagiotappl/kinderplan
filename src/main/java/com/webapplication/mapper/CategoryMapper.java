@@ -1,7 +1,9 @@
 package com.webapplication.mapper;
 
+import com.webapplication.dao.jpaRepository.CategoryRepository;
 import com.webapplication.dto.CategoryDto;
 import com.webapplication.entity.CategoryEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -13,11 +15,15 @@ import java.util.Set;
 
 @Component
 public class CategoryMapper {
+
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	public HashSet<CategoryEntity> categoryEntityFromCategoryDto(HashSet<CategoryDto> categoriesDto){
 		HashSet<CategoryEntity> categoryEntities = new HashSet<CategoryEntity>(categoriesDto.size());
 		for (CategoryDto categoryDto : categoriesDto){
 			CategoryEntity categoryEntity = new CategoryEntity();
-			categoryEntity.setCategory(categoryDto.getCategory());
+			categoryEntity = categoryRepository.findCategoryByCategory(categoryDto.getCategory());
 			categoryEntities.add(categoryEntity);
 		}
 
