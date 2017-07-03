@@ -206,7 +206,10 @@ public class EventControllerImpl implements EventController{
 
 		parentEntity.setPoints(parentEntity.getPoints()-eventDateEntity.getEvent().getTicket_price()*newBookingRequestDto.getNumOfTickets());
 		eventDateEntity.setAvailable_tickets(eventDateEntity.getAvailable_tickets() - newBookingRequestDto.getNumOfTickets());
-		eventDateEntity.setTickets_sold(eventDateEntity.getTickets_sold() + newBookingRequestDto.getNumOfTickets());
+		if(eventDateEntity.getTickets_sold() == null)
+			eventDateEntity.setTickets_sold(newBookingRequestDto.getNumOfTickets());
+		else
+			eventDateEntity.setTickets_sold(eventDateEntity.getTickets_sold() + newBookingRequestDto.getNumOfTickets());
 		BookingEntity bookingEntity = bookingMapper.bookingEntityFromBookingRequestDto(newBookingRequestDto, parentEntity, eventDateEntity);
 		bookingEntity.setBooking_time(new Timestamp(System.currentTimeMillis()));
 		bookingRepository.saveAndFlush(bookingEntity);

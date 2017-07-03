@@ -27,6 +27,16 @@ router.factory('EventsService', function($http) {
 
     };
 
+    eventsService.book = function(data, authToken){
+        console.log(authToken);
+        console.log(data);
+        return $http.post('/api/event/book', data, {headers: {'authToken': authToken}})
+            .then(function(response){
+                console.log(response);
+                return response;
+            });
+    };
+
 
 
     return eventsService;

@@ -22,7 +22,7 @@
 
                         <ng-map center="[{{event.latitude}}, {{event.longitude}}]" styles="width: 50px; height: 50px;">
                             <marker position="[{{event.latitude}}, {{event.longitude}}]" />
-                        </ng-map><
+                        </ng-map>
                     </div>
                 </div>
 
@@ -30,7 +30,10 @@
             </div>
 
         </div>
+        <div class="row">
+            <div ng-show="success" class="alert alert-success">Tickets booked successfully!</div>
 
+        </div>
         <div class="well" ng-repeat="date in event.dates">
 
             <div class="row">
@@ -40,16 +43,11 @@
                 </div>
                 <div class="col-md-12">
                     <span class="pull-left">
-                    <select class="form-control">
-                            <option value="" selected>Select number of tickets</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                    <select ng-change="changeSelectedItem(numOfTickets)" ng-options="ticket as ticket.id for ticket in tickets" ng-model="numOfTickets" class="form-control">
+
                     </select>
                     </span>
-                    <span class="pull-right"><a class="btn btn-success">Book it now</a></span>
+                    <span class="pull-right"><a ng-click='book(date.id)' ng-disable="date.available_tickets == 0" class="btn btn-success">Book it now</a></span>
                 </div>
             </div>
 
