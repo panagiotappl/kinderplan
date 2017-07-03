@@ -15,6 +15,10 @@ import java.sql.Timestamp;
 public class UserMapper {
     @Autowired
     private BookingMapper bookingMapper;
+    @Autowired
+    private EventMapper eventMapper;
+    @Autowired
+    private CommentProviderMapper commentProviderMapper;
 
     public UserResponseDto userToUserResponse(UserEntity user, ParentEntity parent, ProviderEntity provider) {
         if (user == null)
@@ -45,6 +49,19 @@ public class UserMapper {
         return userResponse;
     }
 
+
+    public GuestProfileResponseDto userToGuestProfileResponse(UserEntity userEntity, ProviderEntity providerEntity){
+        GuestProfileResponseDto userDto = new GuestProfileResponseDto();
+        userDto.setId(userEntity.getId());
+        userDto.setName(userEntity.getName());
+        userDto.setSurname(userEntity.getSurname());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setProvider(guestProfileProviderDtoFromProviderEntity(providerEntity));
+
+        return userDto;
+    }
+
+
     public UserEntity userEntityFromUserDto(UserSignUpRequestDto userSignUpRequestDto, String encodedPassword, String encodedSaltAsString){
         UserEntity userEntity= new UserEntity();
         userEntity.setName(userSignUpRequestDto.getName());
@@ -62,6 +79,21 @@ public class UserMapper {
         providerEntity.setCompanyName(providerDto.getCompanyName());
         providerEntity.setVatNumber(providerDto.getVatNumber());
         return providerEntity;
+    }
+
+    public GuestProfileProviderDto guestProfileProviderDtoFromProviderEntity(ProviderEntity providerEntity){
+        if (providerEntity != null) {
+            GuestProfileProviderDto providerDto = new GuestProfileProviderDto();
+            providerDto.setProvider_id(providerEntity.getId());
+            providerDto.setCompanyName(providerEntity.getCompanyName());
+            providerDto.setEvents(eventMapper.eventProfileDtosFromEventEntities(providerEntity.getEvents()));
+            providerDto.setComments(commentProviderMapper.profileCommentProviderDtosFromCommentProviderEntities(providerEntity.getComments()));
+
+            return providerDto;
+        }
+        else {
+            return null;
+        }
     }
 
     public ParentEntity parentEntityFromParentDto(ParentDto parentDto){

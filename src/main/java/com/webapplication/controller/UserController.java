@@ -3,6 +3,7 @@ package com.webapplication.controller;
 import com.webapplication.dto.user.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.RequestWrapper;
 import java.util.UUID;
 
 @RestController
@@ -15,6 +16,9 @@ public interface UserController {
     @RequestMapping(path = "/user/{userId}", method = RequestMethod.GET, produces = "application/json")
     UserResponseDto getUser(@RequestHeader UUID authToken, @PathVariable Integer userId) throws Exception;
 
+    @RequestMapping(path = "/user/viewProfile/{userId}", method = RequestMethod.GET, produces = "application/json")
+    GuestProfileResponseDto getProfile(@PathVariable Integer userId) throws Exception;
+
     @RequestMapping(path = "/signup", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     UserSignUpResponseDto signUp(UserSignUpRequestDto userSignUpRequestDto) throws Exception;
 
@@ -23,4 +27,5 @@ public interface UserController {
 
     @RequestMapping(path = "/provider/submitComment", method = RequestMethod.POST, consumes = "application/json", produces="application/json")
     SubmitProviderCommentResponseDto submitComment(@RequestHeader UUID authToken, SubmitProviderCommentRequestDto request) throws Exception;
+
 }
