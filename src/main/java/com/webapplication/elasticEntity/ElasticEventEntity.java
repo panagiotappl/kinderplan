@@ -1,6 +1,10 @@
 package com.webapplication.elasticEntity;
 
-import org.springframework.data.elasticsearch.annotations.Document;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.elasticsearch.annotations.*;
+
+import java.util.Date;
 
 /**
  * Created by dimitris on 6/27/2017.
@@ -15,16 +19,41 @@ public class ElasticEventEntity {
     String description;
 
 
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")
+    @Field(type = FieldType.Date, index = FieldIndex.not_analyzed, store = true,
+            format = DateFormat.custom, pattern = "yyyy-MM-dd'")
+    Date startingDate;
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")
+    @Field(type = FieldType.Date, index = FieldIndex.not_analyzed, store = true,
+            format = DateFormat.custom, pattern = "yyyy-MM-dd")
+    Date endingDate;
 
+    public Date getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(Date startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public Date getEndingDate() {
+        return endingDate;
+    }
+
+    public void setEndingDate(Date endingDate) {
+        this.endingDate = endingDate;
+    }
 
     public ElasticEventEntity() {}
 
-    public ElasticEventEntity(String id, String name,String description, String providerName,String company) {
+    public ElasticEventEntity(String id, String name,String description, String providerName,String company,Date startingDate,Date endingDate) {
         this.id = id;
         this.name = name;
         this.description=description;
         this.providerName = providerName;
         this.company = company;
+        this.startingDate=startingDate;
+        this.endingDate=endingDate;
     }
 
 

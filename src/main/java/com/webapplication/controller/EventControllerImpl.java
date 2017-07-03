@@ -29,7 +29,8 @@ import com.webapplication.validator.event.EventCommentValidator;
 import com.webapplication.validator.event.EventRequestValidator;
 import com.webapplication.validator.event.NewBookingValidator;
 import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.*;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +43,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
@@ -138,6 +142,11 @@ public class EventControllerImpl implements EventController{
 		};
 
 		elasticEventRepository.save(new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName()));
+		Date x = new Date();
+		Date y= new Date();
+
+		ElasticEventEntity elasticEventEntity = new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName(),x,y);
+		elasticEventRepository.save(elasticEventEntity);
 
 		EventSubmitResponseDto response = new EventSubmitResponseDto(HttpStatus.OK,"Event registered succesfully");
 		return  response;
@@ -146,19 +155,30 @@ public class EventControllerImpl implements EventController{
 	@Override
 	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
 
-		SearchQuery searchQuery = new NativeSearchQueryBuilder()
-				.withQuery(multiMatchQuery(eventFreeTextSearchDto.getText())
-						.field("name")
-						.field("providerName")
-						.field("company")
-						.field("description")
-						.type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
-				)
-				.build();
-		return elasticEventRepository.search(searchQuery).getContent();
 
 
 
+
+
+		                  // max, total, avg or none
+
+QueryBuilder k =              // Path
+				QueryBuilders.boolQuery()       // Your query
+						.must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
+								.field("providerName")
+								.field("company")
+								.field("description")
+								.type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+						)
+						.must(QueryBuilders.rangeQuery("startingDate")
+								.from(eventFreeTextSearchDto.getStartingDate())
+								.to(eventFreeTextSearchDto.getEndingDate()))
+
+				;
+
+
+		SearchQuery searchQuery1=new NativeSearchQueryBuilder().withQuery(k).build();
+		return elasticEventRepository.search(searchQuery1).getContent();
 	}
 
 	@Override
