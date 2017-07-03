@@ -12,10 +12,22 @@ router.controller('navigationController', function($scope, $http, $cookies, User
             .then(function(response){
                 $scope.user = response.data;
             }, function(response){
+                $cookies.remove('id');
+                $cookies.remove('role');
+                $cookies.remove('authToken');
+
+                $cookies.put('signedIn', 'no');
                 $scope.signedIn = false;
+                $scope.user = {};
             });
-    }else{
+    }else {
+        $cookies.remove('id');
+        $cookies.remove('role');
+        $cookies.remove('authToken');
+
+        $cookies.put('signedIn', 'no');
         $scope.signedIn = false;
+        $scope.user = {};
     }
 
     $scope.signout = function(){
