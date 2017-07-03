@@ -11,7 +11,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><i class="fa fa-calendar-o" aria-hidden="true"></i> {{event.date_starting}} - {{event.date_ending}}</p>
+                        <p><i class="fa fa-calendar-o" aria-hidden="true"></i> {{event.date_starting | date : "short" }} - {{event.date_ending | date : "short"}}</p>
                         <p><i class="fa fa-user" aria-hidden="true"></i> Ages {{event.age_from}} - {{event.age_to}}</p>
                         <br>
                         <p>{{event.descirption}}</p>

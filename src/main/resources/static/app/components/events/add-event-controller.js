@@ -79,18 +79,26 @@ router.controller('addEventController', function($scope, $cookies, $state, Files
         };
 
 
+        var all_dates = [];
 
         req.datesPicker.forEach( function (date)
         {
-            var startDate = new Date(date.startDate._d);
-            var endDate = new Date(date.endDate._d);
+
+            var startDate = new Date(date.startDate._d).getTime();
+            var endDate = new Date(date.endDate._d).getTime();
+
+            all_dates.push(startDate);
+            all_dates.push(endDate);
 
             request.dates.push({
-                start_date: startDate.getTime(),
-                end_date: endDate.getTime(),
+                start_date: startDate,
+                end_date: endDate,
                 available_tickets: date.availableTickets
             });
         });
+
+        request.date_starting = Math.min.apply(null, all_dates);
+        request.date_ending   = Math.max.apply(null, all_dates);
 
 
         console.log(request);
