@@ -6,12 +6,15 @@ import com.webapplication.entity.ParentEntity;
 import com.webapplication.entity.ProviderEntity;
 import com.webapplication.entity.TransactionEntity;
 import com.webapplication.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
 @Component
 public class UserMapper {
+    @Autowired
+    private BookingMapper bookingMapper;
 
     public UserResponseDto userToUserResponse(UserEntity user, ParentEntity parent, ProviderEntity provider) {
         if (user == null)
@@ -30,7 +33,9 @@ public class UserMapper {
         ProviderDto providerResponse = new ProviderDto();
 
         if(user.getRole().equals("parent")) {
+            parentResponse.setParent_id(parent.getId());
             parentResponse.setPoints(parent.getPoints());
+            parentResponse.setBookings(bookingMapper.bookingDtosFromBookingEntities(parent.getBookings()));
             userResponse.setParentDto(parentResponse);
         }else{
             providerResponse.setCompanyName(provider.getCompanyName());
