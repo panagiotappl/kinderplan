@@ -12,6 +12,15 @@ router.controller('eventController', function($scope, $state, $cookies, $statePa
         .then(function(response){
             console.log(response);
             $scope.event = response.data;
+            angular.forEach($scope.event.photos, function(value, key) {
+                this.push({
+                    'name': 'Name',
+                    'url': value.path
+                });
+            }, photos);
+
+            $scope.event.slidephotos = photos;
+
             $scope.event.date_starting = new Date($scope.event.date_starting);
             $scope.event.date_ending = new Date($scope.event.date_ending);
             for(var i = 0; i < $scope.event.dates.length; i++){
@@ -23,6 +32,19 @@ router.controller('eventController', function($scope, $state, $cookies, $statePa
         }, function (response){
             console.log(response);
         });
+        EventsService.getevent(id)
+            .then(function(response){
+                console.log(response);
+                $scope.event = response.data;
+
+
+                var photos = [];
+
+                $scope.event.date_starting = new Date($scope.event.date_starting);
+                $scope.event.date_ending = new Date($scope.event.date_ending);
+            }, function (response){
+                console.log(response);
+            });
 
 
     $scope.book = function(id, available){
