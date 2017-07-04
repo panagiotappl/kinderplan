@@ -1,5 +1,4 @@
-router.controller('homepageController', function($scope, $cookies, UserService, $state){
-    $scope.items = ["Any Day", "Monday", "Tuesday", "Thursday", "Wednesday", "Friday", "Saturday", "Sunday"];
+router.controller('homepageController', function($scope, $cookies, UserService, EventsService, $state){
     $scope.selected = [];
 
     $scope.toggle = function (item, list) {
@@ -21,4 +20,36 @@ router.controller('homepageController', function($scope, $cookies, UserService, 
         $state.go('search', {query: $scope.searchQuery});
     }
 
+
+
+    $scope.request = {};
+
+    $scope.advanced = function(){
+        $scope.options = {
+            types: 'geocode',
+            watchEnter: true,
+            country: 'gr'
+        };
+
+
+        $scope.request.address = $scope.geoloc;
+        var address = $scope.details.geometry.location;
+
+        $scope.request.lat = address.lat();
+        $scope.request.lon = address.lng();
+        $scope.request.distance = parseInt($scope.request.distance);
+        $scope.request.date_starting = new Date($scope.date.date_starting).getTime();
+        $scope.request.date_ending = new Date($scope.date.date_ending).getTime();
+
+        console.log($scope.request);
+        $state.go('search', {query: $scope.request.text, lat: $scope.request.lat, lon: $scope.request.lon, dist: $scope.request.distance, start: $scope.request.date_starting, end: $scope.request.date_ending});
+
+        EventsService.advanced($scope.request)
+            .then(function(response){
+                console.log(response);
+            }, function(response){
+                console.log(response);
+            });
+
+    }
 });

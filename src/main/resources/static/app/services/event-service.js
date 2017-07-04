@@ -39,6 +39,12 @@ router.factory('EventsService', function($http) {
     };
 
 
+    eventsService.advanced = function(request){
+        return $http.post('/api/searchEvent', request)
+            .then(function(response){
+                return response;
+            })
+    }
 
     return eventsService;
 });

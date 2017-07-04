@@ -78,7 +78,7 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
         data: {pageTitle: "Payment Successful"}
          })
         .state('search', {
-        url: '/search?query',
+        url: '/search?query?lat?lon?dist?start?end',
         templateUrl: 'app/components/events/list_events.html',
         controller: 'listEventsController',
         data: {pageTitle: "Search"}

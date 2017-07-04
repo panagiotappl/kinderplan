@@ -34,6 +34,7 @@
     </div>
 
 </div>
+</div>
 <div class="row" id="s2">
     <div class="row" align="middle">
         <h1 class="title">Search for events with specific creteria</h1>
@@ -48,90 +49,63 @@
         <div id="advanced" class="ontop panel panel-default">
             <div class="panel-body">
                 <div class="container-fluid">
-                    <div class="container-fluid">
-                        <form>
-                            <div  class="row " align="middle">
-                                <div class="input-group">
-                                    <input type="text" class="region form-control"  placeholder="Enter a location...">
-                                    <div class="input-group-btn">
-                                        <button class="btn search-btn" type="submit">
-                                            <i class="glyphicon glyphicon-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
+                    <form role="form" name="advancedForm" ng-submit="advanced()" novalidate>
 
-                    <div class="tabs container-fluid">
-                        <div class="row">
-                            <!--<div class="col-md-3">-->
-
-                            <!--</div>-->
-                            <div class="col-md-12">
-
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#home">Date</a></li>
-                                    <li><a data-toggle="tab" href="#menu1">Distance</a></li>
-                                    <li><a data-toggle="tab" href="#menu2">Age & Gender</a></li>
-                                    <li><a data-toggle="tab" href="#menu3">Activity</a></li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div id="home" class="tab-pane fade in active">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="row">
-                                                    From
-                                                </div>
-                                                <div class="row">
-                                                    <md-datepicker ng-model="date.startDate" md-placeholder="Start Date:"></md-datepicker>
-                                                </div>
-                                                <div class="row">
-                                                    To
-                                                </div>
-                                                <div class="row">
-                                                    <md-datepicker ng-model="date.endDate" md-placeholder="End Date:"></md-datepicker>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 class checkbox">
-                                                <div flex="50" ng-repeat="item in items">
-                                                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
-                                                        {{ item }}
-                                                    </md-checkbox>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row" align="right">
-                                            <md-button class="md-accent search-btn2" >Search</md-button>
-                                        </div>
-
-                                    </div>
-                                    <div id="menu1" class="tab-pane fade">
-                                        <h3>Menu 1</h3>
-                                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                    </div>
-                                    <div id="menu2" class="tab-pane fade">
-                                        <h3>Menu 2</h3>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                                    </div>
-                                    <div id="menu3" class="tab-pane fade">
-                                        <h3>Menu 3</h3>
-                                        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="col-md-3">-->
-
-
+                        <div  class="row " >
+                            <md-input-container  class="md-block">
+                                <label>Search for an event...</label>
+                                <input type="text" ng-model="request.text">
+                            </md-input-container>
                         </div>
-                    </div>
+                        <div  class="row " >
+                            <md-input-container  class="md-block">
+                                <input  type="text"  name="address" ng-autocomplete ng-model="geoloc" options="options" details="details" >
+                            </md-input-container>
+                        </div>
+
+                        <div class="row">
+                            <md-input-container  class="md-block">
+                                <label>Enter a distance in killometers...</label>
+                                <input type="text" ng-model="request.distance">
+                            </md-input-container>
+                        </div>
+
+                        <div class="row">
+                            From
+                        </div>
+                        <div class="row">
+                            <md-datepicker ng-model="date.date_starting" md-placeholder="Start Date:"></md-datepicker>
+                        </div>
+                        <div class="row">
+                            To
+                        </div>
+                        <div class="row">
+                            <md-datepicker ng-model="date.date_ending" md-placeholder="End Date:"></md-datepicker>
+                        </div>
+
+
+
+                        <div class="row" align="right">
+                            <md-button type="submit" class="md-accent search-btn2" >Search</md-button>
+                        </div>
+
+
+                    </form>
+
+
+
                 </div>
             </div>
+            <!--<div class="col-md-3">-->
+
+
         </div>
     </div>
+</div>
+</div>
+</div>
+</div>
 
 </div>
 <footer class="ontop"></footer>
