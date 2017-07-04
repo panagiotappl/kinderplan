@@ -1,4 +1,4 @@
-router.controller('eventController', function($scope, $cookies, $stateParams, EventsService, UserService){
+router.controller('eventController', function($scope, $state, $cookies, $stateParams, EventsService, UserService){
 $scope.tickets = [{id:1},{id:2},{id:3},{id:4},{id:5}];
     $scope.success = false;
     var id = $stateParams.id;
@@ -48,4 +48,7 @@ $scope.tickets = [{id:1},{id:2},{id:3},{id:4},{id:5}];
         $scope.numOfTickets = selected;
     }
 
+    $scope.getProvider = function(id){
+        $state.go('publicProfile', {id: id});
+    }
 });

@@ -71,14 +71,22 @@ router.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $
             url: '/forbidden',
             templateUrl: 'app/components/misc/notValid.html',
             data: {pageTitle: "Forbidden"}
-        }).state('success', {
+        })
+        .state('success', {
         url: '/success',
         templateUrl: 'app/components/misc/success.html',
         data: {pageTitle: "Payment Successful"}
-         }).state('search', {
+         })
+        .state('search', {
         url: '/search?query',
         templateUrl: 'app/components/events/list_events.html',
         controller: 'listEventsController',
         data: {pageTitle: "Search"}
+        })
+        .state('publicProfile', {
+        url: '/provider?id',
+        templateUrl: 'app/components/profile/publicProfile.html',
+        controller: 'publicProfileController',
+        data: {pageTitle: "Provider Profile"}
     });
 });

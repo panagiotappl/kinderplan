@@ -40,5 +40,12 @@ router.factory('UserService', function($http, $cookies) {
             });
     };
 
+    userService.getProfile = function(id){
+        return $http.get('/api/user/viewProfile/' + id)
+            .then(function(response){
+                return response;
+            });
+    }
+
     return userService;
 });
