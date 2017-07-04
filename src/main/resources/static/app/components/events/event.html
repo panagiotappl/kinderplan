@@ -8,12 +8,18 @@
             <div class="caption-full">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6" align="left">
-                        <h2><a href="#">{{event.name}}</a>
+                        <h2>{{event.name}}
                         </h2>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6" align="right">
                         <h2>by <a ui-sref="publicProfile({id: event.provider.user_id})">{{event.provider.companyName}}</a>
                         </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-14 col-xs-12" align="left">
+                        <h3>Ticket price: {{event.ticket_price}} points</h3>
+
                     </div>
                 </div>
 
@@ -40,6 +46,9 @@
 
         </div>
         <div class="row">
+            <div ng-show="notAuthed" class="alert alert-warning">You are not authorised to book tickets!</div>
+            <div ng-show="notEnough" class="alert alert-warning">Not enough tickets left!</div>
+
             <div ng-show="success" class="alert alert-success">Tickets booked successfully!</div>
 
         </div>
@@ -52,50 +61,17 @@
                 </div>
                 <div class="col-md-12">
                     <span class="pull-left">
-                    <select ng-change="changeSelectedItem(numOfTickets)" ng-options="ticket as ticket.id for ticket in tickets" ng-model="numOfTickets" class="form-control">
+                    <select ng-change="changeSelectedItem(numOfTickets)" ng-options="ticket as ticket.id for ticket in date.list" ng-model="numOfTickets" class="form-control">
 
                     </select>
                     </span>
-                    <span class="pull-right"><a ng-click='book(date.id)' ng-disable="date.available_tickets == 0" class="btn btn-success">Book it now</a></span>
+                    <span class="pull-right"><a ng-click='book(date.id, date.available_tickets)' ng-disable="date.available_tickets == 0" class="btn btn-success">Book it now</a></span>
                 </div>
             </div>
 
         </div>
 
-        <div class="well">
 
-            <div class="text-right">
-                <a class="btn btn-success">Leave a Review</a>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-md-12">
-                    Anonymous
-                    <span class="pull-right">10 days ago</span>
-                    <p>This product was great in terms of quality. I would definitely buy another!</p>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-md-12">
-                    Anonymous
-                    <span class="pull-right">12 days ago</span>
-                    <p>I've alredy ordered another one!</p>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12">
-                    Anonymous
-                    <span class="pull-right">15 days ago</span>
-                    <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
