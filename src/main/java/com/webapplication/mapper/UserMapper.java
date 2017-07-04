@@ -84,7 +84,7 @@ public class UserMapper {
     public GuestProfileProviderDto guestProfileProviderDtoFromProviderEntity(ProviderEntity providerEntity){
         if (providerEntity != null) {
             GuestProfileProviderDto providerDto = new GuestProfileProviderDto();
-            providerDto.setProvider_id(providerEntity.getId());
+            providerDto.setProvider_id(providerEntity.getUser().getId());
             providerDto.setCompanyName(providerEntity.getCompanyName());
             providerDto.setEvents(eventMapper.eventProfileDtosFromEventEntities(providerEntity.getEvents()));
             providerDto.setComments(commentProviderMapper.profileCommentProviderDtosFromCommentProviderEntities(providerEntity.getComments()));

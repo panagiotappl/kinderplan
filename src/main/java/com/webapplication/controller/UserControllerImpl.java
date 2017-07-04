@@ -223,12 +223,14 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public SubmitProviderCommentResponseDto submitComment(@RequestHeader UUID authToken, SubmitProviderCommentRequestDto request) throws Exception{
-
         Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
         providerCommentValidator.validate(request);
+
         ParentEntity parentEntity = parentRepository.findParentByUserId(request.getUser_id());
-        if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
-            throw new ValidationException(UserError.UNAUTHORIZED);
+
+        if (!parentEntity.getUser().getId().equals(authenticator.checkUpdateSession(authToken).getUserId())){
+        //if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
+            throw new NotAuthorizedException(UserError.UNAUTHORIZED);
         }
         ProviderEntity providerEntity = providerRepository.findProviderById(request.getProvider_id());
         if (providerEntity == null){
