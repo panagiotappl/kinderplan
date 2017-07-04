@@ -161,22 +161,39 @@ public class EventControllerImpl implements EventController{
 	@Override
 	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
 
-QueryBuilder queryBuilder =              // Path
-				QueryBuilders.boolQuery()       // Your query
-						.must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
-								.field("providerName")
-								.field("company")
-								.field("description")
-								.type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
-						)
-						.must(QueryBuilders.rangeQuery("startingDate")
-								.from(eventFreeTextSearchDto.getStartingDate())
-								.to(eventFreeTextSearchDto.getEndingDate()))
-						.must(QueryBuilders.geoDistanceQuery("location")
-								.point(eventFreeTextSearchDto.getLatitude(),eventFreeTextSearchDto.getLongitude())
-								.distance(eventFreeTextSearchDto.getKm(), DistanceUnit.KILOMETERS)
-								.optimizeBbox("memory")
-								.geoDistance(GeoDistance.ARC));
+        QueryBuilder queryBuilder=null;
+       if (eventFreeTextSearchDto.getKm()==null){
+           queryBuilder =              // Path
+                   QueryBuilders.boolQuery()       // Your query
+                           .must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
+                                   .field("providerName")
+                                   .field("company")
+                                   .field("description")
+                                   .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+                           )
+                           ;
+
+       }
+      else {
+        queryBuilder =              // Path
+                QueryBuilders.boolQuery()       // Your query
+                        .must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
+                                .field("providerName")
+                                .field("company")
+                                .field("description")
+                                .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+                        )
+                        .must(QueryBuilders.rangeQuery("startingDate")
+                                .from(eventFreeTextSearchDto.getStartingDate())
+                                .to(eventFreeTextSearchDto.getEndingDate()))
+                        .must(QueryBuilders.geoDistanceQuery("location")
+                                .point(eventFreeTextSearchDto.getLatitude(),eventFreeTextSearchDto.getLongitude())
+                                .distance(eventFreeTextSearchDto.getKm(), DistanceUnit.KILOMETERS)
+                                .optimizeBbox("memory")
+                                .geoDistance(GeoDistance.ARC));}
+
+
+
 
 
 		SearchQuery searchQuery=new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
