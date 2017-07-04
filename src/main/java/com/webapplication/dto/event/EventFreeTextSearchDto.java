@@ -12,10 +12,28 @@ import java.util.Date;
 public class EventFreeTextSearchDto {
     private String text;
     private Integer km;
-
+    private Float latitude;
+    private Float longitude;
     private String endingDate;
-
     private String startingDate;
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+
 
     public Integer getKm() {
         return km;

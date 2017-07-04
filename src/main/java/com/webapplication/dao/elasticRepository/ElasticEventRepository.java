@@ -25,9 +25,4 @@ import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 public interface ElasticEventRepository extends ElasticsearchRepository<ElasticEventEntity,String> {
 
 
-
-    @Query("\"{\"bool\" : {\"must\" : {\"field\" : {\"name\" : \"?\"}}}}")
-    Page<ElasticEventEntity> findByText(String name,Pageable pageable);
-    ArrayList findByName(String name);
-    List<ElasticEventEntity> findByProviderName(String provider);
 }

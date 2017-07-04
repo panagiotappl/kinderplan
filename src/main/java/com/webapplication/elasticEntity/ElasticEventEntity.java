@@ -1,8 +1,8 @@
 package com.webapplication.elasticEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 import java.util.Date;
 
@@ -28,6 +28,17 @@ public class ElasticEventEntity {
             format = DateFormat.custom, pattern = "yyyy-MM-dd")
     Date endingDate;
 
+
+    private GeoPoint location;
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoPoint location) {
+        this.location = location;
+    }
+
     public Date getStartingDate() {
         return startingDate;
     }
@@ -46,7 +57,7 @@ public class ElasticEventEntity {
 
     public ElasticEventEntity() {}
 
-    public ElasticEventEntity(String id, String name,String description, String providerName,String company,Date startingDate,Date endingDate) {
+    public ElasticEventEntity(String id, String name,String description, String providerName,String company,Date startingDate,Date endingDate,GeoPoint location) {
         this.id = id;
         this.name = name;
         this.description=description;
@@ -54,6 +65,7 @@ public class ElasticEventEntity {
         this.company = company;
         this.startingDate=startingDate;
         this.endingDate=endingDate;
+        this.location=location;
     }
 
 

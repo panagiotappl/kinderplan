@@ -36,8 +36,7 @@ public class Application  implements CommandLineRunner{
 	@Autowired
 	private UserRepository user;
 
-	@Autowired
-	private ElasticEventRepository elasticEventRepository;
+
 
 	@Autowired
 	private ProviderRepository providerRepository;

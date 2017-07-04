@@ -28,6 +28,8 @@ import com.webapplication.mapper.EventMapper;
 import com.webapplication.validator.event.EventCommentValidator;
 import com.webapplication.validator.event.EventRequestValidator;
 import com.webapplication.validator.event.NewBookingValidator;
+import org.elasticsearch.common.geo.GeoDistance;
+import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.*;
 import org.joda.time.DateTime;
@@ -35,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.http.HttpStatus;
@@ -96,6 +99,9 @@ public class EventControllerImpl implements EventController{
 	@Autowired
 	private Authenticator authenticator;
 
+	private ParentRepository parentRepository;
+	@Autowired
+	private ElasticEventRepository elasticEventRepository;
 
 
 	@Override
@@ -142,10 +148,14 @@ public class EventControllerImpl implements EventController{
 		};
 
 		elasticEventRepository.save(new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName()));
+		Date startDate=eventSubmitRequestDto.getDate_starting();
 		Date x = new Date();
 		Date y= new Date();
+		GeoPoint location=new GeoPoint(eventSubmitRequestDto.getLatitude(), eventSubmitRequestDto.getLongitude());
 
-		ElasticEventEntity elasticEventEntity = new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName(),x,y);
+		ElasticEventEntity elasticEventEntity = new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName()
+				,eventEntity.getDescription(),
+				eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName(),startDate,y,location);
 		elasticEventRepository.save(elasticEventEntity);
 
 		EventSubmitResponseDto response = new EventSubmitResponseDto(HttpStatus.OK,"Event registered succesfully");
@@ -156,13 +166,31 @@ public class EventControllerImpl implements EventController{
 	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
 
 
+		//DateTime jodatime =eventFreeTextSearchDto.getStartingDate();
+
+//		RangeQueryBuilder rqb = new RangeQueryBuilder("startingDate");
+//		rqb.from(eventFreeTextSearchDto.getStartingDate());
+//		rqb.to(eventFreeTextSearchDto.getEndingDate());
+//		SearchQuery test = new NativeSearchQueryBuilder().withQuery(rqb).build();
+
+		//	eventFreeTextSearchDto.getStartingDate()
+//		SearchQuery searchQuery = new NativeSearchQueryBuilder()
+//				.withQuery(multiMatchQuery(eventFreeTextSearchDto.getText())
+//						.field("name")
+//						.field("providerName")
+//						.field("company")
+//						.field("description")
+//					     .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+//
+//				)
+//				.build();
 
 
 
 
 		                  // max, total, avg or none
 
-QueryBuilder k =              // Path
+QueryBuilder queryBuilder =              // Path
 				QueryBuilders.boolQuery()       // Your query
 						.must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
 								.field("providerName")
@@ -173,11 +201,16 @@ QueryBuilder k =              // Path
 						.must(QueryBuilders.rangeQuery("startingDate")
 								.from(eventFreeTextSearchDto.getStartingDate())
 								.to(eventFreeTextSearchDto.getEndingDate()))
+						.must(QueryBuilders.geoDistanceQuery("location")
+								.point(eventFreeTextSearchDto.getLatitude(),eventFreeTextSearchDto.getLongitude())
+								.distance(eventFreeTextSearchDto.getKm(), DistanceUnit.KILOMETERS)
+								.optimizeBbox("memory")
+								.geoDistance(GeoDistance.ARC))
 
 				;
 
 
-		SearchQuery searchQuery1=new NativeSearchQueryBuilder().withQuery(k).build();
+		SearchQuery searchQuery1=new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
 		return elasticEventRepository.search(searchQuery1).getContent();
 	}
 
