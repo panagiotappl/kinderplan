@@ -73,10 +73,7 @@ public class EventControllerImpl implements EventController{
 	private BookingRepository bookingRepository;
 	@Autowired
 	private ProviderRepository providerRepository;
-	@Autowired
-	private ParentRepository parentRepository;
-	@Autowired
-	private ElasticEventRepository elasticEventRepository;
+
 	@Autowired
 	private PhotosRepository photosRepository;
 	@Autowired
@@ -147,7 +144,6 @@ public class EventControllerImpl implements EventController{
 			});
 		};
 
-		elasticEventRepository.save(new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName(),eventEntity.getDescription(),eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName()));
 		Date startDate=eventSubmitRequestDto.getDate_starting();
 		Date x = new Date();
 		Date y= new Date();
