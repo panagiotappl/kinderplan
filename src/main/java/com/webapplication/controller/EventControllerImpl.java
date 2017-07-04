@@ -165,31 +165,6 @@ public class EventControllerImpl implements EventController{
 	@Override
 	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
 
-
-		//DateTime jodatime =eventFreeTextSearchDto.getStartingDate();
-
-//		RangeQueryBuilder rqb = new RangeQueryBuilder("startingDate");
-//		rqb.from(eventFreeTextSearchDto.getStartingDate());
-//		rqb.to(eventFreeTextSearchDto.getEndingDate());
-//		SearchQuery test = new NativeSearchQueryBuilder().withQuery(rqb).build();
-
-		//	eventFreeTextSearchDto.getStartingDate()
-//		SearchQuery searchQuery = new NativeSearchQueryBuilder()
-//				.withQuery(multiMatchQuery(eventFreeTextSearchDto.getText())
-//						.field("name")
-//						.field("providerName")
-//						.field("company")
-//						.field("description")
-//					     .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
-//
-//				)
-//				.build();
-
-
-
-
-		                  // max, total, avg or none
-
 QueryBuilder queryBuilder =              // Path
 				QueryBuilders.boolQuery()       // Your query
 						.must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
@@ -205,13 +180,11 @@ QueryBuilder queryBuilder =              // Path
 								.point(eventFreeTextSearchDto.getLatitude(),eventFreeTextSearchDto.getLongitude())
 								.distance(eventFreeTextSearchDto.getKm(), DistanceUnit.KILOMETERS)
 								.optimizeBbox("memory")
-								.geoDistance(GeoDistance.ARC))
-
-				;
+								.geoDistance(GeoDistance.ARC));
 
 
-		SearchQuery searchQuery1=new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
-		return elasticEventRepository.search(searchQuery1).getContent();
+		SearchQuery searchQuery=new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
+		return elasticEventRepository.search(searchQuery).getContent();
 	}
 
 	@Override
