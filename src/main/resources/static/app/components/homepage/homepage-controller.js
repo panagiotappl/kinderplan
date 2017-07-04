@@ -24,6 +24,7 @@ router.controller('homepageController', function($scope, $cookies, UserService, 
 
     $scope.request = {};
 
+
     $scope.advanced = function(){
         $scope.options = {
             types: 'geocode',
@@ -33,13 +34,18 @@ router.controller('homepageController', function($scope, $cookies, UserService, 
 
 
         $scope.request.address = $scope.geoloc;
-        var address = $scope.details.geometry.location;
+        if($scope.details !== undefined){
+            var address = $scope.details.geometry.location;
 
-        $scope.request.lat = address.lat();
-        $scope.request.lon = address.lng();
-        $scope.request.distance = parseInt($scope.request.distance);
-        $scope.request.date_starting = new Date($scope.date.date_starting).getTime();
-        $scope.request.date_ending = new Date($scope.date.date_ending).getTime();
+            $scope.request.lat = address.lat();
+            $scope.request.lon = address.lng();
+        }
+        if($scope.request.distance !== undefined)
+            $scope.request.distance = parseInt($scope.request.distance);
+        if($scope.date !== undefined)
+            $scope.request.date_starting = new Date($scope.date.date_starting).getTime();
+        if($scope.date !== undefined)
+            $scope.request.date_ending = new Date($scope.date.date_ending).getTime();
 
         console.log($scope.request);
         $state.go('search', {query: $scope.request.text, lat: $scope.request.lat, lon: $scope.request.lon, dist: $scope.request.distance, start: $scope.request.date_starting, end: $scope.request.date_ending});

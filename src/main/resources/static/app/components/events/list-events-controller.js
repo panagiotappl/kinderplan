@@ -9,6 +9,7 @@ router.controller('listEventsController', function($state, $scope, $cookies, $st
     request.date_starting = parseInt($stateParams.start);
     request.date_ending = parseInt($stateParams.end);
     request.distance = parseInt($stateParams.dist);
+    console.log(request);
     EventsService.search(request)
         .then(function(response){
             $scope.events = response.data;
