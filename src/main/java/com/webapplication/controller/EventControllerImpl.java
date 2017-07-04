@@ -16,9 +16,12 @@ import com.webapplication.elasticEntity.ElasticEventEntity;
 import com.webapplication.entity.EventEntity;
 import com.webapplication.entity.EventPhotosEntity;
 import com.webapplication.entity.ProviderEntity;
+import com.webapplication.exception.NotAuthorizedException;
 import com.webapplication.exception.ValidationException;
 import com.webapplication.error.event.EventError;
 import com.webapplication.error.user.UserError;
+import com.webapplication.exception.user.ForbiddenException;
+import com.webapplication.exception.user.NotAuthenticatedException;
 import com.webapplication.mapper.BookingMapper;
 import com.webapplication.mapper.CommentEventMapper;
 import com.webapplication.mapper.EventMapper;
@@ -39,6 +42,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 import java.util.Optional;
@@ -106,8 +110,9 @@ public class EventControllerImpl implements EventController{
 
 		eventRequestValidator.validate(eventSubmitRequestDto);
 		ProviderEntity providerEntity = providerRepository.findProviderByUserId(eventSubmitRequestDto.getProvider());
-		if (authenticator.getSession(authToken).getUserId() != providerEntity.getUser().getId()){
-			throw new ValidationException(UserError.UNAUTHORIZED);
+		if (!providerEntity.getUser().getId().equals(authenticator.checkUpdateSession(authToken).getUserId())){
+		//if (authenticator.getSession(authToken).getUserId() != providerEntity.getUser().getId()){
+			throw new NotAuthorizedException(UserError.UNAUTHORIZED);
 		}
 
 		EventEntity eventEntity= eventMapper.eventEntityFromEventDto(eventSubmitRequestDto);
@@ -190,8 +195,9 @@ public class EventControllerImpl implements EventController{
 		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
 		newBookingValidator.validate(newBookingRequestDto);
 		ParentEntity parentEntity = parentRepository.findParentByUserId(newBookingRequestDto.getParent_id());
-		if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
-			throw new ValidationException(UserError.UNAUTHORIZED);
+		if (!parentEntity.getUser().getId().equals(authenticator.checkUpdateSession(authToken).getUserId())){
+		//if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
+			throw new NotAuthorizedException(UserError.UNAUTHORIZED);
 		}
 		EventDateEntity eventDateEntity = eventDateRepository.findEventDateById(newBookingRequestDto.getEventDate_id());
 		if (eventDateEntity == null){
@@ -226,8 +232,9 @@ public class EventControllerImpl implements EventController{
 		Optional.ofNullable(authToken).orElseThrow(() -> new ValidationException(UserError.MISSING_DATA));
 		eventCommentValidator.validate(submitEventCommentRequestDto);
 		ParentEntity parentEntity = parentRepository.findParentByUserId(submitEventCommentRequestDto.getUser_id());
-		if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
-			throw new ValidationException(UserError.UNAUTHORIZED);
+		if (!parentEntity.getUser().getId().equals(authenticator.checkUpdateSession(authToken).getUserId())){
+		//if (authenticator.getSession(authToken).getUserId() != parentEntity.getUser().getId()){
+			throw new NotAuthorizedException(UserError.UNAUTHORIZED);
 		}
 		EventEntity eventEntity = eventRepository.findEventsById(submitEventCommentRequestDto.getEvent_id());
 		if (eventEntity == null){
@@ -240,6 +247,26 @@ public class EventControllerImpl implements EventController{
 		SubmitEventCommentResponseDto response = new SubmitEventCommentResponseDto(HttpStatus.OK, "Comment submitted successfully");
 
 		return response;
+	}
+
+	@ExceptionHandler(ValidationException.class)
+	private void invalidAttributes(HttpServletResponse response) throws IOException {
+		response.sendError(HttpStatus.BAD_REQUEST.value());
+	}
+
+	@ExceptionHandler(NotAuthenticatedException.class)
+	private void userNotFound(HttpServletResponse response) throws IOException {
+		response.sendError(HttpStatus.UNAUTHORIZED.value());
+	}
+
+	@ExceptionHandler({NotAuthorizedException.class, ForbiddenException.class})
+	private void forbiddenAction(HttpServletResponse response) throws IOException {
+		response.sendError(HttpStatus.FORBIDDEN.value());
+	}
+
+	@ExceptionHandler(Exception.class)
+	private void genericError(HttpServletResponse response) throws IOException {//todo we do not see errors in console
+		response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	}
 
 }
