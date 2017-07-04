@@ -4,7 +4,8 @@
 
     <div class="row">
         <div class="thumbnail">
-            <img class="img-responsive" src="https://placehold.it/800x300" alt="">
+            <img class="img-responsive" nf-if="event.photos[0].length" src="{{event.photos[0].path}}" alt="">
+            <img class="img-responsive" nf-if="!event.photos[0].length" src="https://placehold.it/800x300" alt="">
             <div class="caption-full">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6" align="left">

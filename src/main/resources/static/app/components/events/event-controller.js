@@ -9,6 +9,18 @@ $scope.tickets = [{id:1},{id:2},{id:3},{id:4},{id:5}];
             .then(function(response){
                 console.log(response);
                 $scope.event = response.data;
+
+
+                var photos = [];
+                angular.forEach($scope.event.photos, function(value, key) {
+                    this.push({
+                        'name': 'Name',
+                        'url': value.path
+                    });
+                }, photos);
+
+                $scope.event.slidephotos = photos;
+
                 $scope.event.date_starting = new Date($scope.event.date_starting);
                 $scope.event.date_ending = new Date($scope.event.date_ending);
             }, function (response){
