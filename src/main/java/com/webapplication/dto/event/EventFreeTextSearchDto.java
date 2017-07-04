@@ -1,62 +1,56 @@
 package com.webapplication.dto.event;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.sql.Timestamp;
-import java.util.Date;
-
 /**
  * Created by dimitris on 6/30/2017.
  */
 public class EventFreeTextSearchDto {
     private String text;
-    private Integer km;
-    private Float latitude;
-    private Float longitude;
-    private String endingDate;
-    private String startingDate;
+    private Integer distance;
+    private Float lat;
+    private Float lon;
+    private String date_ending;
+    private String date_starting;
 
-    public Float getLongitude() {
-        return longitude;
+    public Float getLon() {
+        return lon;
     }
 
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
+    public void setLon(Float lon) {
+        this.lon = lon;
     }
 
-    public Float getLatitude() {
-        return latitude;
+    public Float getLat() {
+        return lat;
     }
 
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
+    public void setLat(Float lat) {
+        this.lat = lat;
     }
 
 
 
-    public Integer getKm() {
-        return km;
+    public Integer getDistance() {
+        return distance;
     }
 
-    public void setKm(Integer km) {
-        this.km = km;
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 
-    public String getEndingDate() {
-        return endingDate;
+    public String getDate_ending() {
+        return date_ending;
     }
 
-    public void setEndingDate(String endingDate) {
-        this.endingDate = endingDate;
+    public void setDate_ending(String date_ending) {
+        this.date_ending = date_ending;
     }
 
-    public String getStartingDate() {
-        return startingDate;
+    public String getDate_starting() {
+        return date_starting;
     }
 
-    public void setStartingDate(String startingDate) {
-        this.startingDate = startingDate;
+    public void setDate_starting(String date_starting) {
+        this.date_starting = date_starting;
     }
 
     public String getText() {
