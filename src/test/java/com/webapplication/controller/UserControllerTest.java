@@ -3,9 +3,7 @@ package com.webapplication.controller;
 import com.Application;
 import com.google.gson.Gson;
 import com.webapplication.authentication.Authenticator;
-import com.webapplication.dto.user.SessionInfo;
-import com.webapplication.dto.user.UserLogInRequestDto;
-import com.webapplication.dto.user.UserLogInResponseDto;
+import com.webapplication.dto.user.*;
 import com.webapplication.entity.ParentEntity;
 import com.webapplication.entity.UserEntity;
 import org.joda.time.DateTime;
@@ -16,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -131,6 +130,59 @@ public class UserControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
 
+    }
+
+    @Test
+    public void userShouldSignUp() throws Exception {
+        UserSignUpRequestDto signUpRequestDto = new UserSignUpRequestDto();
+        ParentDto parentDto = new ParentDto();
+        signUpRequestDto.setEmail("parent@gmail.com");
+        signUpRequestDto.setPassword("parent");
+        signUpRequestDto.setRepassword("parent");
+        signUpRequestDto.setAddress("Arizona, Fili, Ditiki Attiki, Greece");
+        signUpRequestDto.setLatitude(38.0984785);
+        signUpRequestDto.setLongitude(23.67137219999995);
+        signUpRequestDto.setName("Parent");
+        signUpRequestDto.setSurname("Gonios");
+        signUpRequestDto.setPhone("+123456");
+        signUpRequestDto.setRole("parent");
+        parentDto.setPoints(20);
+        signUpRequestDto.setParent(parentDto);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(signUpRequestDto);
+        mockMvc.perform(post("/api/signup")
+                .content(json)
+                .contentType(contentType))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status", is("OK")))
+                .andExpect(jsonPath("$.message", is("User is registered succesfully")));
+    }
+
+    @Test
+    public void userFailedSignupPasswordMismatch() throws Exception {
+        UserSignUpRequestDto signUpRequestDto = new UserSignUpRequestDto();
+        ParentDto parentDto = new ParentDto();
+        signUpRequestDto.setEmail("parent@gmail.com");
+        signUpRequestDto.setPassword("parent");
+        signUpRequestDto.setRepassword("incorrect");
+        signUpRequestDto.setAddress("Arizona, Fili, Ditiki Attiki, Greece");
+        signUpRequestDto.setLatitude(38.0984785);
+        signUpRequestDto.setLongitude(23.67137219999995);
+        signUpRequestDto.setName("Parent");
+        signUpRequestDto.setSurname("Gonios");
+        signUpRequestDto.setPhone("+123456");
+        signUpRequestDto.setRole("parent");
+        parentDto.setPoints(20);
+        signUpRequestDto.setParent(parentDto);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(signUpRequestDto);
+        mockMvc.perform(post("/api/signup")
+                .content(json)
+                .contentType(contentType))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }
 
