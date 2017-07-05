@@ -4,8 +4,8 @@
 
     <div class="row">
         <div class="thumbnail">
-            <img class="img-responsive" nf-if="event.photos[0].length" src="{{event.photos[0].path}}" alt="">
-            <img class="img-responsive" nf-if="!event.photos[0].length" src="https://placehold.it/800x300" alt="">
+            <img class="img-responsive" ng-if="event.photos.length != 0" src="{{event.photos[0].path}}" alt="">
+            <img class="img-responsive" ng-if="event.photos.length == 0" src="https://placehold.it/800x300" alt="">
             <div class="caption-full">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6" align="left">
@@ -47,8 +47,8 @@
 
         </div>
         <div class="row">
-            <div ng-show="notAuthed" class="alert alert-warning">You are not authorised to book tickets!</div>
-            <div ng-show="notEnough" class="alert alert-warning">Not enough tickets left!</div>
+            <div ng-show="error" class="alert alert-warning">{{message}}</div>
+
 
             <div ng-show="success" class="alert alert-success">Tickets booked successfully!</div>
 

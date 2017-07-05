@@ -83,7 +83,7 @@ public class EventControllerImpl implements EventController{
 
 	@Autowired
 	private Authenticator authenticator;
-
+	@Autowired
 	private ParentRepository parentRepository;
 	@Autowired
 	private ElasticEventRepository elasticEventRepository;
@@ -200,7 +200,11 @@ public class EventControllerImpl implements EventController{
                            .must(QueryBuilders.rangeQuery("startingDate")
                                    .from(f.format(d1))
                                    .to(f.format(d2)))
-                         ;
+                           .must(QueryBuilders.geoDistanceQuery("location")
+                                   .point(eventFreeTextSearchDto.getLat(),eventFreeTextSearchDto.getLon())
+                                   .distance(eventFreeTextSearchDto.getDistance(), DistanceUnit.KILOMETERS)
+                                   .optimizeBbox("memory")
+                                   .geoDistance(GeoDistance.ARC));
        }
       else {
            Date d1 =eventFreeTextSearchDto.getDate_starting();
