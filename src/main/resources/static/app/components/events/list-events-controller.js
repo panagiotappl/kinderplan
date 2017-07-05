@@ -3,12 +3,18 @@ router.controller('listEventsController', function($state, $scope, $cookies, $st
     console.log($stateParams);
 
     var request = {};
-    request.text = $stateParams.query;
-    request.lat = $stateParams.lat;
-    request.lon = $stateParams.lon;
-    request.date_starting = parseInt($stateParams.start);
-    request.date_ending = parseInt($stateParams.end);
-    request.distance = parseInt($stateParams.dist);
+    if($stateParams.query !== undefined)
+        request.text = $stateParams.query;
+    if($stateParams.lat !== undefined)
+        request.lat = $stateParams.lat;
+    if($stateParams.lon !== undefined)
+        request.lon = $stateParams.lon;
+    if($stateParams.start !== undefined)
+        request.date_starting = $stateParams.start;
+    if($stateParams.end !== undefined)
+        request.date_ending = $stateParams.end;
+    if($stateParams.dist !== undefined)
+        request.distance = parseInt($stateParams.dist);
     console.log(request);
     EventsService.search(request)
         .then(function(response){

@@ -44,8 +44,12 @@ router.controller('homepageController', function($scope, $cookies, UserService, 
             $scope.request.distance = parseInt($scope.request.distance);
         if($scope.date !== undefined)
             $scope.request.date_starting = new Date($scope.date.date_starting).getTime();
+        else
+            $scope.request.date_starting = null;
         if($scope.date !== undefined)
             $scope.request.date_ending = new Date($scope.date.date_ending).getTime();
+        else
+            $scope.request.date_ending = null;
 
         console.log($scope.request);
         $state.go('search', {query: $scope.request.text, lat: $scope.request.lat, lon: $scope.request.lon, dist: $scope.request.distance, start: $scope.request.date_starting, end: $scope.request.date_ending});
