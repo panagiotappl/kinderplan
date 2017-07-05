@@ -1,10 +1,13 @@
 package com.webapplication.elasticEntity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.webapplication.entity.EventPhotosEntity;
 import org.springframework.data.elasticsearch.annotations.*;
 import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by dimitris on 6/27/2017.
@@ -16,7 +19,12 @@ public class ElasticEventEntity {
     String name;
     String providerName;
     String company;
+
+
+
     String description;
+
+
 
 
     @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")
@@ -66,6 +74,7 @@ public class ElasticEventEntity {
         this.startingDate=startingDate;
         this.endingDate=endingDate;
         this.location=location;
+
     }
 
 

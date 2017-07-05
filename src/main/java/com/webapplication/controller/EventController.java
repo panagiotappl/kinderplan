@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public interface EventController {
 	EventSubmitResponseDto submitEvent(@RequestHeader UUID authToken, EventSubmitRequestDto eventSubmitRequestDto) throws Exception;
 
     @RequestMapping(path="/searchEvent",method= RequestMethod.POST,consumes = "application/json",produces="application/json")
-	List<ElasticEventEntity> searchEvents(EventFreeTextSearchDto eventFreeTextSearchDto)throws  Exception;
+	ArrayList<EventResponseDto> searchEvents(EventFreeTextSearchDto eventFreeTextSearchDto)throws  Exception;
 
 	@RequestMapping(path="/event/book",method= RequestMethod.POST,consumes = "application/json",produces="application/json")
 	NewBookingResponseDto bookEvent(@RequestHeader UUID authToken, NewBookingRequestDto newBookingRequestDto) throws  Exception;

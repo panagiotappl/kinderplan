@@ -42,13 +42,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.Iterator;
 import java.sql.Timestamp;
 
 /**
@@ -119,9 +115,9 @@ public class EventControllerImpl implements EventController{
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		eventEntity.setDate_created(timestamp);
 		eventRepository.saveAndFlush(eventEntity);
-
 		if (eventSubmitRequestDto.getPhotos() != null) {
 			List<String> photos = eventSubmitRequestDto.getPhotos();
+
 
 
 			photos.forEach(photo -> {
@@ -142,7 +138,8 @@ public class EventControllerImpl implements EventController{
 
 		ElasticEventEntity elasticEventEntity = new ElasticEventEntity(eventEntity.getId().toString(),eventEntity.getName()
 				,eventEntity.getDescription(),
-				eventEntity.getProvider().getUser().getName(),eventEntity.getProvider().getCompanyName(),startDate,endDate,location);
+				eventEntity.getProvider().getUser().getName(),
+                eventEntity.getProvider().getCompanyName(),startDate,endDate,location);
 		elasticEventRepository.save(elasticEventEntity);
 
 		EventSubmitResponseDto response = new EventSubmitResponseDto(HttpStatus.OK,"Event registered succesfully");
@@ -150,16 +147,12 @@ public class EventControllerImpl implements EventController{
 	}
 
 	@Override
-	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
+	public ArrayList<EventResponseDto> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
 
-        Date d1 =eventFreeTextSearchDto.getDate_starting();
-        Date d2=eventFreeTextSearchDto.getDate_ending();
-        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-        String date1=f.format(d1);
-        String date2=f.format(d2);
+
 
         QueryBuilder queryBuilder=null;
-       if (eventFreeTextSearchDto.getDistance()==null){
+       if (eventFreeTextSearchDto.getDistance()==null && (eventFreeTextSearchDto.getDate_starting()==null))  {
            queryBuilder =              // Path
                    QueryBuilders.boolQuery()       // Your query
                            .must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
@@ -171,7 +164,50 @@ public class EventControllerImpl implements EventController{
                            ;
 
        }
+       else if(eventFreeTextSearchDto.getDate_starting()==null){
+
+           queryBuilder =              // Path
+                   QueryBuilders.boolQuery()       // Your query
+                           .must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
+                                   .field("providerName")
+                                   .field("company")
+                                   .field("description")
+                                   .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+                           )
+
+                           .must(QueryBuilders.geoDistanceQuery("location")
+                                   .point(eventFreeTextSearchDto.getLat(),eventFreeTextSearchDto.getLon())
+                                   .distance(eventFreeTextSearchDto.getDistance(), DistanceUnit.KILOMETERS)
+                                   .optimizeBbox("memory")
+                                   .geoDistance(GeoDistance.ARC));
+
+
+       }
+       else if(eventFreeTextSearchDto.getDistance()==null){
+           Date d1 =eventFreeTextSearchDto.getDate_starting();
+           Date d2=eventFreeTextSearchDto.getDate_ending();
+           DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+           String date1=f.format(d1);
+           String date2=f.format(d2);
+           queryBuilder =              // Path
+                   QueryBuilders.boolQuery()       // Your query
+                           .must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
+                                   .field("providerName")
+                                   .field("company")
+                                   .field("description")
+                                   .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
+                           )
+                           .must(QueryBuilders.rangeQuery("startingDate")
+                                   .from(f.format(d1))
+                                   .to(f.format(d2)))
+                         ;
+       }
       else {
+           Date d1 =eventFreeTextSearchDto.getDate_starting();
+           Date d2=eventFreeTextSearchDto.getDate_ending();
+           DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+           String date1=f.format(d1);
+           String date2=f.format(d2);
         queryBuilder =              // Path
                 QueryBuilders.boolQuery()       // Your query
                         .must(QueryBuilders.multiMatchQuery(eventFreeTextSearchDto.getText()).field("name")
@@ -194,7 +230,13 @@ public class EventControllerImpl implements EventController{
 
 
 		SearchQuery searchQuery=new NativeSearchQueryBuilder().withQuery(queryBuilder).build();
-  return elasticEventRepository.search(searchQuery).getContent();
+        ArrayList<EventResponseDto> eventResponseDtos=new ArrayList<EventResponseDto>();
+       for (ElasticEventEntity elasticEventEntity :elasticEventRepository.search(searchQuery).getContent()){
+           EventEntity event = eventRepository.findEventsById(Integer.parseInt(elasticEventEntity.getId()));
+           eventResponseDtos.add(eventMapper.eventToEventResponse(event));
+       }
+
+  return eventResponseDtos;
 
 
 	}
