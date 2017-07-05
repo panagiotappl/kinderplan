@@ -1,5 +1,7 @@
 package com.webapplication.dto.event;
 
+import java.sql.Timestamp;
+
 /**
  * Created by dimitris on 6/30/2017.
  */
@@ -8,8 +10,8 @@ public class EventFreeTextSearchDto {
     private Integer distance;
     private Float lat;
     private Float lon;
-    private String date_ending;
-    private String date_starting;
+   private Timestamp date_ending;
+    private Timestamp date_starting;
 
     public Float getLon() {
         return lon;
@@ -37,19 +39,19 @@ public class EventFreeTextSearchDto {
         this.distance = distance;
     }
 
-    public String getDate_ending() {
+    public Timestamp getDate_ending() {
         return date_ending;
     }
 
-    public void setDate_ending(String date_ending) {
+    public void setDate_ending(Timestamp date_ending) {
         this.date_ending = date_ending;
     }
 
-    public String getDate_starting() {
+    public Timestamp getDate_starting() {
         return date_starting;
     }
 
-    public void setDate_starting(String date_starting) {
+    public void setDate_starting(Timestamp date_starting) {
         this.date_starting = date_starting;
     }
 

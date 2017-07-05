@@ -40,6 +40,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -150,6 +152,12 @@ public class EventControllerImpl implements EventController{
 	@Override
 	public List<ElasticEventEntity> searchEvents(@RequestBody EventFreeTextSearchDto eventFreeTextSearchDto) throws Exception {
 
+        Date d1 =eventFreeTextSearchDto.getDate_starting();
+        Date d2=eventFreeTextSearchDto.getDate_ending();
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        String date1=f.format(d1);
+        String date2=f.format(d2);
+
         QueryBuilder queryBuilder=null;
        if (eventFreeTextSearchDto.getDistance()==null){
            queryBuilder =              // Path
@@ -173,8 +181,8 @@ public class EventControllerImpl implements EventController{
                                 .type(MultiMatchQueryBuilder.Type.BEST_FIELDS).fuzziness(Fuzziness.TWO)
                         )
                         .must(QueryBuilders.rangeQuery("startingDate")
-                                .from(eventFreeTextSearchDto.getDate_starting())
-                                .to(eventFreeTextSearchDto.getDate_ending()))
+                                .from(f.format(d1))
+                                .to(f.format(d2)))
                         .must(QueryBuilders.geoDistanceQuery("location")
                                 .point(eventFreeTextSearchDto.getLat(),eventFreeTextSearchDto.getLon())
                                 .distance(eventFreeTextSearchDto.getDistance(), DistanceUnit.KILOMETERS)
